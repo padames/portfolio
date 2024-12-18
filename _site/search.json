@@ -1,0 +1,121 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Software Engineering bits",
+    "section": "",
+    "text": "Post With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nDec 18, 2024\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nAnimation to explain coupled time-series\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\nggplot2\n\n\n\n\n\n\n\n\n\n\n\nDec 15, 2024\n\n\nPablo Adames\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Post With Code",
+    "section": "",
+    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Animation to explain coupled time-series",
+    "section": "",
+    "text": "I consider Edward R. Tufte one of the modern experts in data visualization. I was able to attend one of his talks in Seattle in May, 2019. We walked away with a beautiful set of his most important books and the challenge of stuffing them in my carry-on bag on the flight back to Calgary.\nAside from the pleasant experience and the wonderful books I bring this up because there are two kinds of data visualization examples he introduces at the beginning of his book, “The Visual Display of Quantitative Information”: data maps and time series. Visual excellence, Tufte claims in his book, is achieved when one can convey an idea in the shortest time using the least amount of ink and printed space to an observer.\nOne of the time-series examples is a facet grid plot representing the evolution of unemployment rate and inflation in several countries. The term facet grid, of course is adopted from ggplot lingo."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this blog"
+  },
+  {
+    "objectID": "posts/welcome/index.html#the-problem-statement",
+    "href": "posts/welcome/index.html#the-problem-statement",
+    "title": "Animation to explain coupled time-series",
+    "section": "The problem statement",
+    "text": "The problem statement\nOne of the examples used in Hadley Wickham’s book, “ggplot2 - Elegant Grahics for Data Analysis”, has also to do with the representation of time evolution of two economic variables related to unemployment in the USA. The current computational resources available to us have made it relatively easy to address these visualization challenges to achieve visual excellence.\nThis blog post is about the way we can add a third dimension to a 2-D plot using animation to explore the evolution of two related time-series.\nIndividual time dependent variables are easily visualized by drawing their time series representation on a two-dimensional plot. The difficulty becomes visualizing two time series in the same traditional graph. One elegant solution was mentioned in Tufte’s book mentioned in the introduction to this post. Let’s use animation to add more insight into the data."
+  },
+  {
+    "objectID": "posts/welcome/index.html#the-economics-data-set",
+    "href": "posts/welcome/index.html#the-economics-data-set",
+    "title": "Animation to explain coupled time-series",
+    "section": "The economics data set",
+    "text": "The economics data set\nThese examples are re-used from section 2.6.5 of https://ggplot2-book.org/getting-started#sec-line.\nThe data set called economics from the ggplot2 package, has employment statistics on the US measured over the last 40 years up until 2015.\nHere is a brief look at the first 5 out of 574 rows of the dataframe economics.\n\ndata &lt;- head(economics, n=5)\nknitr::kable(data)\n\n\n\n\ndate\npce\npop\npsavert\nuempmed\nunemploy\n\n\n\n\n1967-07-01\n506.7\n198712\n12.6\n4.5\n2944\n\n\n1967-08-01\n509.8\n198911\n12.6\n4.7\n2945\n\n\n1967-09-01\n515.6\n199113\n11.9\n4.6\n2958\n\n\n1967-10-01\n512.2\n199311\n12.9\n4.9\n3143\n\n\n1967-11-01\n517.4\n199498\n12.8\n4.7\n3066"
+  },
+  {
+    "objectID": "posts/welcome/index.html#visualizing-the-unemployment-rate",
+    "href": "posts/welcome/index.html#visualizing-the-unemployment-rate",
+    "title": "Animation to explain coupled time-series",
+    "section": "Visualizing the Unemployment Rate",
+    "text": "Visualizing the Unemployment Rate\nLet’s first make a simple time series plot of the unemployment rate. This is a continuous variable that is computed with the ratio unemploy/pop.\nIn ggplot2 a frame defines the first mapping from variables to a space where the data will be represented. It is created with the function aes(). The obvious frame for this plot is defined by the two variables date and unemploy / pop. They are mapped to the x and y coordinates of a 2-D plane. The glyphs drawn over this frame will be lines between the data points located in the frame, they are created with the function geom_line(). This function defines a layer over the frame.\n\nggplot(data = economics, mapping = aes(x = date, y = unemploy / pop)) +\n  geom_line()\n\n\n\n\nTechnically speaking unemploy / pop represents the “population rate of unemployment as a fraction of the population able to work that is unemployed”, (https://www.bls.gov/cps/cps_htgm.htm#definitions)"
+  },
+  {
+    "objectID": "posts/welcome/index.html#visualizing-the-unemployment-median-duration-in-weeks",
+    "href": "posts/welcome/index.html#visualizing-the-unemployment-median-duration-in-weeks",
+    "title": "Animation to explain coupled time-series",
+    "section": "Visualizing the unemployment median duration in weeks",
+    "text": "Visualizing the unemployment median duration in weeks\nAnother variable called uempmed from the same dataset tracks the median length of time in weeks of unemployment.\n\nggplot(economics, aes(date, uempmed)) +\n  geom_line()\n\n\n\n\nFrom these two plots one can observe the recent trend towards longer median unemployment time in the decade of 2010. There are also cycles of between 5 and 10 years of peak unemployment rates.\nAn interesting question is how these two time series correlate over time. Are there interactions between these two variables that we could observe in one plot?"
+  },
+  {
+    "objectID": "posts/welcome/index.html#visualizing-both-variables-in-the-same-plot",
+    "href": "posts/welcome/index.html#visualizing-both-variables-in-the-same-plot",
+    "title": "Animation to explain coupled time-series",
+    "section": "Visualizing both variables in the same plot",
+    "text": "Visualizing both variables in the same plot\nIn ggplot2, the frame for a representation that shows both variables on an line plot can be defined by a mapping of each variable to the x and y coordinates of the plane. We can create two types of glyphs over it: one is points shown by a layer defined by geom_point to show the location of the variables at a point in time. The other type of glyph is lines to show the sequential trajectory, ordered by time, from one point to the next. This is captured by the layer geom_path. The figure below shows such a graph.\n\nggplot(economics, aes(unemploy / pop, uempmed)) + \n  geom_path() +\n  geom_point()\n\n\n\n\nIt is hard to understand the direction of time from the lines alone. For example, it is difficult to visualize where the first, the last, or any years in between have happened.\nThis can be addressed by adding a mapping from the property colour to the variable year in the layer geom_point. R uses a default colour scale to assign specific colours from a colour palette to years.\nThe ggplot2 package defines the function aes() to create this many to many mapping.\n\nyear &lt;- function(x) as.POSIXlt(x)$year + 1900\nggplot(economics, aes(unemploy / pop, uempmed)) + \n  geom_path(colour = \"grey50\") +\n  geom_point(aes(colour = year(date)))\n\n\n\n\nThe layer geom_path has a mapping from each line created between points to the same colour value indicated by the specification “grey50”. The syntax does not require the use of the aes() function. It is a many to one mapping.\nThis plot is a good attempt at representing the time dimension with a varying shade of colour. This solution is not entirely satisfactory because the lines get too entangled making the progress of time confusing in some quadrants."
+  },
+  {
+    "objectID": "posts/welcome/index.html#animation-to-the-rescue",
+    "href": "posts/welcome/index.html#animation-to-the-rescue",
+    "title": "Animation to explain coupled time-series",
+    "section": "Animation to the rescue",
+    "text": "Animation to the rescue\nWe can get a more sophisticated visualization by using animation to explain how the two variables change simultaneously as time passes. In the following plot, the values of unemployment rate and median unemployment length in weeks are displayed for every year. By pressing the PLAY button, one sees the points for each year over the line trajectory, from beginning to end. One can use the slider to visualize the position of the variables for any given year.\n\nlibrary(plotly)\nyear &lt;- function(x) as.POSIXlt(x)$year + 1900\np &lt;- ggplot(economics, aes(unemploy / pop, uempmed)) + \n  geom_path(colour = \"grey75\") +\n  geom_point(aes(colour = year(date), frame = year(date)))\n\nfig &lt;- ggplotly(p)\n\nfig &lt;- fig %&gt;% animation_opts(1000,\n                              easing = \"elastic\", \n                              redraw = FALSE )\nfig &lt;- fig %&gt;% animation_button(x = 0.05, xanchor = \"left\",\n                                y = 1.1, yanchor = \"top\")\nfig &lt;- fig %&gt;% animation_slider(currentvalue = list(prefix = \"YEAR \",\n                                                    font = list(color=\"red\")))\nfig\n\n\n\n\n\nFrom watching the motion of the annual data after pressing the Play button, one gets the sense that for the first 41 years the values of these two time series remained within the quadrant below the 15 week and to the left of 4% unemployment rate except for the years 1982 and 83. Then after 2009 the median unemployment length in weeks has increased over and above any value of the previous years in the USA according to this dataset.\nThe animation has achieved the introduction of a new dimension to represent the flow of time over the bi-dimensional plane representing the two time observed variables. In non-digital media the only alternative we would have is representing time progression with other dimensions like point color intensity or perhaps point diameter."
+  },
+  {
+    "objectID": "posts/animationRescue/index.html",
+    "href": "posts/animationRescue/index.html",
+    "title": "Animation to explain coupled time-series",
+    "section": "",
+    "text": "I consider Edward R. Tufte one of the modern experts in data visualization. I was able to attend one of his talks in Seattle in May, 2019. All attendees walked away with a beautiful set of his most important books and I with the challenge of stuffing the set in my carry-on bag on the flight back to Calgary that night.\nAside from the pleasant experience and the wonderful books I bring this up because there are two kinds of data visualization examples he introduces at the beginning of his book, “The Visual Display of Quantitative Information”: data maps and time series. Visual excellence, Tufte claims in his book, is achieved when one can convey an idea in the shortest time using the least amount of ink and printed space to an observer. This implies cramming the most information possible with the least use of resources without obscuring meaning or confusing the main idea.\nOne of the time-series examples is a facet grid plot representing the evolution of unemployment rate and inflation in several countries. The term facet grid, of course is adopted from ggplot lingo."
+  },
+  {
+    "objectID": "posts/animationRescue/index.html#the-problem-statement",
+    "href": "posts/animationRescue/index.html#the-problem-statement",
+    "title": "Animation to explain coupled time-series",
+    "section": "The problem statement",
+    "text": "The problem statement\nOne of the examples used in Hadley Wickham’s book, “ggplot2 - Elegant Grahics for Data Analysis”, has also to do with the representing how two economic variables related to unemployment in the USA behave over the years. The current computational resources available to us have made it relatively easy to address these visualization challenges to achieve visual excellence.\nThis blog post is about the way we can add a third dimension to a 2-D plot using animation to explore the evolution of two related time-series.\nIndividual time dependent variables are easily visualized by drawing their time series representation on a two-dimensional plot. The difficulty becomes visualizing two time series in the same traditional graph. One elegant solution was mentioned in Tufte’s book mentioned in the introduction to this post. Let’s use animation to add more insight into the data."
+  },
+  {
+    "objectID": "posts/animationRescue/index.html#the-economics-data-set",
+    "href": "posts/animationRescue/index.html#the-economics-data-set",
+    "title": "Animation to explain coupled time-series",
+    "section": "The economics data set",
+    "text": "The economics data set\nThese examples are re-used from section 2.6.5 of https://ggplot2-book.org/getting-started#sec-line.\nThe data set called economics from the ggplot2 package, has employment statistics on the US measured over the last 40 years up until 2015.\nHere is a brief look at the first 5 out of 574 rows of the dataframe economics.\n\ndata &lt;- head(economics, n=5)\nknitr::kable(data)\n\n\n\n\ndate\npce\npop\npsavert\nuempmed\nunemploy\n\n\n\n\n1967-07-01\n506.7\n198712\n12.6\n4.5\n2944\n\n\n1967-08-01\n509.8\n198911\n12.6\n4.7\n2945\n\n\n1967-09-01\n515.6\n199113\n11.9\n4.6\n2958\n\n\n1967-10-01\n512.2\n199311\n12.9\n4.9\n3143\n\n\n1967-11-01\n517.4\n199498\n12.8\n4.7\n3066"
+  },
+  {
+    "objectID": "posts/animationRescue/index.html#visualizing-the-unemployment-rate",
+    "href": "posts/animationRescue/index.html#visualizing-the-unemployment-rate",
+    "title": "Animation to explain coupled time-series",
+    "section": "Visualizing the Unemployment Rate",
+    "text": "Visualizing the Unemployment Rate\nLet’s first make a simple time series plot of the unemployment rate. This is a continuous variable that is computed with the ratio unemploy/pop.\nIn ggplot2 a frame defines the first mapping from variables to a space where the data will be represented. It is created with the function aes(). The obvious frame for this plot is defined by the two variables date and unemploy / pop. They are mapped to the x and y coordinates of a 2-D plane. The glyphs drawn over this frame will be lines between the data points located in the frame, they are created with the function geom_line(). This function defines a layer over the frame.\n\nggplot(data = economics, mapping = aes(x = date, y = unemploy / pop)) +\n  geom_line()\n\n\n\n\nTechnically speaking unemploy / pop represents the “population rate of unemployment as a fraction of the population able to work that is unemployed”, (https://www.bls.gov/cps/cps_htgm.htm#definitions)"
+  },
+  {
+    "objectID": "posts/animationRescue/index.html#visualizing-the-unemployment-median-duration-in-weeks",
+    "href": "posts/animationRescue/index.html#visualizing-the-unemployment-median-duration-in-weeks",
+    "title": "Animation to explain coupled time-series",
+    "section": "Visualizing the unemployment median duration in weeks",
+    "text": "Visualizing the unemployment median duration in weeks\nAnother variable called uempmed from the same dataset tracks the median length of time in weeks of unemployment.\n\nggplot(economics, aes(date, uempmed)) +\n  geom_line()\n\n\n\n\nFrom these two plots one can observe the recent trend towards longer median unemployment time in the decade of 2010. There are also cycles of between 5 and 10 years of peak unemployment rates.\nAn interesting question is how these two time series correlate over time. Are there interactions between these two variables that we could observe in one plot?"
+  },
+  {
+    "objectID": "posts/animationRescue/index.html#visualizing-both-variables-in-the-same-plot",
+    "href": "posts/animationRescue/index.html#visualizing-both-variables-in-the-same-plot",
+    "title": "Animation to explain coupled time-series",
+    "section": "Visualizing both variables in the same plot",
+    "text": "Visualizing both variables in the same plot\nIn ggplot2, the frame for a representation that shows both variables on an line plot can be defined by a mapping of each variable to the x and y coordinates of the plane. We can create two types of glyphs over it: one is points shown by a layer defined by geom_point to show the location of the variables at a point in time. The other type of glyph is lines to show the sequential trajectory, ordered by time, from one point to the next. This is captured by the layer geom_path. The figure below shows such a graph.\n\nggplot(economics, aes(unemploy / pop, uempmed)) + \n  geom_path() +\n  geom_point()\n\n\n\n\nIt is hard to understand the direction of time from the lines alone. For example, it is difficult to visualize where the first, the last, or any years in between have happened.\nThis can be addressed by adding a mapping from the property colour to the variable year in the layer geom_point. R uses a default colour scale to assign specific colours from a colour palette to years.\nThe ggplot2 package defines the function aes() to create this many to many mapping.\n\nyear &lt;- function(x) as.POSIXlt(x)$year + 1900\nggplot(economics, aes(unemploy / pop, uempmed)) + \n  geom_path(colour = \"grey50\") +\n  geom_point(aes(colour = year(date)))\n\n\n\n\nThe layer geom_path has a mapping from each line created between points to the same colour value indicated by the specification “grey50”. The syntax does not require the use of the aes() function. It is a many to one mapping.\nThis plot is a good attempt at representing the time dimension with a varying shade of colour. This solution is not entirely satisfactory because the lines get too entangled making the progress of time confusing in some quadrants."
+  },
+  {
+    "objectID": "posts/animationRescue/index.html#animation-to-the-rescue",
+    "href": "posts/animationRescue/index.html#animation-to-the-rescue",
+    "title": "Animation to explain coupled time-series",
+    "section": "Animation to the rescue",
+    "text": "Animation to the rescue\nWe can get a more sophisticated visualization by using animation to explain how the two variables change simultaneously as time passes. In the following plot, the values of unemployment rate and median unemployment length in weeks are displayed for every year. By pressing the PLAY button, one sees the points for each year over the line trajectory, from beginning to end. One can use the slider to visualize the position of the variables for any given year.\n\nlibrary(plotly)\nyear &lt;- function(x) as.POSIXlt(x)$year + 1900\np &lt;- ggplot(economics, aes(unemploy / pop, uempmed)) + \n  geom_path(colour = \"grey75\") +\n  geom_point(aes(colour = year(date), frame = year(date)))\n\nfig &lt;- ggplotly(p)\n\nfig &lt;- fig %&gt;% animation_opts(1000,\n                              easing = \"elastic\", \n                              redraw = FALSE )\nfig &lt;- fig %&gt;% animation_button(x = 0.05, xanchor = \"left\",\n                                y = 1.1, yanchor = \"top\")\nfig &lt;- fig %&gt;% animation_slider(currentvalue = list(prefix = \"YEAR \",\n                                                    font = list(color=\"red\")))\nfig\n\n\n\n\n\nFrom watching the motion of the annual data after pressing the Play button, one gets the sense that for the first 41 years the values of these two time series remained within the quadrant below the 15 week and to the left of 4% unemployment rate except for the years 1982 and 83. Then after 2009 the median unemployment length in weeks has increased over and above any value of the previous years in the USA according to this dataset.\nThe animation has achieved the introduction of a new dimension to represent the flow of time over the bi-dimensional plane representing the two time observed variables. In non-digital media the only alternative we would have is representing time progression with other dimensions like point color intensity or perhaps point diameter."
+  }
+]
