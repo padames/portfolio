@@ -5,7 +5,7 @@ date: "2024-12-15"
 categories: [Visualization, R, ggplot2]
 ---
 
-I consider Edward R. Tufte one of the modern experts in data visualization. I was able to attend one of his talks in Seattle in May, 2019. All attendees walked away with a beautiful set of his most important books and I with the challenge of stuffing the set in my carry-on bag on the flight back to Calgary that night.
+I consider Edward E. Tufte one of the modern experts in data visualization. I attended one of his talks in Seattle in May 2019. All attendees walked away with a beautiful set of his most important books while I left with the challenge of stuffing the set in my carry-on bag on the flight back to Calgary that night.
 
 Aside from the pleasant experience and the wonderful books I bring this up because there are two kinds of data visualization examples he introduces at the beginning of his book, "The Visual Display of Quantitative Information": data maps and time series. Visual excellence, Tufte claims in his book, is achieved when one can convey an idea in the shortest time using the least amount of ink and printed space to an observer. This implies cramming the most information possible with the least use of resources without obscuring meaning or confusing the main idea.
 
@@ -101,7 +101,7 @@ ggplot(economics, aes(unemploy / pop, uempmed)) +
 
 The layer `geom_path` has a mapping from each line created between points to the same colour value indicated by the specification *"grey50"*. The syntax does not require the use of the `aes()` function. It is a many to one mapping.
 
-This plot is a good attempt at representing the time dimension with a varying shade of colour. This solution is not entirely satisfactory because the lines get too entangled making the progress of time confusing in some quadrants.
+This plot is a good attempt at representing the time dimension with a varying shade of colour. This is unsatisfactory because the lines get too tangled, making the direction of time unclear. This looks eerily similar to the example Tufte refers to in his book, the difference is that we don't print years near some of the dots. Instead we chose to use the shade of blue in the points as a way to convey information about the year. 
 
 ## Animation to the rescue
 
