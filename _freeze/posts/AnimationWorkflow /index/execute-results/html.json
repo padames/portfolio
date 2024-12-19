@@ -1,0 +1,14 @@
+{
+  "hash": "145455fcb3e38a6b587e089f6ef1cf4e",
+  "result": {
+    "markdown": "---\ntitle: \"How to create an animation with R and Magick\"\nauthor: \"Pablo Adames\"\ndate: \"2024-12-15\"\ncategories: [Visualization, R]\nbibliography: references.bib\ncsl: elsevier-vancouver.csl\n---\n\n\n\n![]()\n\n\n\n\n\n\n\n### References\n\n::: {#refs}\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
