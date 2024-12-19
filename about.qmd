@@ -1,6 +1,6 @@
 ---
 title: "About"
-image: profile.jpg
+image: Profile2022.png
 about:
   template: jolla
   links:
@@ -10,6 +10,9 @@ about:
     - icon: github
       text: Github
       href: https://github.com/padames
+    - icon: stackoveflow
+      text: Stack Overflow
+      href: https://stackoverflow.com/users/1585486/pablo-adames
 ---
 
 About this blog
