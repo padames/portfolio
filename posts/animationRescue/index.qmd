@@ -7,11 +7,13 @@ bibliography: references.bib
 csl: elsevier-vancouver.csl
 ---
 
-I consider Edward E. Tufte one of the modern experts in data visualization. I attended one of his talks in Seattle in May 2019. All attendees walked away with a beautiful set of his most important books while I left with the challenge of stuffing the set in my carry-on bag on the flight back to Calgary that night.
+I consider Edward E. Tufte one of the modern experts in data visualization. I attended one of his talks in Seattle in May 2019. All attendees walked away with a beautiful set of his most important books, while I left with the challenge of stuffing the set in my carry-on bag on the flight back to Calgary that night.
 
-Aside from the pleasant experience and the wonderful books I bring this up because there are two kinds of data visualization examples he introduces at the beginning of his book, "The Visual Display of Quantitative Information": data maps and time series. Visual excellence, Tufte claims in his book, is achieved when one can convey an idea in the shortest time using the least amount of ink and printed space to an observer. This implies cramming the most information possible with the least use of resources without obscuring meaning or confusing the main idea.
+Aside from the pleasant experience and the wonderful books, I bring this up because Tufte introduces many clever and even beautiful examples of time series visualizations in his book "The Visual Display of Quantitative Information" (@Tufte:2001). He claims that visual excellence is achieved when one can convey an idea to an observer without taking too long, using the least amount of ink and printed space. This implies cramming the most information possible with the least use of resources without obscuring meaning or confusing the main idea.
 
-One of the time-series examples is a facet grid plot representing the evolution of unemployment rate and inflation in several countries. The term facet grid, of course is adopted from ggplot lingo.
+One of the time-series examples is a facet grid plot representing the evolution of the rate of unemployment and inflation in several countries, see the figure below. The term "facet grid" is used in ggplot2 lingo to refer to a table of plots comparing different subgroups within the data. This is not your traditional time series plot.
+
+Recently I was preparing a CalgaryR meetup presentation and reading the book by Hadley Wickham, the creator of ggplot2 (@Wickham:2016). To my surprise, the last example introducing the concept of plot geoms, just before presenting facet grids, matched the idea used in the subplots of the example mentioned by Tufte. I realized then that I had found a use case for animation to improve this visualization in the era of digital media. Allow me to explain in this post.
 
 ![Excerpt from page 48 of @Tufte:2001](thumbnail.jpg)
 
@@ -34,13 +36,20 @@ using("ggplot2", "here", "plotly")
 
 ## The problem statement
 
-One of the examples used in Hadley Wickham's book on ggplot2 (@Wickham:2016) is about representing how two economic variables related to unemployment in the USA behave over time. The current computational resources available to us have made it relatively easy to address these visualization challenges to achieve visual excellence.
+To find a solution, let's first highlight the problem. To do so we will formulate a research question and gradually build up a graphical representation to answer it. To do this, we will walk through the example from Hadley Wickham's book on ggplot2 (@Wickham:2016).
 
-This blog post is about the way we can add a third dimension to a 2-D plot using animation to explore the evolution of two related time-series.
+We want to show that by pushing the tools to their maximum we reach a climax, a point where we are constrained by the lack of motion. At that point in the story, we will have the right context to present animation to uncover a hidden feature of our data set.
 
-Individual time dependent variables are easily visualized by drawing their time series representation on a two-dimensional plot. The difficulty becomes visualizing two time series in the same traditional graph. One elegant solution was mentioned in Tufte's book mentioned in the introduction to this post. Let's use animation to add more insight into the data.
+The problem is how confusing it can be to add time as a third variable in a plot where each point is the intersection of two variables at different times.
+
+It is simple to represent a time series by drawing the variable on one axis and time on the other. Tufte has many creative examples from several authors using this principle in his book. The difficulty becomes visualizing two of those time series on the same graph.
+
+A possible research question is what has been tried to address this limitation? 
+And also, is there a novel approach to add visual dimensions to a flat X-Y plot without sacrificing visual excellence?  
 
 ## The `economics` data set
+
+With the problem statement out of the way, let's move on to the .
 
 These examples are re-used from section 2.6.5 of <https://ggplot2-book.org/getting-started#sec-line>.
 
@@ -103,7 +112,7 @@ ggplot(economics, aes(unemploy / pop, uempmed)) +
 
 The layer `geom_path` has a mapping from each line created between points to the same colour value indicated by the specification *"grey50"*. The syntax does not require the use of the `aes()` function. It is a many to one mapping.
 
-This plot is a good attempt at representing the time dimension with a varying shade of colour. This is unsatisfactory because the lines get too tangled, making the direction of time unclear. This looks eerily similar to the example Tufte refers to in his book, the difference is that we don't print years near some of the dots. Instead we chose to use the shade of blue in the points as a way to convey information about the year. 
+This plot is a good attempt at representing the time dimension with a varying shade of colour. This is unsatisfactory because the lines get too tangled, making the direction of time unclear. This looks eerily similar to the example Tufte refers to in his book, the difference is that we don't print years near some of the dots. Instead we chose to use the shade of blue in the points as a way to convey information about the year.
 
 ## Animation to the rescue
 
@@ -131,7 +140,6 @@ fig
 From watching the motion of the annual data after pressing the Play button, one gets the sense that for the first 41 years the values of these two time series remained within the quadrant below the 15 week and to the left of 4% unemployment rate except for the years 1982 and 83. Then after 2009 the median unemployment length in weeks has increased over and above any value of the previous years in the USA according to this dataset.
 
 The animation has achieved the introduction of a new dimension to represent the flow of time over the bi-dimensional plane representing the two time observed variables. In non-digital media the only alternative we would have is representing time progression with other dimensions like point color intensity or perhaps point diameter.
-
 
 ### References
 
