@@ -15,7 +15,7 @@ One of the time-series examples is a facet grid plot representing the evolution 
 
 Recently I was preparing a CalgaryR meetup presentation and reading the book by Hadley Wickham, the creator of ggplot2 (@Wickham:2016). To my surprise, the last example introducing the concept of plot geoms, just before presenting facet grids, matched the idea used in the subplots of the example mentioned by Tufte. I realized then that I had found a use case for animation to improve this visualization in the era of digital media. Allow me to explain in this post.
 
-![Excerpt from page 48 of @Tufte:2001](thumbnail.jpg)
+![Except of an example of multiple subplots per country for the multi-year behaviour of inflation and unemployment rates. Taken from page 48 of @Tufte:2001](thumbnail.jpg)
 
 ```{r loading-ggplot2, echo=FALSE, attr.warning=FALSE, message=FALSE}
 ## functional and vectorized single function from 
@@ -69,8 +69,11 @@ Let's first make a simple time series plot of the unemployment rate. This is a c
 In ggplot2 a frame defines the first mapping from variables to a space where the data will be represented. It is created with the function `aes()`. The obvious frame for this plot is defined by the two variables `date` and `unemploy / pop`. They are mapped to the x and y coordinates of a 2-D plane. The glyphs drawn over this frame will be lines between the data points located in the frame, they are created with the function `geom_line()`. This function defines a layer over the frame.
 
 ```{r running-separate-time-series-unemployment-rate, echo=TRUE}
-ggplot(data = economics, mapping = aes(x = date, y = unemploy / pop)) +
+library(plotly)
+g <- ggplot(data = economics, mapping = aes(x = date, y = unemploy / pop)) +
   geom_line()
+g <- ggplotly(g)
+g
 ```
 
 Technically speaking `unemploy / pop` represents the *"population rate of unemployment as a fraction of the population able to work that is unemployed"*, (<https://www.bls.gov/cps/cps_htgm.htm#definitions>)
@@ -80,8 +83,11 @@ Technically speaking `unemploy / pop` represents the *"population rate of unempl
 Another variable called `uempmed` from the same dataset tracks the median length of time in weeks of unemployment.
 
 ```{r running-separate-time-series-mean-time, echo=TRUE}
-ggplot(economics, aes(date, uempmed)) +
+library(plotly)
+g <- ggplot(economics, aes(date, uempmed)) +
   geom_line()
+g <- ggplotly(g)
+g
 ```
 
 From these two plots one can observe the recent trend towards longer median unemployment time in the decade of 2010. There are also cycles of between 5 and 10 years of peak unemployment rates.
@@ -93,9 +99,12 @@ An interesting question is how these two time series correlate over time. Are th
 In ggplot2, the frame for a representation that shows both variables on an line plot can be defined by a mapping of each variable to the x and y coordinates of the plane. We can create two types of glyphs over it: one is points shown by a layer defined by `geom_point` to show the location of the variables at a point in time. The other type of glyph is lines to show the sequential trajectory, ordered by time, from one point to the next. This is captured by the layer `geom_path`. The figure below shows such a graph.
 
 ```{r path-plot-first-attempt}
-ggplot(economics, aes(unemploy / pop, uempmed)) + 
+library(plotly)
+g <- ggplot(economics, aes(unemploy / pop, uempmed)) + 
   geom_path() +
   geom_point()
+g <- ggplotly(g)
+g
 ```
 
 It is hard to understand the direction of time from the lines alone. For example, it is difficult to visualize where the first, the last, or any years in between have happened.
@@ -104,10 +113,13 @@ This can be addressed by adding a mapping from the property colour to the variab
 The ggplot2 package defines the function `aes()` to create this many to many mapping.
 
 ```{r path-plot-time-direction-encoded-to-colour}
+library(plotly)
 year <- function(x) as.POSIXlt(x)$year + 1900
-ggplot(economics, aes(unemploy / pop, uempmed)) + 
+g <- ggplot(economics, aes(unemploy / pop, uempmed)) + 
   geom_path(colour = "grey50") +
   geom_point(aes(colour = year(date)))
+g <- ggplotly(g)
+g
 ```
 
 The layer `geom_path` has a mapping from each line created between points to the same colour value indicated by the specification *"grey50"*. The syntax does not require the use of the `aes()` function. It is a many to one mapping.
@@ -137,9 +149,14 @@ fig <- fig %>% animation_slider(currentvalue = list(prefix = "YEAR ",
 fig
 ```
 
-From watching the motion of the annual data after pressing the Play button, one gets the sense that for the first 41 years the values of these two time series remained within the quadrant below the 15 week and to the left of 4% unemployment rate except for the years 1982 and 83. Then after 2009 the median unemployment length in weeks has increased over and above any value of the previous years in the USA according to this dataset.
+From watching the motion of the annual data after pressing the Play button, one gets the sense that for the first 41 years the values of these two time series remained within the quadrant below the 15 week and to the left of 4% unemployment rate except for the years 1982 and 83.
+Then after 2009 the median unemployment length in weeks has increased over and above any value of the previous years in the USA according to this dataset.
 
-The animation has achieved the introduction of a new dimension to represent the flow of time over the bi-dimensional plane representing the two time observed variables. In non-digital media the only alternative we would have is representing time progression with other dimensions like point color intensity or perhaps point diameter.
+At this point an economist might formulate the research question, what was the cause of this change in mean time to regain employment status?
+I would even suggest reviewing other available independent data sources, to confirm the existence of this trend.
+
+As far as the exploratory work goes, this animation has achieved the introduction of a new dimension to represent the flow of time over the plane representing the two observed variables. \
+Before the digital era the only alternative we would have was representing time progression with other dimensions like point color intensity or perhaps point diameter.
 
 ### References
 
