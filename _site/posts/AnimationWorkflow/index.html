@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -167,14 +201,81 @@ div.csl-indent {
 
 <section id="why-doing-this" class="level2">
 <h2 class="anchored" data-anchor-id="why-doing-this">Why doing this?</h2>
-<p>Do you ever feel like a plain graph is not sufficient to explain some trend in your data or the solution of a mathematical model? For those times, generating animations can be just what you need. They can also become visualization aids during data exploration or a means to explain to yourself and others observed or simulated results.</p>
+<p>Do you ever feel like a plain graph is not sufficient to explain some trend in your data or the solution of a mathematical model? For those times, generating animations can be just what you need. They can also become visualization aids during data exploration or a means to explain observations to yourself and others.</p>
 <p>This is by no means an exhaustive list of use cases, however, they are pretty common and their impact can be high. The deliverable is an embedded moving graph for your presentation or web content. After all, if an image is worth a thousand words then an animation should be worth a bit more.</p>
 <p>This workflow is the basis to create the visualizations used in this LinkedIn post <span class="citation" data-cites="Padames:wager2021">[<a href="#ref-Padames:wager2021" role="doc-biblioref">1</a>]</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="thumbnail.gif" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Animation from the post mentioned in <span class="citation" data-cites="Padames:wager2021">[<a href="#ref-Padames:wager2021" role="doc-biblioref">1</a>]</span></figcaption>
+<figcaption class="figure-caption">Animation from the LinkedIn post referred to by <span class="citation" data-cites="Padames:wager2021">[<a href="#ref-Padames:wager2021" role="doc-biblioref">1</a>]</span></figcaption>
 </figure>
+</div>
+<p>In that post this animation was created using a simple but effective workflow.</p>
+<ol type="1">
+<li>Run a numerical model using simulated input</li>
+<li>The output of each run is used to construct a plot.</li>
+<li>Each plot is saved to a jpeg file.</li>
+<li>Then a GIF file is constructed with all the jpeg files.</li>
+</ol>
+<p>When applying this algorithm to a simulation, the input in Step 1 above usually comes from a pseudo random number generator in your language of choice. In this case I used the following R code to generate the data before constructing the plots and the animation. The code computes the cumulative profit or loss from repeatedly playing the same wager for a very long time. Eventually the expected result should tend to zero for either wager 3 or 4.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r numberLines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>numsimulations <span class="ot">=</span> <span class="dv">20000</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>numframes <span class="ot">=</span> <span class="dv">30</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  </span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">set.seed</span>(<span class="dv">1892</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a>dievalues <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">6</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>numframes){</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  </span>
+<span id="cb1-9"><a href="#cb1-9"></a>  die3 <span class="ot">=</span> <span class="fu">sample</span>(dievalues, numsimulations, <span class="at">replace=</span>T)</span>
+<span id="cb1-10"><a href="#cb1-10"></a>  die4 <span class="ot">=</span> <span class="fu">sample</span>(dievalues, numsimulations, <span class="at">replace=</span>T)</span>
+<span id="cb1-11"><a href="#cb1-11"></a>  </span>
+<span id="cb1-12"><a href="#cb1-12"></a>  profit3 <span class="ot">=</span> <span class="dv">300</span><span class="sc">*</span>( die3<span class="sc">&gt;</span><span class="dv">3</span> ) <span class="sc">-</span> <span class="dv">300</span><span class="sc">*</span>( die3<span class="sc">&lt;=</span><span class="dv">3</span> )</span>
+<span id="cb1-13"><a href="#cb1-13"></a>  profit4 <span class="ot">=</span> <span class="dv">150</span><span class="sc">*</span>( die4<span class="sc">&gt;</span><span class="dv">2</span> ) <span class="sc">-</span> <span class="dv">300</span><span class="sc">*</span>( die4<span class="sc">&lt;=</span><span class="dv">2</span> )</span>
+<span id="cb1-14"><a href="#cb1-14"></a>  </span>
+<span id="cb1-15"><a href="#cb1-15"></a>  runningprofit3 <span class="ot">=</span> <span class="fu">cumsum</span>(profit3) <span class="sc">/</span> <span class="fu">seq</span>(<span class="dv">1</span>, numsimulations)</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  runningprofit4 <span class="ot">=</span> <span class="fu">cumsum</span>(profit4) <span class="sc">/</span> <span class="fu">seq</span>(<span class="dv">1</span>, numsimulations)</span>
+<span id="cb1-17"><a href="#cb1-17"></a>  </span>
+<span id="cb1-18"><a href="#cb1-18"></a>  <span class="co"># more code follows here to generate the plots and the jpeg files</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Line <strong>1</strong> sets the number of simulation points to 20,000 so we get sharp plots. Line <strong>2</strong> sets the number of frames that the animation will have. Line <strong>4</strong> defines a fixed value for reproducible results from the pseudo random number generator used by the <code>sample</code> function that will be used in lines 9 and 10. Line <strong>5</strong> defines the 6 possible results of rolling a single die. Line <strong>7</strong> starts a loop to generate the frames of the animation. In lines <strong>9</strong> and <strong>10</strong> two vectors of 20,000 elements are created, each one simulates one roll of a fair die. The code in lines <strong>12</strong> and <strong>13</strong> create the two vectors of 20,000 elements, each represents the profit resulting from rolling the die once. Each throw is an independent event, thus their individual profit can be computed with the input vectors <code>die3</code> and <code>die4</code>.<br>
+Lines <strong>15</strong> and <strong>16</strong> compute the cumulative profit or loss resulting from sequentially realizing the 20,000 wagers sequentially.</p>
+<p>The following code inspects some of the vectors generated above for each frame. R is a natively vectorized language, therefore no libraries are necessary</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(runningprofit3)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20000</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(runningprofit3)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -300    0 -100    0   60  100</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(runningprofit3)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -2.925731 -2.910582 -2.895434 -2.880288 -2.895145 -2.880000</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(runningprofit4)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -300.0  -75.0    0.0   37.5   60.0   75.0</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(runningprofit4)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -1.822956 -1.815363 -1.830275 -1.845185 -1.860093 -1.852500</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>One can see how the initial profit or loss can be large, however the net value tends to be near zero after many repetitions.</p>
+<p>Step 2 is to construct a plot with this data.</p>
+<p>The graphic package Trellis is designed to work on data presented in the so-called long format. The idea is that the dataframe with all the data has a column representing a categorical variable representing the subgroup the data belongs to. This is a fundamental idea behind this package. This plotting of many subgroups in a grid-like pattern is what is called facetting in ggplot2 terms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r numberLines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>  df3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wager=</span><span class="fu">rep</span>(<span class="dv">3</span>,<span class="fu">length</span>(runningprofit3)), <span class="at">runningprofit=</span>runningprofit3, <span class="at">tries=</span><span class="fu">seq</span>(<span class="dv">1</span>,numsimulations))</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  df4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wager=</span><span class="fu">rep</span>(<span class="dv">4</span>,<span class="fu">length</span>(runningprofit4)), <span class="at">runningprofit=</span>runningprofit4, <span class="at">tries=</span><span class="fu">seq</span>(<span class="dv">1</span>,numsimulations))</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df3, df4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In lines <strong>1</strong> and <strong>2</strong> above, separate data frames each of 20,000 rows are created. In line <strong>3</strong> they are stacked vertically together to form a single data structure with 40,000 rows.</p>
+<p>The following calls to the first and last three lines of the dataframe illustrate the long format of the data. The column wager represent the subgroup each row belongs to: wager 3 or 4.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df, <span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   wager runningprofit tries</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     3          -300     1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     3             0     2</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     3          -100     3</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(df, <span class="at">n =</span> <span class="dv">3</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       wager runningprofit tries</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39998     4     -1.845185 19998</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39999     4     -1.860093 19999</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40000     4     -1.852500 20000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="references" class="level3">
 <h3 class="anchored" data-anchor-id="references">References</h3>
