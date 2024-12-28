@@ -217,31 +217,36 @@ div.csl-indent {
 <li>Each plot is saved to a jpeg file.</li>
 <li>Then a GIF file is constructed with all the jpeg files.</li>
 </ol>
+<p>To illustrate this workflow we will use simulation. Other use cases may be sensor data or any observed data.</p>
+<section id="prepare-the-input-data" class="level3">
+<h3 class="anchored" data-anchor-id="prepare-the-input-data">Prepare the input data</h3>
 <p>When applying this algorithm to a simulation, the input in Step 1 above usually comes from a pseudo random number generator in your language of choice. In this case I used the following R code to generate the data before constructing the plots and the animation. The code computes the cumulative profit or loss from repeatedly playing the same wager for a very long time. Eventually the expected result should tend to zero for either wager 3 or 4.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r numberLines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>numsimulations <span class="ot">=</span> <span class="dv">20000</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>numframes <span class="ot">=</span> <span class="dv">30</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>  </span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">set.seed</span>(<span class="dv">1892</span>)</span>
-<span id="cb1-5"><a href="#cb1-5"></a>dievalues <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">6</span>)</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>numframes){</span>
-<span id="cb1-8"><a href="#cb1-8"></a>  </span>
-<span id="cb1-9"><a href="#cb1-9"></a>  die3 <span class="ot">=</span> <span class="fu">sample</span>(dievalues, numsimulations, <span class="at">replace=</span>T)</span>
-<span id="cb1-10"><a href="#cb1-10"></a>  die4 <span class="ot">=</span> <span class="fu">sample</span>(dievalues, numsimulations, <span class="at">replace=</span>T)</span>
-<span id="cb1-11"><a href="#cb1-11"></a>  </span>
-<span id="cb1-12"><a href="#cb1-12"></a>  profit3 <span class="ot">=</span> <span class="dv">300</span><span class="sc">*</span>( die3<span class="sc">&gt;</span><span class="dv">3</span> ) <span class="sc">-</span> <span class="dv">300</span><span class="sc">*</span>( die3<span class="sc">&lt;=</span><span class="dv">3</span> )</span>
-<span id="cb1-13"><a href="#cb1-13"></a>  profit4 <span class="ot">=</span> <span class="dv">150</span><span class="sc">*</span>( die4<span class="sc">&gt;</span><span class="dv">2</span> ) <span class="sc">-</span> <span class="dv">300</span><span class="sc">*</span>( die4<span class="sc">&lt;=</span><span class="dv">2</span> )</span>
-<span id="cb1-14"><a href="#cb1-14"></a>  </span>
-<span id="cb1-15"><a href="#cb1-15"></a>  runningprofit3 <span class="ot">=</span> <span class="fu">cumsum</span>(profit3) <span class="sc">/</span> <span class="fu">seq</span>(<span class="dv">1</span>, numsimulations)</span>
-<span id="cb1-16"><a href="#cb1-16"></a>  runningprofit4 <span class="ot">=</span> <span class="fu">cumsum</span>(profit4) <span class="sc">/</span> <span class="fu">seq</span>(<span class="dv">1</span>, numsimulations)</span>
-<span id="cb1-17"><a href="#cb1-17"></a>  </span>
-<span id="cb1-18"><a href="#cb1-18"></a>  <span class="co"># more code follows here to generate the plots and the jpeg files</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r numberLines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>numsimulations <span class="ot">=</span> <span class="dv">20000</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>numframes <span class="ot">=</span> <span class="dv">30</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>  </span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">set.seed</span>(<span class="dv">1892</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a>dievalues <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">6</span>)</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>numframes){</span>
+<span id="cb1-10"><a href="#cb1-10"></a>  </span>
+<span id="cb1-11"><a href="#cb1-11"></a>  die3 <span class="ot">=</span> <span class="fu">sample</span>(dievalues, numsimulations, <span class="at">replace=</span>T)</span>
+<span id="cb1-12"><a href="#cb1-12"></a>  die4 <span class="ot">=</span> <span class="fu">sample</span>(dievalues, numsimulations, <span class="at">replace=</span>T)</span>
+<span id="cb1-13"><a href="#cb1-13"></a>  </span>
+<span id="cb1-14"><a href="#cb1-14"></a>  profit3 <span class="ot">=</span> <span class="dv">300</span><span class="sc">*</span>( die3<span class="sc">&gt;</span><span class="dv">3</span> ) <span class="sc">-</span> <span class="dv">300</span><span class="sc">*</span>( die3<span class="sc">&lt;=</span><span class="dv">3</span> )</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  profit4 <span class="ot">=</span> <span class="dv">150</span><span class="sc">*</span>( die4<span class="sc">&gt;</span><span class="dv">2</span> ) <span class="sc">-</span> <span class="dv">300</span><span class="sc">*</span>( die4<span class="sc">&lt;=</span><span class="dv">2</span> )</span>
+<span id="cb1-16"><a href="#cb1-16"></a>  </span>
+<span id="cb1-17"><a href="#cb1-17"></a>  runningprofit3 <span class="ot">=</span> <span class="fu">cumsum</span>(profit3) <span class="sc">/</span> <span class="fu">seq</span>(<span class="dv">1</span>, numsimulations)</span>
+<span id="cb1-18"><a href="#cb1-18"></a>  runningprofit4 <span class="ot">=</span> <span class="fu">cumsum</span>(profit4) <span class="sc">/</span> <span class="fu">seq</span>(<span class="dv">1</span>, numsimulations)</span>
+<span id="cb1-19"><a href="#cb1-19"></a>  </span>
+<span id="cb1-20"><a href="#cb1-20"></a>  <span class="co"># more code follows here to generate the plots and the jpeg files</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Line <strong>1</strong> sets the number of simulation points to 20,000 so we get sharp plots. Line <strong>2</strong> sets the number of frames that the animation will have. Line <strong>4</strong> defines a fixed value for reproducible results from the pseudo random number generator used by the <code>sample</code> function that will be used in lines 9 and 10. Line <strong>5</strong> defines the 6 possible results of rolling a single die. Line <strong>7</strong> starts a loop to generate the frames of the animation. In lines <strong>9</strong> and <strong>10</strong> two vectors of 20,000 elements are created, each one simulates one roll of a fair die. The code in lines <strong>12</strong> and <strong>13</strong> create the two vectors of 20,000 elements, each represents the profit resulting from rolling the die once. Each throw is an independent event, thus their individual profit can be computed with the input vectors <code>die3</code> and <code>die4</code>.<br>
-Lines <strong>15</strong> and <strong>16</strong> compute the cumulative profit or loss resulting from sequentially realizing the 20,000 wagers sequentially.</p>
-<p>The following code inspects some of the vectors generated above for each frame. R is a natively vectorized language, therefore no libraries are necessary</p>
+<p>Line <strong>3</strong> sets the number of simulation points to 20,000 so we get sharp plots. Line <strong>5</strong> sets the number of frames that the animation will have. Line <strong>6</strong> defines a fixed value for reproducible results from the pseudo random number generator used by the <code>sample</code> function that will be used in lines 11 and 12. Line <strong>7</strong> defines the 6 possible results of rolling a single die. Line <strong>9</strong> starts a loop to generate the frames of the animation. In lines <strong>11</strong> and <strong>12</strong> two vectors of 20,000 elements are created, each one simulates one roll of a fair die. The code in lines <strong>14</strong> and <strong>15</strong> create the two vectors of 20,000 elements, each represents the profit resulting from rolling the die once. Each throw is an independent event, thus their individual profit can be computed with the input vectors <code>die3</code> and <code>die4</code>.<br>
+Lines <strong>17</strong> and <strong>18</strong> compute the cumulative profit or loss resulting from sequentially realizing the 20,000 wagers sequentially.</p>
+<p>The following code inspects some of the vectors generated above for each frame. R is a natively vectorized language, therefore no special libraries are necessary. The library import statement in line <strong>1</strong> is for plot generation in a latter step.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(runningprofit3)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20000</span></span>
@@ -256,7 +261,9 @@ Lines <strong>15</strong> and <strong>16</strong> compute the cumulative profit 
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -1.822956 -1.815363 -1.830275 -1.845185 -1.860093 -1.852500</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>One can see how the initial profit or loss can be large, however the net value tends to be near zero after many repetitions.</p>
-<p>Step 2 is to construct a plot with this data.</p>
+</section>
+<section id="construct-plots-with-the-output-data" class="level3">
+<h3 class="anchored" data-anchor-id="construct-plots-with-the-output-data">Construct plots with the output data</h3>
 <p>The graphic package Trellis is designed to work on data presented in the so-called long format. The idea is that the dataframe with all the data has a column representing a categorical variable representing the subgroup the data belongs to. This is a fundamental idea behind this package. This plotting of many subgroups in a grid-like pattern is what is called facetting in ggplot2 terms.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r numberLines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>  df3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wager=</span><span class="fu">rep</span>(<span class="dv">3</span>,<span class="fu">length</span>(runningprofit3)), <span class="at">runningprofit=</span>runningprofit3, <span class="at">tries=</span><span class="fu">seq</span>(<span class="dv">1</span>,numsimulations))</span>
@@ -277,6 +284,14 @@ Lines <strong>15</strong> and <strong>16</strong> compute the cumulative profit 
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39999     4     -1.860093 19999</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40000     4     -1.852500 20000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>We are ready to plot using the lattice plotting package.</p>
+</section>
+<section id="saving-the-plot-as-a-jpeg-file" class="level3">
+<h3 class="anchored" data-anchor-id="saving-the-plot-as-a-jpeg-file">Saving the plot as a jpeg file</h3>
+</section>
+<section id="creating-the-gif-animated-file" class="level3">
+<h3 class="anchored" data-anchor-id="creating-the-gif-animated-file">Creating the GIF animated file</h3>
+</section>
 <section id="references" class="level3">
 <h3 class="anchored" data-anchor-id="references">References</h3>
 <div id="refs" class="references csl-bib-body" role="list">
