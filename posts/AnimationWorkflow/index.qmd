@@ -244,7 +244,10 @@ system("/usr/bin/convert -delay 40 *.png wager_comp_sim.gif")
 file.remove(list.files(pattern=".png"))
 ```
 The delay argument sets the time pause between frames in centiseconds.
-This makes the framerate approximately 2.5 frames per second. 
+This makes the frame rate approximately 2.5 frames per second. 
+
+
+The package [`gganimate`](https://gganimate.com/) works under the same workflow explained here but it gives the flexibility to choose the file format of the final animation and the renderer.
 
 
 ## Conclusion
@@ -253,6 +256,10 @@ The basic workflow for the creation of a GIF animated file has been presented wi
 One has to consider four basic steps: organize the data whereas it is observed or simulated.
 Then create a meaningful plot that adresses the research question.
 Then create multiple PNG files and finally create the GIF file from the intermediary PNG files.
+
+The complete code for this example can be found in the GitHub repo:
+[wagers](https://github.com/padames/wagers)
+
 
 
 ### References

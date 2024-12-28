@@ -397,12 +397,14 @@ The two line plots are positioned on the same x-y grid so we can compare them mo
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">file.remove</span>(<span class="fu">list.files</span>(<span class="at">pattern=</span><span class="st">".png"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The delay argument sets the time pause between frames in centiseconds. This makes the framerate approximately 2.5 frames per second.</p>
+<p>The delay argument sets the time pause between frames in centiseconds. This makes the frame rate approximately 2.5 frames per second.</p>
+<p>The package <a href="https://gganimate.com/"><code>gganimate</code></a> works under the same workflow explained here but it gives the flexibility to choose the file format of the final animation and the renderer.</p>
 </section>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 <p>The basic workflow for the creation of a GIF animated file has been presented with luxury of detail. One has to consider four basic steps: organize the data whereas it is observed or simulated. Then create a meaningful plot that adresses the research question. Then create multiple PNG files and finally create the GIF file from the intermediary PNG files.</p>
+<p>The complete code for this example can be found in the GitHub repo: <a href="https://github.com/padames/wagers">wagers</a></p>
 <section id="references" class="level3">
 <h3 class="anchored" data-anchor-id="references">References</h3>
 <div id="refs" class="references csl-bib-body" role="list">
