@@ -245,7 +245,7 @@ div.csl-indent {
 <span id="cb1-21"><a href="#cb1-21"></a>  df4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wager=</span><span class="fu">rep</span>(<span class="dv">4</span>,<span class="fu">length</span>(runningprofit4)), <span class="at">runningprofit=</span>runningprofit4, <span class="at">tries=</span><span class="fu">seq</span>(<span class="dv">1</span>,numsimulations))</span>
 <span id="cb1-22"><a href="#cb1-22"></a>  df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df3, df4)</span>
 <span id="cb1-23"><a href="#cb1-23"></a>  </span>
-<span id="cb1-24"><a href="#cb1-24"></a>  <span class="co"># more code follows here to generate the plots and the jpeg files</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a>  <span class="co"># more code follows here to generate the plots and the PNG files</span></span>
 <span id="cb1-25"><a href="#cb1-25"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Line <strong>3</strong> sets the number of simulation points to 20,000 so we get sharp plots. Line <strong>5</strong> sets the number of frames that the animation will have. Line <strong>6</strong> defines a fixed value for reproducible results from the pseudo random number generator used by the <code>sample</code> function that will be used in lines 11 and 12. Line <strong>7</strong> defines the 6 possible results of rolling a single die. Line <strong>9</strong> starts a loop to generate the frames of the animation. In lines <strong>11</strong> and <strong>12</strong> two vectors of 20,000 elements are created, each one simulates one roll of a fair die. The code in lines <strong>14</strong> and <strong>15</strong> create the two vectors of 20,000 elements, each represents the profit resulting from rolling the die once. Each throw is an independent event, thus their individual profit can be computed with the input vectors <code>die3</code> and <code>die4</code>.<br>
@@ -330,8 +330,8 @@ Lines <strong>17</strong> and <strong>18</strong> compute the cumulative profit 
 <p>An important detail of the <code>lattice</code> package is that it allows the superposition of the two subgroups: wager 3 and 4 thanks to the <code>panel.superpose</code>. This panel type allows to paint the two different sub-groups using a function that takes the group number to label the first point.<br>
 The two line plots are positioned on the same x-y grid so we can compare them more easily.</p>
 </section>
-<section id="saving-the-plot-as-a-jpeg-file" class="level3">
-<h3 class="anchored" data-anchor-id="saving-the-plot-as-a-jpeg-file">Saving the plot as a jpeg file</h3>
+<section id="saving-the-plot-as-a-png-file" class="level3">
+<h3 class="anchored" data-anchor-id="saving-the-plot-as-a-png-file">Saving the plot as a PNG file</h3>
 <p>The plot object generated in the previous step lives in the computer memory as an R object while we run the R session. In order to send it to the file system as a PNG file we have to use a combination of the function <code>png</code> and a the function <code>print</code>.</p>
 <p>First we call the <code>png</code> function to declare that when we use <code>print</code>, the output should be directed to the PNG output device. Then we save the plot into a variable and subsequently pass it to the function print.</p>
 <div class="cell">

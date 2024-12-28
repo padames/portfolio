@@ -14,10 +14,9 @@ knitr:
 
 ## Why doing this?
 
-Do you ever feel like a plain graph is not sufficient to explain some trend in your data or the solution of a mathematical model? For those times, generating animations can be just what you need. They can also become visualization aids during data exploration or a means to explain observations to yourself and others. 
+Do you ever feel like a plain graph is not sufficient to explain some trend in your data or the solution of a mathematical model? For those times, generating animations can be just what you need. They can also become visualization aids during data exploration or a means to explain observations to yourself and others.
 
-This is by no means an exhaustive list of use cases, however, they are pretty common and their impact can be high. 
-The deliverable is an embedded moving graph for your presentation or web content. After all, if an image is worth a thousand words then an animation should be worth a bit more.
+This is by no means an exhaustive list of use cases, however, they are pretty common and their impact can be high. The deliverable is an embedded moving graph for your presentation or web content. After all, if an image is worth a thousand words then an animation should be worth a bit more.
 
 This workflow is the basis to create the visualizations used in this LinkedIn post @Padames:wager2021
 
@@ -25,21 +24,16 @@ This workflow is the basis to create the visualizations used in this LinkedIn po
 
 In that post this animation was created using a simple but effective workflow.
 
-1. Run a numerical model using simulated input
-2. The output of each run is used to construct a plot.
-3. Each plot is saved to a PNG file.
-4. Then a GIF file is constructed with all the jpeg files.
+1.  Run a numerical model using simulated input
+2.  The output of each run is used to construct a plot.
+3.  Each plot is saved to a PNG file.
+4.  Then a GIF file is constructed with all the jpeg files.
 
-To illustrate this workflow we will use simulation. 
-Other use cases may be sensor data or any observed data.
-
+To illustrate this workflow we will use simulation. Other use cases may be sensor data or any observed data.
 
 ### Prepare the input data
 
-When applying this algorithm to a simulation, the input in Step 1 above usually comes from a pseudo random number generator in your language of choice.
-In this case I used the following R code to generate the data before constructing the plots and the animation.
-The code computes the cumulative profit or loss from repeatedly playing the same wager for a very long time.
-Eventually the expected result should tend to zero for either wager 3 or 4.
+When applying this algorithm to a simulation, the input in Step 1 above usually comes from a pseudo random number generator in your language of choice. In this case I used the following R code to generate the data before constructing the plots and the animation. The code computes the cumulative profit or loss from repeatedly playing the same wager for a very long time. Eventually the expected result should tend to zero for either wager 3 or 4.
 
 ```{r, attr.source='.numberLines'}
 library(lattice)
@@ -65,22 +59,14 @@ for (i in 1:numframes){
   df4 <- data.frame(wager=rep(4,length(runningprofit4)), runningprofit=runningprofit4, tries=seq(1,numsimulations))
   df <- rbind(df3, df4)
   
-  # more code follows here to generate the plots and the jpeg files
+  # more code follows here to generate the plots and the PNG files
 }
 ```
 
-Line **3** sets the number of simulation points to 20,000 so we get sharp plots. 
-Line **5** sets the number of frames that the animation will have. 
-Line **6** defines a fixed value for reproducible results from the pseudo random number generator used by the `sample` function that will be used in lines 11 and 12.
-Line **7** defines the 6 possible results of rolling a single die.
-Line **9** starts a loop to generate the frames of the animation.
-In lines **11** and **12** two vectors of 20,000 elements are created, each one simulates one roll of a fair die.
-The code in lines **14** and  **15** create the two vectors of 20,000 elements, each represents the profit resulting from rolling the die once. Each throw is an independent event, thus their individual profit can be computed with the input vectors `die3` and `die4`.  
-Lines **17** and **18** compute the cumulative profit or loss resulting from sequentially realizing the 20,000 wagers sequentially.  
+Line **3** sets the number of simulation points to 20,000 so we get sharp plots. Line **5** sets the number of frames that the animation will have. Line **6** defines a fixed value for reproducible results from the pseudo random number generator used by the `sample` function that will be used in lines 11 and 12. Line **7** defines the 6 possible results of rolling a single die. Line **9** starts a loop to generate the frames of the animation. In lines **11** and **12** two vectors of 20,000 elements are created, each one simulates one roll of a fair die. The code in lines **14** and **15** create the two vectors of 20,000 elements, each represents the profit resulting from rolling the die once. Each throw is an independent event, thus their individual profit can be computed with the input vectors `die3` and `die4`.\
+Lines **17** and **18** compute the cumulative profit or loss resulting from sequentially realizing the 20,000 wagers sequentially.
 
-The following code inspects some of the vectors generated above for each frame. 
-R is a natively vectorized language, therefore no special libraries are necessary.
-The library import statement in line **1** is for plot generation in a latter step.
+The following code inspects some of the vectors generated above for each frame. R is a natively vectorized language, therefore no special libraries are necessary. The library import statement in line **1** is for plot generation in a latter step.
 
 ```{r}
 length(runningprofit3)
@@ -95,10 +81,7 @@ One can see how the initial profit or loss can be large, however the net value t
 
 ### Construct plots with the output data
 
-The graphic package Trellis is designed to work on data presented in the so-called long format. 
-The idea is that the dataframe with all the data has a column representing a categorical variable representing the subgroup the data belongs to. 
-This is a fundamental idea behind this package.
-This plotting of many subgroups in a grid-like pattern is what is called facetting in ggplot2 terms.
+The graphic package Trellis is designed to work on data presented in the so-called long format. The idea is that the dataframe with all the data has a column representing a categorical variable representing the subgroup the data belongs to. This is a fundamental idea behind this package. This plotting of many subgroups in a grid-like pattern is what is called facetting in ggplot2 terms.
 
 ```{r plot-the-data, attr.source='.numberLines'}
   df3 <- data.frame(wager=rep(3,length(runningprofit3)), runningprofit=runningprofit3, tries=seq(1,numsimulations))
@@ -106,11 +89,9 @@ This plotting of many subgroups in a grid-like pattern is what is called facetti
   df <- rbind(df3, df4)
 ```
 
-In lines **1** and **2** above, separate data frames each of 20,000 rows are created.
-In line **3** they are stacked vertically together to form a single data structure with 40,000 rows.
+In lines **1** and **2** above, separate data frames each of 20,000 rows are created. In line **3** they are stacked vertically together to form a single data structure with 40,000 rows.
 
-The following calls to the first and last three lines of the dataframe illustrate the long format of the data.
-The column wager represent the subgroup each row belongs to: wager 3 or 4.
+The following calls to the first and last three lines of the dataframe illustrate the long format of the data. The column wager represent the subgroup each row belongs to: wager 3 or 4.
 
 ```{r verify-long-format}
 head(df, n = 3)
@@ -155,16 +136,12 @@ xyplot(runningprofit~tries, data=df,
 )
 ```
 
-An important detail of the `lattice` package is that it allows the superposition of the two subgroups: wager 3 and 4 thanks to the `panel.superpose`. 
-This panel type allows to paint the two different sub-groups using a function that takes the group number to label the first point.      
-The two line plots are positioned on the same x-y grid so we  can compare them more easily. 
+An important detail of the `lattice` package is that it allows the superposition of the two subgroups: wager 3 and 4 thanks to the `panel.superpose`. This panel type allows to paint the two different sub-groups using a function that takes the group number to label the first point.\
+The two line plots are positioned on the same x-y grid so we can compare them more easily.
 
+### Saving the plot as a PNG file
 
-
-### Saving the plot as a jpeg file
-
-The plot object generated in the previous step lives in the computer memory as an R object while we run the R session.
-In order to send it to the file system as a PNG file we have to use a combination of the function `png` and a the function `print`.
+The plot object generated in the previous step lives in the computer memory as an R object while we run the R session. In order to send it to the file system as a PNG file we have to use a combination of the function `png` and a the function `print`.
 
 First we call the `png` function to declare that when we use `print`, the output should be directed to the PNG output device. Then we save the plot into a variable and subsequently pass it to the function print.
 
@@ -208,14 +185,9 @@ print(pp)
 dev.off()
 ```
 
-Then 
-This code creates a file  called `simwager01.png` in the current working directory for the R session.
-The R function `png` accepts multiple pages for printing on the png device.
-If the given string provided to it contains the `%d` in it, multiple files will be generated for each new page, see [the warnings section in r-documentation for the function `png`](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png) 
+Then This code creates a file called `simwager01.png` in the current working directory for the R session. The R function `png` accepts multiple pages for printing on the png device. If the given string provided to it contains the `%d` in it, multiple files will be generated for each new page, see [the warnings section in r-documentation for the function `png`](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png)
 
-We had left some details out of the code shown at the beginning of this post because it would have been a distraction then.
-We must create a directory called animations from the project root path and then make it the current working directory as the first action in the script.
-By doing this all the temporary PNG files can be deleted after the next step, the GIF animated file generation.
+We had left some details out of the code shown at the beginning of this post because it would have been a distraction then. We must create a directory called animations from the project root path and then make it the current working directory as the first action in the script. By doing this all the temporary PNG files can be deleted after the next step, the GIF animated file generation.
 
 ```{r animation-folder, eval=FALSE}
 if (!require("pacman")) install.packages("pacman")
@@ -229,38 +201,25 @@ if (!file.exists(file.path(my_proj_path,"animations"))) {
 setwd(file.path(my_proj_path, "animations"))
 ```
 
-
-
 ### Creating the GIF animated file
 
-The GIF file is created with the [`convert`](https://imagemagick.org/script/convert.php) program from the package ImageMagik via a system call.
-The arguments assume that all PNG files in the current directory are meant to be part of the GIF output.
-The order of the frames for the animation come from the digits included in the file names using the `%02d` when I calld the `png` function.
-The last action is to cleanup by deleting all the PNG files from the folder. 
+The GIF file is created with the [`convert`](https://imagemagick.org/script/convert.php) program from the package ImageMagik via a system call. The arguments assume that all PNG files in the current directory are meant to be part of the GIF output. The order of the frames for the animation come from the digits included in the file names using the `%02d` when I calld the `png` function. The last action is to cleanup by deleting all the PNG files from the folder.
 
 ```{r, eval=FALSE}
 system("/usr/bin/convert -delay 40 *.png wager_comp_sim.gif")
 
 file.remove(list.files(pattern=".png"))
 ```
-The delay argument sets the time pause between frames in centiseconds.
-This makes the frame rate approximately 2.5 frames per second. 
 
+The delay argument sets the time pause between frames in centiseconds. This makes the frame rate approximately 2.5 frames per second.
 
 The package [`gganimate`](https://gganimate.com/) works under the same workflow explained here but it gives the flexibility to choose the file format of the final animation and the renderer.
 
-
 ## Conclusion
 
-The basic workflow for the creation of a GIF animated file has been presented with luxury of detail.
-One has to consider four basic steps: organize the data whereas it is observed or simulated.
-Then create a meaningful plot that adresses the research question.
-Then create multiple PNG files and finally create the GIF file from the intermediary PNG files.
+The basic workflow for the creation of a GIF animated file has been presented with luxury of detail. One has to consider four basic steps: organize the data whereas it is observed or simulated. Then create a meaningful plot that adresses the research question. Then create multiple PNG files and finally create the GIF file from the intermediary PNG files.
 
-The complete code for this example can be found in the GitHub repo:
-[wagers](https://github.com/padames/wagers)
-
-
+The complete code for this example can be found in the GitHub repo: [wagers](https://github.com/padames/wagers)
 
 ### References
 
