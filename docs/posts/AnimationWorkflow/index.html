@@ -268,7 +268,7 @@ Lines <strong>17</strong> and <strong>18</strong> compute the cumulative profit 
 </section>
 <section id="construct-plots-with-the-output-data" class="level3">
 <h3 class="anchored" data-anchor-id="construct-plots-with-the-output-data">Construct plots with the output data</h3>
-<p>The graphic package Trellis is designed to work on data presented in the so-called long format. The idea is that the dataframe with all the data has a column representing a categorical variable representing the subgroup the data belongs to. This is a fundamental idea behind this package. This plotting of many subgroups in a grid-like pattern is what is called facetting in ggplot2 terms.</p>
+<p>The graphic package Trellis is designed to work on data presented in the so-called long format. The idea is that the dataframe with all the data has a column representing a categorical variable representing the subgroup the data belongs to. This is a fundamental idea behind this package. This plotting of many subgroups in a grid-like pattern is what is called faceting in ggplot2 terms.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r numberLines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>  df3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wager=</span><span class="fu">rep</span>(<span class="dv">3</span>,<span class="fu">length</span>(runningprofit3)), <span class="at">runningprofit=</span>runningprofit3, <span class="at">tries=</span><span class="fu">seq</span>(<span class="dv">1</span>,numsimulations))</span>
 <span id="cb3-2"><a href="#cb3-2"></a>  df4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">wager=</span><span class="fu">rep</span>(<span class="dv">4</span>,<span class="fu">length</span>(runningprofit4)), <span class="at">runningprofit=</span>runningprofit4, <span class="at">tries=</span><span class="fu">seq</span>(<span class="dv">1</span>,numsimulations))</span>
@@ -288,95 +288,119 @@ Lines <strong>17</strong> and <strong>18</strong> compute the cumulative profit 
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39999     4     -1.860093 19999</span></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40000     4     -1.852500 20000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We are ready to plot using the lattice plotting package.</p>
+<p>We are ready to plot using the lattice plotting package. The following is the function that creates and returns such a lattice plot object. It receives two arguments, the dataframe in long form and a list of arguments to configure the plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>wagerLabels <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Wager 3"</span>, <span class="st">"Wager 4"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">xyplot</span>(runningprofit<span class="sc">~</span>tries, <span class="at">data=</span>df,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">groups =</span> wager,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">par.settings =</span> <span class="fu">list</span>(<span class="at">superpose.line =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>,<span class="st">"red"</span>),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">lwd =</span> <span class="dv">1</span>)),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">auto.key=</span><span class="fu">list</span>(<span class="at">space=</span><span class="st">"top"</span>, <span class="at">columns=</span><span class="dv">2</span>,</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">text=</span><span class="fu">c</span>(<span class="st">"Wager3 = 3(die&gt;3) - 3(die&lt;=3)"</span>, <span class="st">"Wager 4 = 1.5(die&gt;2) - 3(die&lt;=2)"</span>),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">title=</span><span class="st">"Running profits from two different wagers"</span>, </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cex.title=</span><span class="dv">2</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">lines=</span><span class="cn">TRUE</span>, <span class="at">points=</span><span class="cn">FALSE</span>),</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab=</span><span class="st">"Tries"</span>,</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>, numsimulations),</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">scales=</span><span class="fu">list</span>(<span class="at">cex=</span><span class="fu">c</span>(<span class="fl">1.1</span>, <span class="fl">1.1</span>), <span class="co"># increase font size</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>                   <span class="at">x =</span> <span class="fu">list</span>(<span class="at">log =</span> T), </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="fu">list</span>(<span class="at">log =</span> F),</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alternating =</span> <span class="dv">1</span>,   <span class="co"># axes labels left/bottom </span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">tck =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>)),   <span class="co"># ticks only with labels</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab=</span><span class="st">"Profit"</span>,</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">350</span>, <span class="dv">350</span>),</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">type=</span><span class="fu">c</span>(<span class="st">"l"</span>),</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">panel=</span>panel.superpose,</span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">panel.groups =</span> <span class="cf">function</span>( x, y, group.number,...) {</span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>         <span class="fu">panel.abline</span>( <span class="at">h=</span>y[ <span class="fu">which</span>(y<span class="sc">==</span><span class="fl">0.0</span>) ], <span class="at">lty =</span> <span class="st">"dotted"</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>         <span class="fu">panel.grid</span>(<span class="at">v=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">h=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>         xt <span class="ot">&lt;-</span> x[x<span class="sc">==</span><span class="fu">log</span>(<span class="fu">min</span>(x)<span class="sc">+</span><span class="dv">1</span>)] <span class="co"># find first try</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>         yt <span class="ot">&lt;-</span> y[x<span class="sc">==</span><span class="fu">min</span>(x)] <span class="co"># find the first profit  </span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>         <span class="fu">panel.text</span>(xt, yt, <span class="at">labels=</span>wagerLabels[group.number], </span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pos=</span><span class="dv">4</span>,  <span class="co"># show labels on right side of the point</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>                    ...)</span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>         <span class="fu">panel.xyplot</span>(x,y,...)</span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>       }</span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/one-plot-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a lattice xy plot object in memory ------------------------------------------------</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose:        to construct a valid lattice log_x-y plot of one or more series </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Description:    The argument `the_data_frame` is in long form, where each row has data</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                 for a sub-group. The list of arguments to construct the plot are:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#                 1. the name of the variable that defines the subgroups, called subgroup_variable</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                 2. a list of text labels for title, x and y axis, called text_labels_for_plot</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#                 3. a vector of the min and max values to use for the y axis, min_max_y_to_plot</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                 4. a vector of text descriptions for every series to plot, or NULL, called subgroup_descriptions</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>create_xyplot <span class="ot">&lt;-</span> <span class="cf">function</span>(the_data_frame, </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                          args_to_plot) {</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># unpack arguments</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    the_subgroup_variable_name <span class="ot">&lt;-</span> args_to_plot[[<span class="st">'subgroup_variable'</span>]]</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    the_text_plot_labels <span class="ot">&lt;-</span> args_to_plot[[<span class="st">'text_labels_for_plot'</span>]]</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    min_max_y_to_plot <span class="ot">&lt;-</span> args_to_plot[[<span class="st">'min_max_y_to_plot'</span>]]</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    the_subgroup_descriptions <span class="ot">&lt;-</span> args_to_plot[[<span class="st">'subgroup_descriptions'</span>]]</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># setup values for plotting</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    group_labels <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">unique</span>(the_data_frame[the_subgroup_variable_name]))</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    wager_labels <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">sapply</span>( group_labels, <span class="at">FUN =</span> <span class="cf">function</span>(x) {<span class="fu">paste0</span>(<span class="st">"Wager "</span>, x)}))</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">is.null</span>(the_subgroup_descriptions)) {</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        the_subgroup_descriptions <span class="ot">&lt;-</span> wager_labels</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    wagers_vector <span class="ot">&lt;-</span> the_data_frame[[the_subgroup_variable_name]]</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    max_x_value <span class="ot">&lt;-</span> <span class="fu">length</span>(wagers_vector[wagers_vector<span class="sc">==</span>group_labels[[the_subgroup_variable_name]][<span class="dv">1</span>]])</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xyplot</span>(</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        runningprofit <span class="sc">~</span> tries,</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> the_data_frame,</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">groups =</span> wager,</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">par.settings =</span> <span class="fu">list</span>(<span class="at">superpose.line =</span> <span class="fu">list</span>(</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>            <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"yellow"</span>, <span class="st">"brown"</span>, <span class="st">"cyan"</span>),</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>            <span class="at">lwd =</span> <span class="dv">1</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>        )),</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">auto.key =</span> <span class="fu">list</span>(</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>            <span class="at">space =</span> <span class="st">"top"</span>,</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>            <span class="at">columns =</span> <span class="dv">2</span>,</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>            <span class="at">text =</span> the_subgroup_descriptions,</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>            <span class="at">title =</span> the_text_plot_labels[[<span class="st">'title'</span>]],</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>            <span class="at">cex.title =</span> <span class="dv">2</span>,</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>            <span class="at">lines =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">points =</span> <span class="cn">FALSE</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>        ),</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span> the_text_plot_labels[[<span class="st">'x_label'</span>]],</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>, max_x_value),</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">scales =</span> <span class="fu">list</span>(</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>            <span class="at">cex =</span> <span class="fu">c</span>(<span class="fl">1.1</span>, <span class="fl">1.1</span>),            <span class="co"># increase font size</span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">x =</span> <span class="fu">list</span>(<span class="at">log =</span> T),            <span class="co"># log scale for x-axis</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="fu">list</span>(<span class="at">log =</span> F),</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternating =</span> <span class="dv">1</span>,              <span class="co"># axes labels left/bottom</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>            <span class="at">tck =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>        ),                                <span class="co"># ticks only with labels</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> the_text_plot_labels[[<span class="st">'y_label'</span>]],</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> min_max_y_to_plot,</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"l"</span>),</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel =</span> panel.superpose,</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.groups =</span> <span class="cf">function</span>(x, y, group.number, ...) {</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>            <span class="fu">panel.abline</span>(<span class="at">h =</span> y[<span class="fu">which</span>(y <span class="sc">==</span> <span class="fl">0.0</span>)],</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a>                         <span class="at">lty =</span> <span class="st">"dotted"</span>,</span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>                         <span class="at">col =</span> <span class="st">"black"</span>)</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>            <span class="fu">panel.grid</span>(<span class="at">v =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>                       <span class="at">h =</span> <span class="sc">-</span><span class="dv">1</span>,</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>                       <span class="at">lty =</span> <span class="dv">3</span>)</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>            xt <span class="ot">&lt;-</span> x[x <span class="sc">==</span> <span class="fu">log</span>(<span class="fu">min</span>(x) <span class="sc">+</span> <span class="dv">1</span>)] <span class="co"># find x coordinate for first point</span></span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>            yt <span class="ot">&lt;-</span> y[x <span class="sc">==</span> <span class="fu">min</span>(x)] <span class="co"># find y coordinate for first point</span></span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>            <span class="fu">panel.text</span>(xt,</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>                       yt,</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>                       <span class="at">labels =</span> wager_labels[group.number],</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>                       <span class="at">pos =</span> <span class="dv">4</span>,  <span class="co"># show labels on right side</span></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>                       ...)</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>            <span class="fu">panel.xyplot</span>(x, y, ...)</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>An important detail of the <code>lattice</code> package is that it allows the superposition of the two subgroups: wager 3 and 4 thanks to the <code>panel.superpose</code>. This panel type allows to paint the two different sub-groups using a function that takes the group number to label the first point.<br>
-The two line plots are positioned on the same x-y grid so we can compare them more easily.</p>
+<p>An important detail of the <code>lattice</code> package is that it allows the superposition of the two subgroups: wager 3 and 4 thanks to the <a href="https://rdrr.io/cran/lattice/man/panel.superpose.html"><code>panel.superpose</code></a> and the lambda function passed to the argument <code>panel.groups</code>. This panel type allows to paint the two different sub-groups on the same axis using the provided function. This function receives the group identifier when called once for each subgroup. In this particular case it adds programmatically a label to the first point of the series. The <code>panel.superpose</code> allows the positioning of the line plots corresponding to the two series on the same x-y grid so we can compare them visually.</p>
 </section>
 <section id="saving-the-plot-as-a-png-file" class="level3">
 <h3 class="anchored" data-anchor-id="saving-the-plot-as-a-png-file">Saving the plot as a PNG file</h3>
-<p>The plot object generated in the previous step lives in the computer memory as an R object while we run the R session. In order to send it to the file system as a PNG file we have to use a combination of the function <code>png</code> and a the function <code>print</code>.</p>
-<p>First we call the <code>png</code> function to declare that when we use <code>print</code>, the output should be directed to the PNG output device. Then we save the plot into a variable and subsequently pass it to the function print.</p>
+<p>The plot object generated in the previous step lives in the computer memory as an R object while we run the R session. We want to persist it in the file system as a PNG file. To achieve this goal we use the functions <code>png</code> and <code>print</code>.</p>
+<p>In the code snipped below, I call the <code>png</code> function in line <strong>1</strong> to set the PNG file writer as the output device for subsequent calls to print images. Line ** 3** creates the arguments expected by the function as one list. The elements of the list are named so their order does not matter. Only the subgroup_descriptions can be NULL. Their function is explained by their name. In line <strong>11</strong> the lattice plot is created in memory and returned immediately to be assigned to the variable <code>pp</code>. The function <code>xyplot</code> comes from the package <code>lattice</code>. Line <strong>14</strong> passes the lattice object <code>pp</code> to the function <code>print</code> to create the PNG file using the name convention given in line <strong>1</strong>. Multiple calls to print will create new PNG files adding one each timne to the numeric value represented by the <code>%02d</code> that is part of the file name.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="at">file=</span><span class="st">"simwager%02d.png"</span>, <span class="at">width=</span><span class="dv">600</span>, <span class="at">height=</span><span class="dv">400</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>wagerLabels <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Wager 3"</span>, <span class="st">"Wager 4"</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>pp <span class="ot">&lt;-</span> <span class="fu">xyplot</span>(runningprofit<span class="sc">~</span>tries, <span class="at">data=</span>df,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">groups =</span> wager,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">par.settings =</span> <span class="fu">list</span>(<span class="at">superpose.line =</span> <span class="fu">list</span>(<span class="at">col =</span> <span class="fu">c</span>(<span class="st">"blue"</span>,<span class="st">"red"</span>),</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">lwd =</span> <span class="dv">1</span>)),</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">auto.key=</span><span class="fu">list</span>(<span class="at">space=</span><span class="st">"top"</span>, <span class="at">columns=</span><span class="dv">2</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">text=</span><span class="fu">c</span>(<span class="st">"Wager3 = 3(die&gt;3) - 3(die&lt;=3)"</span>, <span class="st">"Wager 4 = 1.5(die&gt;2) - 3(die&lt;=2)"</span>),</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">title=</span><span class="st">"Running profits from two different wagers"</span>, </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">cex.title=</span><span class="dv">2</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">lines=</span><span class="cn">TRUE</span>, <span class="at">points=</span><span class="cn">FALSE</span>),</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab=</span><span class="st">"Tries"</span>,</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">1</span>, numsimulations),</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">scales=</span><span class="fu">list</span>(<span class="at">cex=</span><span class="fu">c</span>(<span class="fl">1.1</span>, <span class="fl">1.1</span>), <span class="co"># increase font size</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                   <span class="at">x =</span> <span class="fu">list</span>(<span class="at">log =</span> T), </span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y =</span> <span class="fu">list</span>(<span class="at">log =</span> F),</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alternating =</span> <span class="dv">1</span>,   <span class="co"># axes labels left/bottom </span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>                   <span class="at">tck =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>)),   <span class="co"># ticks only with labels</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylab=</span><span class="st">"Profit"</span>,</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">350</span>, <span class="dv">350</span>),</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">type=</span><span class="fu">c</span>(<span class="st">"l"</span>),</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">panel=</span>panel.superpose,</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">panel.groups =</span> <span class="cf">function</span>( x,y,group.number,...) {</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>         <span class="fu">panel.abline</span>( <span class="at">h=</span>y[ <span class="fu">which</span>(y<span class="sc">==</span><span class="fl">0.0</span>) ], <span class="at">lty =</span> <span class="st">"dotted"</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>         <span class="fu">panel.grid</span>(<span class="at">v=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">h=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>         xt <span class="ot">&lt;-</span> x[x<span class="sc">==</span><span class="fu">log</span>(<span class="fu">min</span>(x)<span class="sc">+</span><span class="dv">1</span>)] <span class="co"># find latest year</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>         yt <span class="ot">&lt;-</span> y[x<span class="sc">==</span><span class="fu">min</span>(x)] <span class="co"># find value at latest year</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>         <span class="fu">panel.text</span>(xt, yt, <span class="at">labels=</span>wagerLabels[group.number], </span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pos=</span><span class="dv">4</span>,  <span class="co"># show labels on right side</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>                    ...)</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>         <span class="fu">panel.xyplot</span>(x,y,...)</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>       }</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pp)</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; png </span></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r numberLines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">png</span>(<span class="at">file=</span><span class="st">"simwager%02d.png"</span>, <span class="at">width=</span><span class="dv">600</span>, <span class="at">height=</span><span class="dv">400</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>args_to_plot <span class="ot">&lt;-</span> <span class="fu">list</span>( <span class="at">subgroup_variable =</span> <span class="st">'wager'</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                      <span class="at">subgroup_descriptions =</span> <span class="fu">c</span>(<span class="st">"Wager3 = 3(die&gt;3) - 3(die&lt;=3)"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>                        <span class="st">"Wager 4 = 1.5(die&gt;2) - 3(die&lt;=2)"</span>),</span>
+<span id="cb6-6"><a href="#cb6-6"></a>                      <span class="at">text_labels_for_plot =</span> <span class="fu">list</span>(<span class="at">title=</span><span class="st">"Running profits from two different wagers"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7"></a>                             <span class="at">x_label=</span><span class="st">"Number of tries"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8"></a>                             <span class="at">y_label=</span><span class="st">"Cummulative profit"</span>),</span>
+<span id="cb6-9"><a href="#cb6-9"></a>                      <span class="at">min_max_y_to_plot =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">350</span>, <span class="dv">350</span>))</span>
+<span id="cb6-10"><a href="#cb6-10"></a></span>
+<span id="cb6-11"><a href="#cb6-11"></a>pp <span class="ot">&lt;-</span> <span class="fu">create_xyplot</span>(df, </span>
+<span id="cb6-12"><a href="#cb6-12"></a>                    args_to_plot)</span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14"></a><span class="fu">print</span>(pp)</span>
+<span id="cb6-15"><a href="#cb6-15"></a></span>
+<span id="cb6-16"><a href="#cb6-16"></a><span class="fu">dev.off</span>()</span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="co">#&gt; png </span></span>
+<span id="cb6-18"><a href="#cb6-18"></a><span class="co">#&gt;   2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Then This code creates a file called <code>simwager01.png</code> in the current working directory for the R session. The R function <code>png</code> accepts multiple pages for printing on the png device. If the given string provided to it contains the <code>%d</code> in it, multiple files will be generated for each new page, see <a href="https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png">the warnings section in r-documentation for the function <code>png</code></a></p>
-<p>We had left some details out of the code shown at the beginning of this post because it would have been a distraction then. We must create a directory called animations from the project root path and then make it the current working directory as the first action in the script. By doing this all the temporary PNG files can be deleted after the next step, the GIF animated file generation.</p>
+<p>This code creates a file called <code>simwager01.png</code> in the current working directory for the R session, as shown below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="simwager01.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Plot produced by the previous code chunk in the current working directory.</figcaption>
+</figure>
+</div>
+<p>If this sequence of calls are part of an iteration loop, several PNG files will be created, each with an monotonically increased serial number as part of its name. For an explanation of how it works see <a href="https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png">the r-documentation for the function <code>png</code></a></p>
+<p>I left some details out of the code shown at the beginning of this post because it would have been a distraction then. We must create a directory called animations from the project root path and then make it the current working directory as the first action in the script. By doing this all the file actions occur in the same folder. That is, the PNG files required for one animation are first created and then deleted after they are used in the same directory where the animated GIF file is created.</p>
+<p>The following code accomplishes creating and changing into this directory.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">"here"</span>)</span>
@@ -391,14 +415,15 @@ The two line plots are positioned on the same x-y grid so we can compare them mo
 </section>
 <section id="creating-the-gif-animated-file" class="level3">
 <h3 class="anchored" data-anchor-id="creating-the-gif-animated-file">Creating the GIF animated file</h3>
-<p>The GIF file is created with the <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> program from the package ImageMagik via a system call. The arguments assume that all PNG files in the current directory are meant to be part of the GIF output. The order of the frames for the animation come from the digits included in the file names using the <code>%02d</code> when I calld the <code>png</code> function. The last action is to cleanup by deleting all the PNG files from the folder.</p>
+<p>What we have up to this point is a directory with PNG files. The implicit assumption is that the order each PNG file is to be used to create the animation is implicit in its name. I will use a program to render an animated file in GIF format from the PNG files using the command line. The renderer used is <a href="https://imagemagick.org/script/convert.php"><code>convert</code></a> from the package ImageMagik, publicly available as binaries for <a href="https://imagemagick.org/script/download.php">download</a> for Linux, Mac and Windows, this example was run on Ubuntu Linux 24.04, version ImageMagick 6.9.12-98 Q16 x86_64 18038.</p>
+<p>To call <code>convert</code> we make an operating system call from the R script. The arguments assume that all PNG files in the current directory are meant to be part of the GIF output. The order of the frames for the animation come from the digits included in the file names using the <code>%02d</code> in the call to the function <code>png</code>. Finally the PNG files are deleted from the folder.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system</span>(<span class="st">"/usr/bin/convert -delay 40 *.png wager_comp_sim.gif"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">file.remove</span>(<span class="fu">list.files</span>(<span class="at">pattern=</span><span class="st">".png"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The delay argument sets the time pause between frames in centiseconds. This makes the frame rate approximately 2.5 frames per second.</p>
-<p>The package <a href="https://gganimate.com/"><code>gganimate</code></a> works under the same workflow explained here but it gives the flexibility to choose the file format of the final animation and the renderer.</p>
+<p>The package <a href="https://gganimate.com/"><code>gganimate</code></a>, <span class="citation" data-cites="PederAndRobin:2024">[<a href="#ref-PederAndRobin:2024" role="doc-biblioref">2</a>]</span>, works under the same workflow explained here but it gives the flexibility to choose renderer and the file format of the final animation.</p>
 </section>
 </section>
 <section id="conclusion" class="level2">
@@ -410,6 +435,9 @@ The two line plots are positioned on the same x-y grid so we can compare them mo
 <div id="refs" class="references csl-bib-body" role="list">
 <div id="ref-Padames:wager2021" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[1] </div><div class="csl-right-inline">Adames P. <a href="https://www.linkedin.com/pulse/expected-values-variance-pablo-adames/?trackingId=p3pUphRYOaWGqxrznOYPgg%3D%3D">Expected <span>V</span>alues and <span>V</span>ariance</a> 2021.</div>
+</div>
+<div id="ref-PederAndRobin:2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Pedersen TL, Robinson D. <a href="https://gganimate.com">Gganimate: A grammar of animated graphics</a>. 2024.</div>
 </div>
 </div>
 
