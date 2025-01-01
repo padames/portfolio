@@ -11,7 +11,8 @@ page-layout: full
 title-block-banner: false
 ---
 
-This is the home for a few short posts and presentations made throughout the years. Most are related to subjects of personal interest like data modeling and visualization. I am also very fond of Machine Learning, High-Performance computing, and computer languages in general.
+This is the home for a few short posts and presentations made throughout the years. Most are related to subjects of personal interest like data modeling and visualization. 
+I am also very fond of Machine Learning, High-Performance computing, and computer languages in general.
 
 <p xmlns:cc="http://creativecommons.org/ns#">
 
@@ -19,4 +20,4 @@ Everything here is licensed under <a href="https://creativecommons.org/licenses/
 
 </p>
 
-In general most endeavors thrive when we collaborate and share our failures as much as our successes. This is specially true given the observation that there are far more paths leading to failure that to success. It pays to know how to fail as much as how to succeed.
+<!-- In general most endeavors thrive when we collaborate and share our failures as much as our successes. This is specially true given the observation that there are far more paths leading to failure that to success. It pays to know how to fail as much as how to succeed. -->
