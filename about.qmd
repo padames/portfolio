@@ -18,7 +18,7 @@ about:
 This is a personal blog with entries reflecting my professional interests in computer languages and data analysis and visualization.
 
 Most of my professional experience has been developing Engineering applications using Matlab for modelling and C++ for library implementation. 
-I used to like Python but strongly typed or more declarative languages win the day for me.
+I like Python in spite of relying on indentation alone for scoping blocks of code. Strongly typed and more declarative than procedural languages win the day for me.
 I have way too many books on Haskell, a language that has formed me in many ways. I love functional programming and I am so glad C++ and Python have embraced it. 
 
 In the last 5 years, after completing a Master of Engineering in Software Engineering at the University of Calgary I have had the chance to designing and use relational and document (also called noSQL) databases for system development. 
