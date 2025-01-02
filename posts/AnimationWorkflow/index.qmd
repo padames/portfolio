@@ -98,9 +98,7 @@ head(df, n = 3)
 tail(df, n = 3)
 ```
 
-We are ready to plot using the lattice plotting package.
-The following is the function that creates and returns such a lattice plot object.
-It receives two arguments, the dataframe in long form and a list of arguments to configure the plot.
+We are ready to plot using the lattice plotting package. The following is the function that creates and returns such a lattice plot object. It receives two arguments, the dataframe in long form and a list of arguments to configure the plot.
 
 ```{r one-plot, eval=require('lattice'), echo=TRUE}
 # Create a lattice xy plot object in memory ------------------------------------------------
@@ -179,26 +177,13 @@ create_xyplot <- function(the_data_frame,
 }
 ```
 
-An important detail of the `lattice` package is that it allows the superposition of the two subgroups: wager 3 and 4 thanks to the [`panel.superpose`](https://rdrr.io/cran/lattice/man/panel.superpose.html) and the lambda function passed to the argument `panel.groups`.
-This panel type allows to paint the two different sub-groups on the same axis using the provided function.
-This function receives the group identifier when called once for each subgroup.
-In this particular case it adds programmatically a label to the first point of the series.
-The `panel.superpose` allows the positioning of the line plots corresponding to the two series on the same x-y grid so we can compare them visually.
+An important detail of the `lattice` package is that it allows the superposition of the two subgroups: wager 3 and 4 thanks to the [`panel.superpose`](https://rdrr.io/cran/lattice/man/panel.superpose.html) and the lambda function passed to the argument `panel.groups`. This panel type allows to paint the two different sub-groups on the same axis using the provided function. This function receives the group identifier when called once for each subgroup. In this particular case it adds programmatically a label to the first point of the series. The `panel.superpose` allows the positioning of the line plots corresponding to the two series on the same x-y grid so we can compare them visually.
 
 ### Saving the plot as a PNG file
 
-The plot object generated in the previous step lives in the computer memory as an R object while we run the R session.
-We want to persist it in the file system as a PNG file.
-To achieve this goal we use the functions `png` and `print`.
+The plot object generated in the previous step lives in the computer memory as an R object while we run the R session. We want to persist it in the file system as a PNG file. To achieve this goal we use the functions `png` and `print`.
 
-In the code snipped below, I call the `png` function in line **1** to set the PNG file writer as the output device for subsequent calls to print images. Line \*\* 3\*\* creates the arguments expected by the function as one list.
-The elements of the list are named so their order does not matter.
-Only the subgroup_descriptions can be NULL.
-Their function is explained by their name.
-In line **11** the lattice plot is created in memory and returned immediately to be assigned to the variable `pp`.
-The function `xyplot` comes from the package `lattice`.
-Line **14** passes the lattice object `pp` to the function `print` to create the PNG file using the name convention given in line **1**.
-Multiple calls to print will create new PNG files adding one each timne to the numeric value represented by the `%02d` that is part of the file name.
+In the code snipped below, I call the `png` function in line **1** to set the PNG file writer as the output device for subsequent calls to print images. Line \*\* 3\*\* creates the arguments expected by the function as one list. The elements of the list are named so their order does not matter. Only the subgroup_descriptions can be NULL. Their function is explained by their name. In line **11** the lattice plot is created in memory and returned immediately to be assigned to the variable `pp`. The function `xyplot` comes from the package `lattice`. Line **14** passes the lattice object `pp` to the function `print` to create the PNG file using the name convention given in line **1**. Multiple calls to print will create new PNG files adding one each timne to the numeric value represented by the `%02d` that is part of the file name.
 
 ```{r call-png, attr.source='.numberLines'}
 png(file="simwager%02d.png", width=600, height=400)
@@ -223,14 +208,9 @@ This code creates a file called `simwager01.png` in the current working director
 
 ![Plot produced by the previous code chunk in the current working directory.](simwager01.png)
 
-If this sequence of calls are part of an iteration loop, several PNG files will be created, each with an monotonically increased serial number as part of its name.
-For an explanation of how it works see [the r-documentation for the function `png`](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png)
+If this sequence of calls are part of an iteration loop, several PNG files will be created, each with an monotonically increased serial number as part of its name. For an explanation of how it works see [the r-documentation for the function `png`](https://www.rdocumentation.org/packages/grDevices/versions/3.4.1/topics/png)
 
-I left some details out of the code shown at the beginning of this post because it would have been a distraction then.
-We must create a directory called animations from the project root path and then make it the current working directory as the first action in the script.
-By doing this all the file actions occur in the same folder.
-That is, the PNG files required for one animation are first created and then deleted after they are used in the same directory where the animated GIF file is created. 
-
+I left some details out of the code shown at the beginning of this post because it would have been a distraction then. We must create a directory called animations from the project root path and then make it the current working directory as the first action in the script. By doing this all the file actions occur in the same folder. That is, the PNG files required for one animation are first created and then deleted after they are used in the same directory where the animated GIF file is created.
 
 The following code accomplishes creating and changing into this directory.
 
@@ -248,15 +228,9 @@ setwd(file.path(my_proj_path, "animations"))
 
 ### Creating the GIF animated file
 
-What we have up to this point is a directory with PNG files. 
-The implicit assumption is that the order each PNG file is to be used to create the animation is implicit in its name.
-I will use a program to render an animated file in GIF format from the PNG files using the  command line.
-The renderer used is [`convert`](https://imagemagick.org/script/convert.php) from the package ImageMagik, publicly available as binaries for [download](https://imagemagick.org/script/download.php) for Linux, Mac and Windows, this example was run on Ubuntu Linux 24.04, version ImageMagick 6.9.12-98 Q16 x86_64 18038.
+What we have up to this point is a directory with PNG files. The implicit assumption is that the order each PNG file is to be used to create the animation is implicit in its name. I will use a program to render an animated file in GIF format from the PNG files using the command line. The renderer used is [`convert`](https://imagemagick.org/script/convert.php) from the package ImageMagik, publicly available as binaries for [download](https://imagemagick.org/script/download.php) for Linux, Mac and Windows, this example was run on Ubuntu Linux 24.04, version ImageMagick 6.9.12-98 Q16 x86_64 18038.
 
-To call `convert` we make an operating system call from the R script.
-The arguments assume that all PNG files in the current directory are meant to be part of the GIF output.
-The order of the frames for the animation come from the digits included in the file names using the `%02d` in the call to the function `png`. 
-Finally the PNG files are deleted from the folder.
+To call `convert` we make an operating system call from the R script. The arguments assume that all PNG files in the current directory are meant to be part of the GIF output. The order of the frames for the animation come from the digits included in the file names using the `%02d` in the call to the function `png`. Finally the PNG files are deleted from the folder.
 
 ```{r, eval=FALSE}
 system("/usr/bin/convert -delay 40 *.png wager_comp_sim.gif")
@@ -264,8 +238,7 @@ system("/usr/bin/convert -delay 40 *.png wager_comp_sim.gif")
 file.remove(list.files(pattern=".png"))
 ```
 
-The delay argument sets the time pause between frames in centiseconds. 
-This makes the frame rate approximately 2.5 frames per second.
+The delay argument sets the time pause between frames in centiseconds. This makes the frame rate approximately 2.5 frames per second.
 
 The package [`gganimate`](https://gganimate.com/), @PederAndRobin:2024, works under the same workflow explained here but it gives the flexibility to choose renderer and the file format of the final animation.
 
