@@ -7,9 +7,9 @@ website:
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
-      - icon: stackoverflow
-        href: https://stackoverflow.com
+        href: https://github.com/padames
+      - icon: stack-overflow
+        href: https://stackoverflow.com/users/1585486/pablo-adames
 format:
   html:
     theme: cosmo
