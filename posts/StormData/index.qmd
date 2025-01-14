@@ -1,0 +1,75 @@
+---
+title: "An User Interface to Analyze Storm Data"
+author: "Pablo Adames"
+date: "2017-04-2"
+categories: [Visualization, R, Leaflet]
+bibliography: references.bib
+csl: elsevier-vancouver.csl
+---
+
+
+# Why an Interactive User Interface to analyze the storm data
+
+
+This work was done as the final project for the Coursera course Developing Data Products.
+
+# The App Vs. The Data
+
+The app can be seen online at <https://padames.shinyapps.io/analysis_of_storm_data_from_naoo_data/>
+
+![A view of the App in a browser window.](images/pitch0.png)
+
+The data was downloaded from [ftp://ftp.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/\>](ftp://ftp.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/). Below a glimpse into the text format used originally.
+
+```         
+       STATE    EVTYPE FATALITIES INJURIES LATITUDE LONGITUDE
+55        AL      HAIL          0        0     3435      8700
+1456      AL HIGH WIND          0        0     3203      8613
+210826    MN LIGHTNING          0        0        0         0
+                                EVT_TYPE                DATE
+55                    Snow/Hail/Rain/Ice 1955-04-03 00:25:00
+1456   Hurricanes/Tornados/Thunderstorms 1975-04-01 00:10:00
+210826                   Fires/Lightning 1994-04-06 00:16:00
+```
+
+# The Data
+
+-   902297 entries in the data set
+-   Spanning 5 decades
+-   Same seven categories for the storm events (as in previous work)
+
+![](images/pitch1.png)
+
+-   Two types of effects on population
+
+![](images/pitch2.png)
+
+-   Instructions in the App
+
+![](images/pitch3.png)
+
+# Geolocating events and documenting the effects
+
+One of the barriers to making sense of the data is understanding where and how often it happens.
+
+![The low zoom levels by default show the events aglomerated by region to avoid overcrowding the view](images/pitch4.png "Effects aglomerated at low zoom")
+
+The effects can be seen in the image above in detail at the higher zoom levels (right pane with the map).
+
+![Higher zoom level displays more granular data to the indivudual event as necessary](images/pitch6.png "Distinguishable effects at high zoom")
+
+R plus the Leaflet library and shiny offer a powerful visualization tool for complex data sets. It allows the user to select a subset of the data using three different criteria: type of the event, kind of consequence, and the time interval when any of the events happened.
+
+Doing the same in code would imply cleaning the raw data, transforming it into a suitable R data structure, subsetting to filter the events of interest and finally make a visualization to inspect the results. Indeed quite bit of wrangling with computer languages and iterative procedures.
+
+# Insight into the data
+
+It is easy to get distracted or fail to identify the trends in complex ata sets.
+
+This data set is one such complex set but thanks to this App it can be explored to identify those features of the data that oftentimes remain hidden under the shear volume of the information.
+
+Visit <https://padames.shinyapps.io/analysis_of_storm_data_from_naoo_data/>
+
+To download orignal data visit: [ftp://ftp.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/\>](ftp://ftp.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/).
+
+The format changed in 2014 making the data easier to understand and to process. However it's still quite challenging to explore whitout an app.

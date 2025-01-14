@@ -11,8 +11,7 @@ page-layout: full
 title-block-banner: false
 ---
 
-This is the home for a few short posts and presentations made throughout the years. Most are related to subjects of personal interest like data modeling and visualization. 
-I am also very fond of Machine Learning, High-Performance computing, and computer languages in general.
+This is the home for a few short posts and presentations made throughout the years. Most are related to subjects of personal interest like data modeling and visualization. I am also very fond of Machine Learning, High-Performance computing, and computer languages in general.
 
 <p xmlns:cc="http://creativecommons.org/ns#">
 

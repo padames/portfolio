@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Pablo Adames">
+<meta name="dcterms.date" content="2017-04-02">
 
-<title>pablo adames - Software Engineering bits</title>
+<title>pablo adames - An User Interface to Analyze Storm Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -60,50 +60,19 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">pablo adames</span>
     </a>
   </div>
@@ -114,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
+    <a class="nav-link" href="../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -135,174 +104,120 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">An User Interface to Analyze Storm Data</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">Visualization</div>
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">Leaflet</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Pablo Adames </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">April 2, 2017</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Leaflet">Leaflet <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Visualization">Visualization <span class="quarto-category-count">(3)</span></div><div class="category" data-category="ggplot2">ggplot2 <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Software Engineering bits</h1>
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<p>This is the home for a few short posts and presentations made throughout the years. Most are related to subjects of personal interest like data modeling and visualization. I am also very fond of Machine Learning, High-Performance computing, and computer languages in general.</p>
-<p xmlns:cc="http://creativecommons.org/ns#">
-</p><p>Everything here is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Creative Commons Attribution-ShareAlike 4.0 International<img src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"><img src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"><img src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"></a></p>
-<p></p>
-<!-- In general most endeavors thrive when we collaborate and share our failures as much as our successes. This is specially true given the observation that there are far more paths leading to failure that to success. It pays to know how to fail as much as how to succeed. -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
+<section id="why-an-interactive-user-interface-to-analyze-the-storm-data" class="level1">
+<h1>Why an Interactive User Interface to analyze the storm data</h1>
+<p>This work was done as the final project for the Coursera course Developing Data Products.</p>
+</section>
+<section id="the-app-vs.-the-data" class="level1">
+<h1>The App Vs. The Data</h1>
+<p>The app can be seen online at <a href="https://padames.shinyapps.io/analysis_of_storm_data_from_naoo_data/" class="uri">https://padames.shinyapps.io/analysis_of_storm_data_from_naoo_data/</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/pitch0.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">A view of the App in a browser window.</figcaption>
+</figure>
 </div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Visualization,R,ggplot2" data-listing-date-sort="1734246000000" data-listing-file-modified-sort="1734914600800" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
-<div class="thumbnail">
-<p><a href="./posts/animationRescue/index.html"> <p class="card-img-top"><img src="posts/animationRescue/thumbnail.jpg"  class="thumbnail-image card-img"/></p> </a></p>
+<p>The data was downloaded from <a href="ftp://ftp.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/">ftp://ftp.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/&gt;</a>. Below a glimpse into the text format used originally.</p>
+<pre><code>       STATE    EVTYPE FATALITIES INJURIES LATITUDE LONGITUDE
+55        AL      HAIL          0        0     3435      8700
+1456      AL HIGH WIND          0        0     3203      8613
+210826    MN LIGHTNING          0        0        0         0
+                                EVT_TYPE                DATE
+55                    Snow/Hail/Rain/Ice 1955-04-03 00:25:00
+1456   Hurricanes/Tornados/Thunderstorms 1975-04-01 00:10:00
+210826                   Fires/Lightning 1994-04-06 00:16:00</code></pre>
+</section>
+<section id="the-data" class="level1">
+<h1>The Data</h1>
+<ul>
+<li>902297 entries in the data set</li>
+<li>Spanning 5 decades</li>
+<li>Same seven categories for the storm events (as in previous work)</li>
+</ul>
+<p><img src="images/pitch1.png" class="img-fluid"></p>
+<ul>
+<li>Two types of effects on population</li>
+</ul>
+<p><img src="images/pitch2.png" class="img-fluid"></p>
+<ul>
+<li>Instructions in the App</li>
+</ul>
+<p><img src="images/pitch3.png" class="img-fluid"></p>
+</section>
+<section id="geolocating-events-and-documenting-the-effects" class="level1">
+<h1>Geolocating events and documenting the effects</h1>
+<p>One of the barriers to making sense of the data is understanding where and how often it happens.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/pitch4.png" title="Effects aglomerated at low zoom" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">The low zoom levels by default show the events aglomerated by region to avoid overcrowding the view</figcaption>
+</figure>
 </div>
-<div class="body">
-<a href="./posts/animationRescue/index.html">
-<h3 class="no-anchor listing-title">
-Animation to explain coupled time-series
-</h3>
-<div class="listing-subtitle">
+<p>The effects can be seen in the image above in detail at the higher zoom levels (right pane with the map).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/pitch6.png" title="Distinguishable effects at high zoom" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Higher zoom level displays more granular data to the indivudual event as necessary</figcaption>
+</figure>
+</div>
+<p>R plus the Leaflet library and shiny offer a powerful visualization tool for complex data sets. It allows the user to select a subset of the data using three different criteria: type of the event, kind of consequence, and the time interval when any of the events happened.</p>
+<p>Doing the same in code would imply cleaning the raw data, transforming it into a suitable R data structure, subsetting to filter the events of interest and finally make a visualization to inspect the results. Indeed quite bit of wrangling with computer languages and iterative procedures.</p>
+</section>
+<section id="insight-into-the-data" class="level1">
+<h1>Insight into the data</h1>
+<p>It is easy to get distracted or fail to identify the trends in complex ata sets.</p>
+<p>This data set is one such complex set but thanks to this App it can be explored to identify those features of the data that oftentimes remain hidden under the shear volume of the information.</p>
+<p>Visit <a href="https://padames.shinyapps.io/analysis_of_storm_data_from_naoo_data/" class="uri">https://padames.shinyapps.io/analysis_of_storm_data_from_naoo_data/</a></p>
+<p>To download orignal data visit: <a href="ftp://ftp.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/">ftp://ftp.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/&gt;</a>.</p>
+<p>The format changed in 2014 making the data easier to understand and to process. However it’s still quite challenging to explore whitout an app.</p>
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Visualization'); return false;">
-Visualization
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('ggplot2'); return false;">
-ggplot2
-</div>
-</div>
-<a href="./posts/animationRescue/index.html">
-<div class="listing-description">
-I consider Edward E. Tufte one of the modern experts in data visualization. I attended one of his talks in Seattle in May 2019. All…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/animationRescue/index.html">
-<div class="listing-date">
-Dec 15, 2024
-</div>
-<div class="listing-author">
-Pablo Adames
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Visualization,R" data-listing-date-sort="1630908000000" data-listing-file-modified-sort="1735798199176" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15">
-<div class="thumbnail">
-<p><a href="./posts/AnimationWorkflow/index.html"> <p class="card-img-top"><img src="posts/AnimationWorkflow/thumbnail.gif"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/AnimationWorkflow/index.html">
-<h3 class="no-anchor listing-title">
-How to create a GIF file from individual images
-</h3>
-<div class="listing-subtitle">
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Visualization'); return false;">
-Visualization
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<a href="./posts/AnimationWorkflow/index.html">
-<div class="listing-description">
-Do you ever feel like a plain graph is not sufficient to explain some trend in your data or the solution of a mathematical model? For those…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/AnimationWorkflow/index.html">
-<div class="listing-date">
-Sep 6, 2021
-</div>
-<div class="listing-author">
-Pablo Adames
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Visualization,R,Leaflet" data-listing-date-sort="1491112800000" data-listing-file-modified-sort="1736870307859" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./posts/StormData/index.html"> <p class="card-img-top"><img src="posts/StormData/images/pitch0.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/StormData/index.html">
-<h3 class="no-anchor listing-title">
-An User Interface to Analyze Storm Data
-</h3>
-<div class="listing-subtitle">
+</section>
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Visualization'); return false;">
-Visualization
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Leaflet'); return false;">
-Leaflet
-</div>
-</div>
-<a href="./posts/StormData/index.html">
-<div class="listing-description">
-This work was done as the final project for the Coursera course Developing Data Products.
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/StormData/index.html">
-<div class="listing-date">
-Apr 2, 2017
-</div>
-<div class="listing-author">
-Pablo Adames
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
