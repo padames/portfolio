@@ -10,6 +10,8 @@ website:
         href: https://github.com/padames
       - icon: stack-overflow
         href: https://stackoverflow.com/users/1585486/pablo-adames
+      - icon: linkedin
+        href: https://www.linkedin.com/in/pablo-adames-87149711/
 format:
   html:
     theme: cosmo
