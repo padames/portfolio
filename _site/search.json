@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Software Engineering bits",
     "section": "",
-    "text": "This is the home for a few short posts and presentations made throughout the years. Most are related to subjects of personal interest like data modeling and visualization. I am also very fond of Machine Learning, High-Performance computing, and computer languages in general.\n\nEverything here is licensed under Creative Commons Attribution-ShareAlike 4.0 International\n\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nAnimation to explain coupled time-series\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\nggplot2\n\n\n\n\n\n\n\n\n\n\n\nDec 15, 2024\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nHow to create a GIF file from individual images\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nSep 6, 2021\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nAn User Interface to Analyze Storm Data\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\nLeaflet\n\n\n\n\n\n\n\n\n\n\n\nApr 2, 2017\n\n\nPablo Adames\n\n\n\n\n\n\nNo matching items"
+    "text": "This is the home for a few short posts and presentations made throughout the years. Most are related to subjects of personal interest like data modeling and visualization. I am also very fond of Machine Learning, High-Performance computing, and computer languages in general.\n\nEverything here is licensed under Creative Commons Attribution-ShareAlike 4.0 International\n\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nHow to write in any language\n\n\n\n\n\n\n\ntext\n\n\nC++\n\n\nunicode\n\n\nRust\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nJan 21, 2025\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nAnimation to explain coupled time-series\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\nggplot2\n\n\n\n\n\n\n\n\n\n\n\nDec 15, 2024\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nHow to create a GIF file from individual images\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nSep 6, 2021\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nAn User Interface to Analyze Storm Data\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\nLeaflet\n\n\n\n\n\n\n\n\n\n\n\nApr 2, 2017\n\n\nPablo Adames\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -166,5 +166,75 @@
     "title": "An User Interface to Analyze Storm Data",
     "section": "",
     "text": "An User Interface to Analyze Storm Data\nDate: April 2, 2017\nThis work was done as the final project for the Coursera course Developing Data Products.\n\n\nThe App Vs. The Data\nThe app can be seen online at https://padames.shinyapps.io/analysis_of_storm_data_from_naoo_data/\n\n\n\nA view of the App in a browser window.\n\n\nThe data was downloaded from ftp://ftp.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/&gt;. Below a glimpse into the text format used originally.\n       STATE    EVTYPE FATALITIES INJURIES LATITUDE LONGITUDE\n55        AL      HAIL          0        0     3435      8700\n1456      AL HIGH WIND          0        0     3203      8613\n210826    MN LIGHTNING          0        0        0         0\n                                EVT_TYPE                DATE\n55                    Snow/Hail/Rain/Ice 1955-04-03 00:25:00\n1456   Hurricanes/Tornados/Thunderstorms 1975-04-01 00:10:00\n210826                   Fires/Lightning 1994-04-06 00:16:00\n\n\nThe Data\n\n902297 entries in the data set\nSpanning 5 decades\nSame seven categories for the storm events (as in previous work)\n\n\n\nTwo types of effects on population\n\n\n\nInstructions in the App\n\n\n\n\nGeolocating events and documenting the effects\nOne of the barriers to making sense of the data is understanding where and how often it happens.\n\n\n\nThe low zoom levels by default show the events aglomerated by region to avoid overcrowding the view\n\n\nThe effects can be seen in the image above in detail at the higher zoom levels (right pane with the map).\n\n\n\nHigher zoom level displays more granular data to the indivudual event as necessary\n\n\nR plus the Leaflet library and shiny offer a powerful visualization tool for complex data sets. It allows the user to select a subset of the data using three different criteria: type of the event, kind of consequence, and the time interval when any of the events happened.\nDoing the same in code would imply cleaning the raw data, transforming it into a suitable R data structure, subsetting to filter the events of interest and finally make a visualization to inspect the results. Indeed quite bit of wrangling with computer languages and iterative procedures.\n\n\nInsight into the data\nIt is easy to get distracted or fail to identify the trends in complex ata sets.\nThis data set is one such complex set but thanks to this App it can be explored to identify those features of the data that oftentimes remain hidden under the shear volume of the information.\nVisit https://padames.shinyapps.io/analysis_of_storm_data_from_naoo_data/\nTo download orignal data visit: ftp://ftp.ncdc.noaa.gov/pub/data/swdi/stormevents/csvfiles/&gt;.\nThe format changed in 2014 making the data easier to understand and to process. However it’s still quite challenging to explore whitout an app."
+  },
+  {
+    "objectID": "posts/HowToWriteAnyLanguage/index.html#how-do-we-use-text",
+    "href": "posts/HowToWriteAnyLanguage/index.html#how-do-we-use-text",
+    "title": "How to write in any language",
+    "section": "How do we use text?",
+    "text": "How do we use text?\nMost computer languages use written English as the source of their instructions and even for their semantic meaning. The programming languages that claim to be declarative are said to “read like English.”\nEverybody benefits from this convention because it lowers the barrier to entry to computer programming as a discipline. It attempts to insulate the program as an artifact from the culture of the programmer. However, bias will always favour the English-speaking programmer who knows how English reads.\nAccepting the historical facts, let’s dive into the ASCII character set. Its purpose is for programmers to encode rules that control the computer as it consumes input and produces output. We call these rules the program’s logic.\nThe input to and output from the program we will call data. Digital computers natively process only zeros and ones. Any computer data, including text, must be transformed into a sequence of these two values."
+  },
+  {
+    "objectID": "posts/HowToWriteAnyLanguage/index.html#conclusion",
+    "href": "posts/HowToWriteAnyLanguage/index.html#conclusion",
+    "title": "How to write in any language",
+    "section": "Conclusion",
+    "text": "Conclusion\n\nReferences\n\n\n[1] Wikipedia contributors. UTF-8 — Wikipedia, the free encyclopedia 2025.\n\n\n[2] The anonymous engineering team. Unicode converter – encode decode UTF text Base64 2018.\n\n\n[3] Unicode Inc. Unicode 16.0.0 Core Spec, unicode encoding forms 2025.\n\n\n[4] Unicode Inc. Unicode 16.0.0 Core Spec, 1.3 text handling 2025."
+  },
+  {
+    "objectID": "posts/HowToWriteAnyLanguage/index.html",
+    "href": "posts/HowToWriteAnyLanguage/index.html",
+    "title": "How to write in any language",
+    "section": "",
+    "text": "Chatbots, web pages, and screen monitors display information on cell phones, home and office computers, airports, bus and train stations. The text used in these scenarios enables clear communication. Text is not impeded by sound or obstructed by environmental noise and can deliver impactful meaning through semantically dense words reinforced by context and other visual or aural signals.\nText and human language are technologies developed to build and transmit culture. As such, they have a fundamental role in sustaining our civilization.\n\n\n\nImage from https://neuroflash.com/blog/automatic-text-editor-online/"
+  },
+  {
+    "objectID": "posts/HowToWriteAnyLanguage/index.html#text-is-everywhere",
+    "href": "posts/HowToWriteAnyLanguage/index.html#text-is-everywhere",
+    "title": "How to write in any language",
+    "section": "",
+    "text": "Chatbots, web pages, and screen monitors display information on cell phones, home and office computers, airports, bus and train stations. The text used in these scenarios enables clear communication. Text is not impeded by sound or obstructed by environmental noise and can deliver impactful meaning through semantically dense words reinforced by context and other visual or aural signals.\nText and human language are technologies developed to build and transmit culture. As such, they have a fundamental role in sustaining our civilization.\n\n\n\nImage from https://neuroflash.com/blog/automatic-text-editor-online/"
+  },
+  {
+    "objectID": "posts/HowToWriteAnyLanguage/index.html#what-is-text",
+    "href": "posts/HowToWriteAnyLanguage/index.html#what-is-text",
+    "title": "How to write in any language",
+    "section": "What is text?",
+    "text": "What is text?"
+  },
+  {
+    "objectID": "posts/HowToWriteAnyLanguage/index.html#what-is-text-anyway",
+    "href": "posts/HowToWriteAnyLanguage/index.html#what-is-text-anyway",
+    "title": "How to write in any language",
+    "section": "What is text anyway?",
+    "text": "What is text anyway?\nIn the spirit of getting down to the essence of this blog post, let’s constrain the answer to the world of computers and computer languages. Computer languages tell computers what to do when they see data.\nComputer programming starts by writing instructions in a text editor. The characters used to form those instructions are called the ASCII characters. The instructions should be easy to follow by humans, thus the limited number of characters in the ASCII set simplifies the variety of possible keywords of the language. These instructions are transformed into machine-readable code before the computer can execute them."
+  },
+  {
+    "objectID": "posts/HowToWriteAnyLanguage/index.html#entering-text-encoding",
+    "href": "posts/HowToWriteAnyLanguage/index.html#entering-text-encoding",
+    "title": "How to write in any language",
+    "section": "Entering text encoding",
+    "text": "Entering text encoding\nText as data is a complex subject. The complexity comes from text originating in human communication within rich and diverse cultural contexts. Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and ultimately, ideas in human languages that are as diverse as the human groups that produce them.\nThe common text encoding used to write source code in modern computer languages is UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet. UTF stands for the Unicode Transformation Format [1]. This is a superset of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.\n In the above table the code values or code points are defined by the range of values between the values in the first two columns. The corresponding UTF-8 form has a variable number of bytes. How many bytes is enconded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence. This means that there are no need for escape sequences to mark the presence of multiple characters in a long sequence, more on these below.\nUTF offers three forms to encode each of the 1,112,064 valid Unicode scalar values: UTF-8, UTF-16 and UTF-32. These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF. The first 128 correspond to the original ASCII.\nEach encoding form maps the Unicode code points to unique code unit sequences [3]. In particular, the larger UNICODE code points may need multiple single code units if using the code form UTF-8. Conversely they may fit into a single code unit if encoded in the form UTF-32. This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms.\nThe selection of a encoding form to map code points to code units forces a trade off between space and complexity. UTF-8 is very efficient for handling the smaller UNICODE values while it is complex to handle the higher ones, Conversely, UTF-32 is wasteful for storing the smaller values but simple for the higher ones.\nIn general, UTF-8 is the most suitable option for web pages and computer programs. The reason is only pragmatic because it makes the web engines and text editors and parsers work well when consuming most html, Javascript, and general purpose computer languages.\n\nMore definitions\nWe are not done with definitions yet. Some additional considerations are necessary to process text correctly, for this a detailed reading of the Unicode standard is advised [4]. I will focus first on the difference between characters and glyphs.\nA character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph. The character abstraction is expressed as a UNICODE value. How to go from code point to glyph is beyond the scope of the standard."
+  },
+  {
+    "objectID": "posts/HowToWriteAnyLanguage/index.html#character-boundary-examples",
+    "href": "posts/HowToWriteAnyLanguage/index.html#character-boundary-examples",
+    "title": "How to write in any language",
+    "section": "Character boundary examples",
+    "text": "Character boundary examples\n\nC++\n\n\nRust\n\n\nPython\n\n\nR"
+  },
+  {
+    "objectID": "posts/HowToWriteAnyLanguage/index.html#prqctical-character-boundary-examples",
+    "href": "posts/HowToWriteAnyLanguage/index.html#prqctical-character-boundary-examples",
+    "title": "How to write in any language",
+    "section": "Prqctical character boundary examples",
+    "text": "Prqctical character boundary examples\nI will present examples of character boundary identification in different computer languages. We will limit the scope to identifying emoticons mixed in with text for rendering text using UTF-8 encoding as most modern editors and terminals would do.\n\nC++\n\n\nRust\n\n\nPython\n\n\nR"
+  },
+  {
+    "objectID": "posts/HowToWriteAnyLanguage/index.html#practical-character-boundary-examples",
+    "href": "posts/HowToWriteAnyLanguage/index.html#practical-character-boundary-examples",
+    "title": "How to write in any language",
+    "section": "Practical character boundary examples",
+    "text": "Practical character boundary examples\nI will present examples of character boundary identification in different computer languages. We will limit the scope to identifying emoticons mixed in with text for rendering text using UTF-8 encoding as most modern editors and terminals would do.\n\nC++\n\n\nRust\n\n\nPython\n\n\nR"
   }
 ]

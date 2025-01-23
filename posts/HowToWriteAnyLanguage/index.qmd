@@ -1,0 +1,105 @@
+---
+title: "How to write in any language"
+author: "Pablo Adames"
+date: "2025-01-21"
+categories: [text, C++, unicode, Rust, R]
+bibliography: references.bib
+csl: elsevier-vancouver.csl
+format: html
+knitr:
+  opts_chunk: 
+    collapse: true
+    comment: "#>"
+---
+
+## Text is everywhere
+
+Chatbots, web pages, and screen monitors display information on cell phones, home and office computers, airports, bus and train stations. The text used in these scenarios enables clear communication. Text is not impeded by sound or obstructed by environmental noise and can deliver impactful meaning through semantically dense words reinforced by context and other visual or aural signals.
+
+Text and human language are technologies developed to build and transmit culture. As such, they have a fundamental role in sustaining our civilization.
+
+![Image from https://neuroflash.com/blog/automatic-text-editor-online/](https://neuroflash.com/wp-content/uploads/2022/09/feature-image-automatic-text-editor-online.jpg)
+
+
+## What is text anyway? 
+
+In the spirit of getting down to the essence of this blog post, let's constrain the answer to the world of computers and computer languages. Computer languages tell computers what to do when they see data.
+
+Computer programming starts by writing instructions in a text editor. The characters used to form those instructions are called the ASCII characters. The instructions should be easy to follow by humans, thus the limited number of characters in the ASCII set simplifies the variety of possible keywords of the language. These instructions are transformed into machine-readable code before the computer can execute them.
+
+
+## How do we use text?
+
+Most computer languages use written English as the source of their instructions and even for their semantic meaning. The programming languages that claim to be declarative are said to "read like English."
+
+Everybody benefits from this convention because it lowers the barrier to entry to computer programming as a discipline. It attempts to insulate the program as an artifact from the culture of the programmer. However, bias will always favour the English-speaking programmer who knows how English reads.
+
+Accepting the historical facts, let's dive into the ASCII character set. Its purpose is for programmers to encode rules that control the computer as it consumes input and produces output. We call these rules the program's logic.
+
+The input to and output from the program we will call data. Digital computers natively process only zeros and ones. Any computer data, including text, must be transformed into a sequence of these two values.
+
+
+## Entering text encoding
+
+Text as data is a complex subject. The complexity comes from text originating in human communication within rich and diverse cultural contexts.  Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and ultimately, ideas in human languages that are as diverse as the human groups that produce them. 
+
+The common text encoding used to write source code in modern computer languages is UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet.
+UTF stands for the Unicode Transformation Format @enwiki:1268238400_.
+This is a superset of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.
+
+![Figure from @convertcodes:encodeformats showing ranges of code points and how they are encoded in UTF-8 form](codePointToUTF8Conversion.png)
+In the above table the code values or code points are defined by the range of values between the values in the first two columns. 
+The corresponding UTF-8 form has a variable number of bytes.
+How many bytes is enconded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence.
+This means that there are no need for escape sequences to mark the presence of multiple characters in a long sequence, more on these below.
+
+UTF offers three forms to encode each of the 1,112,064 valid Unicode scalar values: UTF-8, UTF-16 and UTF-32.
+These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF.
+The first 128 correspond to the original ASCII.
+
+Each encoding form maps the Unicode code points to unique code unit sequences @uni16:encodingforms.
+In particular, the larger UNICODE code points may need multiple single code units if using the code form UTF-8.
+Conversely they may fit into a single code unit if encoded in the form UTF-32.
+This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms.
+
+The selection of a encoding form to map code points to code units forces a trade off between space and complexity.
+UTF-8 is very efficient for handling the smaller UNICODE values while it is complex to handle the higher ones, 
+Conversely, UTF-32 is wasteful for storing the smaller values but simple for the higher ones.
+
+In general, UTF-8 is the most suitable option for web pages and computer programs.
+The reason is only pragmatic because it makes the web engines and text editors and parsers work well when consuming most html, Javascript, and general purpose computer languages.
+
+### More definitions
+
+We are not done with definitions yet.
+Some additional considerations are necessary to process text correctly, for this a detailed reading of the Unicode standard is advised @uni16:texthandling.
+I will focus first on the difference between characters and glyphs. 
+
+A character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph.
+The character abstraction is expressed as a UNICODE value.
+How to go from code point to glyph is beyond the scope of the standard.
+
+
+## Practical character boundary examples
+
+I will present examples of character boundary identification in different computer languages.
+We will limit the scope to identifying emoticons mixed in with text for rendering text using UTF-8 encoding as most modern editors and terminals would do.
+
+
+### C++
+
+### Rust
+
+### Python
+
+### R
+
+
+## Conclusion
+
+
+
+### References
+
+::: {#refs}
+:::
