@@ -50,8 +50,11 @@ This is a superset of the ASCII character set used in the first computer languag
 ![Figure from @convertcodes:encodeformats showing ranges of code points and how they are encoded in UTF-8 form](codePointToUTF8Conversion.png)
 In the above table the code values or code points are defined by the range of values between the values in the first two columns. 
 The corresponding UTF-8 form has a variable number of bytes.
-How many bytes is enconded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence.
-This means that there are no need for escape sequences to mark the presence of multiple characters in a long sequence, more on these below.
+How many bytes is enconded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the encoded character fits in one byte.
+One means the byte is part of a multi-byte sequence.
+Two means the character is encoded in two bytes.
+Three and four equivalently.
+This means that there is no need for escape sequences to mark the boundary of a single encoded character when there is a sequence of more than one character.
 
 UTF offers three forms to encode each of the 1,112,064 valid Unicode scalar values: UTF-8, UTF-16 and UTF-32.
 These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF.
@@ -94,14 +97,23 @@ We will limit the scope to identifying emoticons mixed in with text for renderin
 
 ### C++
 
+Coming soon...
+
 ### Rust
+
+Coming soon...
 
 ### Python
 
+Coming soon...
+
 ### R
 
+Coming soon...
 
 ## Conclusion
+
+Coming soon...
 
 
 
