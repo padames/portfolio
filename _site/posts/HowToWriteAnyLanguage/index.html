@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 /* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
@@ -222,7 +256,38 @@ div.csl-indent {
 </section>
 <section id="rust" class="level3">
 <h3 class="anchored" data-anchor-id="rust">Rust</h3>
-<p>Coming soon…</p>
+<p>In Rust I can use the crate <code>emojis</code> from the public registry. A <code>crate</code> is a module in Rust. For more details read the free <a href="https://doc.rust-lang.org/cargo/index.html">cargo online book</a>.</p>
+<p>The code creates a Rust String by concatenating String slices. Then it uses the magic of the String function <code>chars</code> to find the character boundaries and to print them one by one. The ‘magic’ comes from the fact that some of these characters have multi-unit representations in UTF-8, the default UNICODE form used by the Rust String data type.</p>
+<p>In other words the function has to parse the byte sequence and using the UTF-8 deconding rules find whole characters, using the rules explained below Figure 1. Once the base 16 UNICODE code points are found a rendering function has to find them in a table and create the matching glyph on the terminal.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="kw">crate</span> emojis<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> fruit<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;</span> <span class="op">=</span> <span class="pp">emojis::Group::</span>FoodAndDrink<span class="op">.</span>emojis()<span class="op">.</span>map(<span class="op">|</span>e<span class="op">|</span> e<span class="op">.</span>as_str())<span class="op">.</span>take(<span class="dv">5</span>)<span class="op">.</span>collect()<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">assert_eq!</span>(fruit<span class="op">,</span> [<span class="st">"🍇"</span><span class="op">,</span> <span class="st">"🍈"</span><span class="op">,</span> <span class="st">"🍉"</span><span class="op">,</span> <span class="st">"🍊"</span><span class="op">,</span> <span class="st">"🍋"</span>])<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> test_string <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(fruit[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> long_fruity_string <span class="op">=</span> <span class="st">"Hello"</span><span class="op">.</span>to_owned() <span class="op">+</span> <span class="op">&amp;</span>test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit[<span class="dv">1</span>]<span class="op">;</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// println!("Hello, {}!", long_fruity_string);</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letter <span class="kw">in</span> long_fruity_string<span class="op">.</span>chars() <span class="op">{</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{letter}"</span>)<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The output:</p>
+<pre><code>$ cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+     Running `target/debug/word_boundary`
+H
+e
+l
+l
+o
+🍇
+,
+ 
+🍈</code></pre>
 </section>
 <section id="python" class="level3">
 <h3 class="anchored" data-anchor-id="python">Python</h3>
