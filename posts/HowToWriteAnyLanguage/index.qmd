@@ -1,5 +1,5 @@
 ---
-title: "How to write in any language"
+title: "How to process any text with Unicode"
 author: "Pablo Adames"
 date: "2025-01-21"
 categories: [text, C++, unicode, Rust, R]
@@ -77,7 +77,13 @@ I will focus first on the difference between characters and glyphs.
 
 A character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph.
 The character abstraction is expressed as a UNICODE value.
-How to go from code point to glyph is beyond the scope of the standard.
+
+
+The standard defines how to represent and how to identify a text character as a code point, however it does not provide rules for determining what a valid text element is because that depends on what the context is.
+Examples of context are capitalization for a title in English text, or the brake down of long sequences of characters at the end of text lines.
+
+A text unit, thus is a valid sequence of one or more encoded text chraracters @uni16:texthandling.
+
 
 
 ## Practical character boundary examples

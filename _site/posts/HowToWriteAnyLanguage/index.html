@@ -9,7 +9,7 @@
 <meta name="author" content="Pablo Adames">
 <meta name="dcterms.date" content="2025-01-21">
 
-<title>pablo adames - How to write in any language</title>
+<title>pablo adames - How to process any text with Unicode</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -131,7 +131,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">How to write in any language</h1>
+      <h1 class="title">How to process any text with Unicode</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">text</div>
                 <div class="quarto-category">C++</div>
@@ -208,7 +208,9 @@ div.csl-indent {
 <section id="more-definitions" class="level3">
 <h3 class="anchored" data-anchor-id="more-definitions">More definitions</h3>
 <p>We are not done with definitions yet. Some additional considerations are necessary to process text correctly, for this a detailed reading of the Unicode standard is advised <span class="citation" data-cites="uni16:texthandling">[<a href="#ref-uni16:texthandling" role="doc-biblioref">4</a>]</span>. I will focus first on the difference between characters and glyphs.</p>
-<p>A character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph. The character abstraction is expressed as a UNICODE value. How to go from code point to glyph is beyond the scope of the standard.</p>
+<p>A character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph. The character abstraction is expressed as a UNICODE value.</p>
+<p>The standard defines how to represent and how to identify a text character as a code point, however it does not provide rules for determining what a valid text element is because that depends on what the context is. Examples of context are capitalization for a title in English text, or the brake down of long sequences of characters at the end of text lines.</p>
+<p>A text unit, thus is a valid sequence of one or more encoded text chraracters <span class="citation" data-cites="uni16:texthandling">[<a href="#ref-uni16:texthandling" role="doc-biblioref">4</a>]</span>.</p>
 </section>
 </section>
 <section id="practical-character-boundary-examples" class="level2">
