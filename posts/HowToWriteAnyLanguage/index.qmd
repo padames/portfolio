@@ -166,7 +166,7 @@ Coming soon...
 
 ### R
 
-R has the `emoji` package. After a short exploration of its [manual](https://emilhvitfeldt.r-universe.dev/emoji/doc/manual.html) it is possible to print the character boundaries of a sentence using the fruot emojis by theur chanracter boundaries.
+R has the `emoji` package. After a short exploration of its manual @r-package:emoji it is possible to print the characters of a sentence using the fruit emojis by identifying their  boundaries boundaries seamlessly.
 
 ```r
 install.packages("emoji")

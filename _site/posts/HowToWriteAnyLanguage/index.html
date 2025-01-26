@@ -307,7 +307,7 @@ o
 </section>
 <section id="r" class="level3">
 <h3 class="anchored" data-anchor-id="r">R</h3>
-<p>R has the <code>emoji</code> package. After a short exploration of its <a href="https://emilhvitfeldt.r-universe.dev/emoji/doc/manual.html">manual</a> it is possible to print the character boundaries of a sentence using the fruot emojis by theur chanracter boundaries.</p>
+<p>R has the <code>emoji</code> package. After a short exploration of its manual <span class="citation" data-cites="r-package:emoji">[<a href="#ref-r-package:emoji" role="doc-biblioref">6</a>]</span> it is possible to print the characters of a sentence using the fruit emojis by identifying their boundaries boundaries seamlessly.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"emoji"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"emoji"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fruit <span class="ot">&lt;-</span> emojis[ emojis<span class="sc">$</span>name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"grapes"</span>, <span class="st">"watermelon"</span>, <span class="st">"melon"</span>, <span class="st">"lemon"</span>, <span class="st">"tangerine"</span>),]<span class="sc">$</span>emoji</span>
@@ -339,6 +339,9 @@ o
 </div>
 <div id="ref-uni16:texthandling" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[5] </div><div class="csl-right-inline">Unicode Inc. <a href="https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-1/#G9708">Unicode 16<span>.</span>0<span>.</span>0 <span>Core Spec</span><span>,</span> <span>1.3</span> text handling</a> 2025.</div>
+</div>
+<div id="ref-r-package:emoji" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">Emil Hvitfeldt, Hadley Wickham. <a href="https://emilhvitfeldt.r-universe.dev/emoji/doc/manual.html">Package emoji, v<span>16.0.0.9000</span></a> 2025.</div>
 </div>
 </div>
 
