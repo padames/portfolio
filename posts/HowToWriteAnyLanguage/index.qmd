@@ -43,11 +43,16 @@ The input to and output from the program we will call data. Digital computers na
 
 Text as data is a complex subject. The complexity comes from text originating in human communication within rich and diverse cultural contexts.  Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and ultimately, ideas in human languages that are as diverse as the human groups that produce them. 
 
-The common text encoding used to write source code in modern computer languages is UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet.
+I will quote directly from the Unicode standard definition \#51 @uni16:emoji.
+  
+>Unicode is the foundation for text in all modern software: it’s how all mobile phones, desktops, and other computers represent the text of every language.
+
+The common UNICODE text encoding used to write source code in modern computer languages is UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet.
 UTF stands for the Unicode Transformation Format @enwiki:1268238400_.
-This is a superset of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.
+This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.
 
 ![Figure from @convertcodes:encodeformats showing ranges of code points and how they are encoded in UTF-8 form](codePointToUTF8Conversion.png)
+
 In the above table the code values or code points are defined by the range of values between the values in the first two columns. 
 The corresponding UTF-8 form has a variable number of bytes.
 How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the encoded character fits in one byte.
