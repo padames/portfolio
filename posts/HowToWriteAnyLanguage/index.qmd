@@ -50,7 +50,7 @@ This is a superset of the ASCII character set used in the first computer languag
 ![Figure from @convertcodes:encodeformats showing ranges of code points and how they are encoded in UTF-8 form](codePointToUTF8Conversion.png)
 In the above table the code values or code points are defined by the range of values between the values in the first two columns. 
 The corresponding UTF-8 form has a variable number of bytes.
-How many bytes is enconded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the encoded character fits in one byte.
+How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the encoded character fits in one byte.
 One means the byte is part of a multi-byte sequence.
 Two means the character is encoded in two bytes.
 Three and four equivalently.
@@ -101,7 +101,7 @@ Coming soon...
 
 ### Rust
 
-In Rust I can use the crate `emojis` from the public registry. 
+In Rust I used the crate `emojis` from the public registry. 
 A `crate` is a module in Rust. 
 For more details read the free [cargo online book](https://doc.rust-lang.org/cargo/index.html).
 
@@ -145,6 +145,13 @@ o
 ,
  
 🍈
+```
+
+I can show the byte sequence in hexadecimal by adding the following lines of code:
+
+```rust
+
+
 ```
 
 
