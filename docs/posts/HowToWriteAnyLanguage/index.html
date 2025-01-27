@@ -279,7 +279,7 @@ div.csl-indent {
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> test_string <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(fruit[<span class="dv">0</span>])<span class="op">;</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> long_fruity_string <span class="op">=</span> <span class="st">"Hello"</span><span class="op">.</span>to_owned() <span class="op">+</span> <span class="op">&amp;</span>test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit[<span class="dv">1</span>]<span class="op">;</span> </span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// println!("Hello, {}!", long_fruity_string);</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, {}!"</span><span class="op">,</span> long_fruity_string)<span class="op">;</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letter <span class="kw">in</span> long_fruity_string<span class="op">.</span>chars() <span class="op">{</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{letter}"</span>)<span class="op">;</span></span>
@@ -287,8 +287,10 @@ div.csl-indent {
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The output:</p>
 <pre><code>$ cargo run
-    Finished dev [unoptimized + debuginfo] target(s) in 0.01s
+   Compiling word_boundary v0.1.0 (/home/pablo/git/Rust/rust-practice/word_boundary)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.27s
      Running `target/debug/word_boundary`
+Hello, Hello🍇, 🍈!
 H
 e
 l
@@ -313,12 +315,13 @@ o
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fruit <span class="ot">&lt;-</span> emojis[ emojis<span class="sc">$</span>name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"grapes"</span>, <span class="st">"watermelon"</span>, <span class="st">"melon"</span>, <span class="st">"lemon"</span>, <span class="st">"tangerine"</span>),]<span class="sc">$</span>emoji</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>test_string <span class="ot">&lt;-</span> fruit[<span class="dv">1</span>]</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>long_fruity_string <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Hello"</span>, test_string,<span class="st">", "</span>,fruit[<span class="dv">2</span>] )</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#cat(long_fruity_string) # uncomment to print to screen</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(long_fruity_string)</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="at">x =</span> long_fruity_string, <span class="at">split =</span> <span class="st">""</span>)</span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'strsplit' returns a list in case x has multiple strings to be processed, we grab only the first one</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>results[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Produces the following output, a vector of characters, due to R’s native focus on vectorized operations:</p>
-<pre><code> [1] "H"  "e"  "l"  "l"  "o"  " "  "🍇" " "  ","  " "  " "  "🍈"</code></pre>
+<pre><code> [1] "Hello 🍇 ,  🍈"
+ [1] "H"  "e"  "l"  "l"  "o"  " "  "🍇" " "  ","  " "  " "  "🍈"</code></pre>
 </section>
 </section>
 <section id="conclusion" class="level2">
