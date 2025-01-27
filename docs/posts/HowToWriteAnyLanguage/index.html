@@ -312,10 +312,12 @@ o
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"emoji"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fruit <span class="ot">&lt;-</span> emojis[ emojis<span class="sc">$</span>name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"grapes"</span>, <span class="st">"watermelon"</span>, <span class="st">"melon"</span>, <span class="st">"lemon"</span>, <span class="st">"tangerine"</span>),]<span class="sc">$</span>emoji</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>test_string <span class="ot">&lt;-</span> fruit[<span class="dv">1</span>]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>long_fruity_string <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Hello"</span>, test_string, <span class="st">", "</span>, fruit[<span class="dv">2</span>] )</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>long_fruity_string <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Hello"</span>, test_string,<span class="st">", "</span>,fruit[<span class="dv">2</span>] )</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#cat(long_fruity_string) # uncomment to print to screen</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(<span class="at">x =</span> long_fruity_string, <span class="at">split =</span> <span class="st">""</span>)[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Produces the output</p>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="at">x =</span> long_fruity_string, <span class="at">split =</span> <span class="st">""</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'strsplit' returns a list in case x has multiple strings to be processed, we grab only the first one</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>results[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Produces the following output, a vector of characters, due to R’s native focus on vectorized operations:</p>
 <pre><code> [1] "H"  "e"  "l"  "l"  "o"  " "  "🍇" " "  ","  " "  " "  "🍈"</code></pre>
 </section>
 </section>

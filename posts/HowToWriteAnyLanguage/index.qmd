@@ -173,12 +173,14 @@ install.packages("emoji")
 library("emoji")
 fruit <- emojis[ emojis$name %in% c("grapes", "watermelon", "melon", "lemon", "tangerine"),]$emoji
 test_string <- fruit[1]
-long_fruity_string <- paste("Hello", test_string, ", ", fruit[2] )
+long_fruity_string <- paste("Hello", test_string,", ",fruit[2] )
 #cat(long_fruity_string) # uncomment to print to screen
-strsplit(x = long_fruity_string, split = "")[[1]]
+results <- strsplit(x = long_fruity_string, split = "")
+#'strsplit' returns a list in case x has multiple strings to be processed, we grab only the first one
+results[[1]]
 ```
 
-Produces the output
+Produces the following output, a vector of characters, due to R's native focus on vectorized operations: 
 ```
  [1] "H"  "e"  "l"  "l"  "o"  " "  "🍇" " "  ","  " "  " "  "🍈"
  ```
