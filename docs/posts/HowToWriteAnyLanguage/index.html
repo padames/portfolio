@@ -209,7 +209,7 @@ div.csl-indent {
 
 <section id="text-is-everywhere" class="level2">
 <h2 class="anchored" data-anchor-id="text-is-everywhere">Text is everywhere</h2>
-<p>Chatbots, web pages, and screen monitors display information on cell phones, home and office computers, airports, bus and train stations. The text used in these scenarios enables clear communication. Text is not impeded by sound or obstructed by environmental noise and can deliver impactful meaning through semantically dense words reinforced by context and other visual or aural signals.</p>
+<p>Chat bots, web pages, and screen monitors display information on cell phones, home and office computers, airports, bus and train stations. The text used in these scenarios enables clear communication. Text is not impeded by sound or obstructed by environmental noise and can deliver impact and meaning through semantically dense words reinforced by visual or aural context.</p>
 <p>Text and human language are technologies developed to build and transmit culture. As such, they have a fundamental role in sustaining our civilization.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -220,31 +220,34 @@ div.csl-indent {
 </section>
 <section id="what-is-text-anyway" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-text-anyway">What is text anyway?</h2>
-<p>In the spirit of getting down to the essence of this blog post, let’s constrain the answer to the world of computers and computer languages. Computer languages tell computers what to do when they see data.</p>
-<p>Computer programming starts by writing instructions in a text editor. The characters used to form those instructions are called the ASCII characters. The instructions should be easy to follow by humans, thus the limited number of characters in the ASCII set simplifies the variety of possible keywords of the language. These instructions are transformed into machine-readable code before the computer can execute them.</p>
+<p>To narrow the scope of this post to a manageable size, let’s constrain the answer to the world of computer languages. These are used to tell computers what to do when they receive data.</p>
+<p>Computer programming starts by writing instructions in a text editor. The characters used to form those instructions were initially called the ASCII characters. The characters in ASCII conveniently reflected the characters of the English alphabet plus the Arabic numerals and exclamation and punctuation marks. Thus knowing the English alphabet plus some additional computer language syntax can lower the barrier of entrance to programming a computer.</p>
 </section>
-<section id="how-do-we-use-text" class="level2">
-<h2 class="anchored" data-anchor-id="how-do-we-use-text">How do we use text?</h2>
-<p>Most computer languages use written English as the source of their instructions and even for their semantic meaning. The programming languages that claim to be declarative are said to “read like English.”</p>
-<p>Everybody benefits from this convention because it lowers the barrier to entry to computer programming as a discipline. It attempts to insulate the program as an artifact from the culture of the programmer. However, bias will always favour the English-speaking programmer who knows how English reads.</p>
+<section id="how-do-we-use-text-as-code" class="level2">
+<h2 class="anchored" data-anchor-id="how-do-we-use-text-as-code">How do we use text as code?</h2>
+<p>The human-readable text instructions of a computer program have to be interpreted and then transformed into machine-readable code before the computer can execute them. The first step implies parsing the text into functional parts: line breaks, plain data, commands, operators and variable and function names.</p>
+<p>The next step is to put those components into and abstract syntax tree (AST) that represents the program. The AST is then further converted into bite code instructions for a run time or into machine instructions to be executed in a process under the supervision of the operating system scheduler, or even directly in the microchip of a single board computer in the case of embedded systems.</p>
+<p>Everybody benefits from using text instead of programming directly using the instructions of the operating system or the bite code commands. Somehow using ASCII makes programming a computer a skill similar to learning one of the human languages. However, bias always favours the English-speaking programmer who knows how English reads.</p>
 <p>Accepting the historical facts, let’s dive into the ASCII character set. Its purpose is for programmers to encode rules that control the computer as it consumes input and produces output. We call these rules the program’s logic.</p>
 <p>The input to and output from the program we will call data. Digital computers natively process only zeros and ones. Any computer data, including text, must be transformed into a sequence of these two values.</p>
 </section>
 <section id="entering-text-encoding" class="level2">
 <h2 class="anchored" data-anchor-id="entering-text-encoding">Entering text encoding</h2>
-<p>Text as data is a complex subject. The complexity comes from text originating in human communication within rich and diverse cultural contexts. Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and ultimately, ideas in human languages that are as diverse as the human groups that produce them.</p>
-<p>I will quote directly from the Unicode standard definition #51 <span class="citation" data-cites="uni16:emoji">[<a href="#ref-uni16:emoji" role="doc-biblioref">1</a>]</span>.</p>
+<p>Text as code is handled relatively well with a small character set. How about text as data?</p>
+<p>This is a complex subject. The complexity comes from human communication happening in rich, dynamic, and diverse cultural contexts.<br>
+Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and ultimately, ideas in human languages. These representations can be as diverse as the human groups that produce them.</p>
+<p>How do we address this complexity? We use text encoding that machines can understand automatically and unequivocally. The accepted encoding standard is called Unicode. I will quote directly from the Unicode standard definition #51 <span class="citation" data-cites="uni16:emoji">[<a href="#ref-uni16:emoji" role="doc-biblioref">1</a>]</span>.</p>
 <blockquote class="blockquote">
 <p>Unicode is the foundation for text in all modern software: it’s how all mobile phones, desktops, and other computers represent the text of every language.</p>
 </blockquote>
-<p>The common UNICODE text encoding used to write source code in modern computer languages is UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet. UTF stands for the Unicode Transformation Format <span class="citation" data-cites="enwiki:1268238400_">[<a href="#ref-enwiki:1268238400_" role="doc-biblioref">2</a>]</span>. This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.</p>
+<p>The common Unicode text encoding to write source code in modern computer languages is called UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet. UTF stands for the Unicode Transformation Format <span class="citation" data-cites="enwiki:1268238400_">[<a href="#ref-enwiki:1268238400_" role="doc-biblioref">2</a>]</span>. This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="codePointToUTF8Conversion.png" class="img-fluid figure-img"></p>
 <figcaption class="figure-caption">Figure from <span class="citation" data-cites="convertcodes:encodeformats">[<a href="#ref-convertcodes:encodeformats" role="doc-biblioref">3</a>]</span> showing ranges of code points and how they are encoded in UTF-8 form</figcaption>
 </figure>
 </div>
-<p>In the above table the code values or code points are defined by the range of values between the values in the first two columns. The corresponding UTF-8 form has a variable number of bytes. How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the encoded character fits in one byte. One means the byte is part of a multi-byte sequence. Two means the character is encoded in two bytes. Three and four equivalently. This means that there is no need for escape sequences to mark the boundary of a single encoded character when there is a sequence of more than one character.</p>
+<p>In the above table the code values or code points are defined by the range of values between the values in the first two columns. The corresponding UTF-8 form has a variable number of bytes. How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the encoded character fits in one byte. One means the byte is part of a multibyte sequence. Two means the character is encoded in two bytes. Three and four equivalently. This means that there is no need for escape sequences to mark the boundary of a single encoded character when there is a sequence of more than one character.</p>
 <p>UTF offers three forms to encode each of the 1,112,064 valid Unicode scalar values: UTF-8, UTF-16 and UTF-32. These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF. The first 128 correspond to the original ASCII.</p>
 <p>Each encoding form maps the Unicode code points to unique code unit sequences <span class="citation" data-cites="uni16:encodingforms">[<a href="#ref-uni16:encodingforms" role="doc-biblioref">4</a>]</span>. In particular, the larger UNICODE code points may need multiple single code units if using the code form UTF-8. Conversely they may fit into a single code unit if encoded in the form UTF-32. This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms.</p>
 <p>The selection of a encoding form to map code points to code units forces a trade off between space and complexity. UTF-8 is very efficient for handling the smaller UNICODE values while it is complex to handle the higher ones, Conversely, UTF-32 is wasteful for storing the smaller values but simple for the higher ones.</p>
