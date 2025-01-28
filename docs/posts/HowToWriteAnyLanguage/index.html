@@ -241,13 +241,96 @@ Tradition, convention, identity, and art influence the glyphs and alphabets used
 <p>Unicode is the foundation for text in all modern software: it’s how all mobile phones, desktops, and other computers represent the text of every language.</p>
 </blockquote>
 <p>The common Unicode text encoding to write source code in modern computer languages is called UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet. UTF stands for the Unicode Transformation Format <span class="citation" data-cites="enwiki:1268238400_">[<a href="#ref-enwiki:1268238400_" role="doc-biblioref">2</a>]</span>. This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="codePointToUTF8Conversion.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure from <span class="citation" data-cites="convertcodes:encodeformats">[<a href="#ref-convertcodes:encodeformats" role="doc-biblioref">3</a>]</span> showing ranges of code points and how they are encoded in UTF-8 form</figcaption>
-</figure>
-</div>
-<p>In the above table the code values or code points are defined by the range of values between the values in the first two columns. The corresponding UTF-8 form has a variable number of bytes. How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the current byte encodes all of the character, it fits in one byte, e.g.&nbsp;an ASCII character. One means the byte is part of a multi-byte sequence. Two means this byte marks the start of a character encoded in two bytes in total. Three and four ones mean the equivalent, bytes mark the beginning of characters represented by three and four bytes, including the leading one.</p>
+<table class="table-striped table-hover table">
+<caption>Table 1. Code point to UTF-8 encoding, from <span class="citation" data-cites="convertcodes:encodeformats">[<a href="#ref-convertcodes:encodeformats" role="doc-biblioref">3</a>]</span></caption>
+<thead>
+<tr class="header">
+<th>Range of Code Points</th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+<th>Byte 3</th>
+<th>Byte 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>From U+0000 to U007F</td>
+<td>0yyyzzzz</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>From U+0080 to U+07FF</td>
+<td>110xxxyy</td>
+<td>10yyzzzz</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>From U+0800 to U+FFFF</td>
+<td>1110wwww</td>
+<td>10xxxxyy</td>
+<td>10yyzzzz</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>From U+010000 to U+10FFFF</td>
+<td>11110uvv</td>
+<td>10vvwwww</td>
+<td>10xxxxyy</td>
+<td>10yyzzzz</td>
+</tr>
+</tbody>
+</table>
+<p>The code values or code points in Table 1 have a corresponding multi-byte representation in UTF-8 form, the encoding has a variable number of bytes. How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the current byte is sufficient to encode the character fully, that is, it fits in one byte, e.g.&nbsp;an ASCII character. One means the byte is part of a multi-byte sequence. Two means the byte marks the start of a character encoded in two bytes in total. Three and four ones mean the equivalent, the byte marks the beginning of characters represented by three and four bytes respectively, including the leading one. Table 2 shows examples of each one of these cases.</p>
+<table class="table-striped table-hover table">
+<caption>Table 2. Examples of characters in each of the ranges of Unicode points presented in Table 1.</caption>
+<thead>
+<tr class="header">
+<th>Character</th>
+<th>Code point</th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+<th>Byte 3</th>
+<th>Byte 4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>H</td>
+<td>U+0048</td>
+<td>01001000</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>á</td>
+<td>U+00E1</td>
+<td>11000011</td>
+<td>10100001</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>ᜋ</td>
+<td>U+170B</td>
+<td>11100001</td>
+<td>10011100</td>
+<td>10001011</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>🍇</td>
+<td>U+01F347</td>
+<td>11110000</td>
+<td>10011111</td>
+<td>10001101</td>
+<td>10000111</td>
+</tr>
+</tbody>
+</table>
 <p>This means that there is no need for escape sequences to mark the boundary of a single encoded multi-byte character. It also mean there is no need of a special marker for characters boundaries in a sequence of many characters. In addition to that it isolates semantic representation from character identification. Unicode encoding takes care of character boundaries but semantic parsing takes care of instruction or operator boundary.</p>
 </section>
 <section id="trade-offs-of-choosing-a-unicode-encoding" class="level2">
@@ -255,6 +338,46 @@ Tradition, convention, identity, and art influence the glyphs and alphabets used
 <p>UTF offers three forms to encode each of the 1,112,064 valid Unicode scalar values: UTF-8, UTF-16 and UTF-32. These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF. The first 128 correspond to the original ASCII.</p>
 <p>Each encoding form maps the Unicode code points to unique code unit sequences <span class="citation" data-cites="uni16:encodingforms">[<a href="#ref-uni16:encodingforms" role="doc-biblioref">4</a>]</span>. In particular, the larger UNICODE code points may need multiple single code units if using the code form UTF-8. Conversely they may fit into a single code unit if encoded in the form UTF-32. This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms.</p>
 <p>The selection of a encoding form to map code points to code units forces a trade off between space and complexity. UTF-8 is very efficient for handling the smaller UNICODE values while it is complex to handle the higher ones, Conversely, UTF-32 is wasteful for storing the smaller values but simple for the higher ones.</p>
+<p>Consider the following emojis, their Unicode values and their multi-byte representation in three different encodings:</p>
+<table class="table-striped table-hover table">
+<caption>Table 3. Food-fruit emoji codes and encoded representations</caption>
+<thead>
+<tr class="header">
+<th>fruit emoji</th>
+<th>name</th>
+<th>Unicode point</th>
+<th>UTF-8</th>
+<th>UTF-16</th>
+<th>UTF-32</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>🍇</td>
+<td>grapes</td>
+<td>U+1F347</td>
+<td>f0 9f 8d 87</td>
+<td>d83c udf47</td>
+<td>0001f347</td>
+</tr>
+<tr class="even">
+<td>🍈</td>
+<td>melon</td>
+<td>U+1F348</td>
+<td>f0 9f 8d 88</td>
+<td>d83c df48</td>
+<td>0001f348</td>
+</tr>
+<tr class="odd">
+<td>🍉</td>
+<td>watermelon</td>
+<td>U+1F349</td>
+<td>f0 9f 8d 89</td>
+<td>d83c df49</td>
+<td>0001f349</td>
+</tr>
+</tbody>
+</table>
 <p>In general, UTF-8 is the most suitable option for web pages and computer programs. The reason is only pragmatic because it makes the web engines and text editors and parsers work well when consuming most html, Javascript, and general purpose computer languages.</p>
 <p>The Windows operating system uses UTF-16 for its internal encoding. As such Windows APIs must handle the UTF-8 to UTF-16 conversion internally.</p>
 <section id="more-definitions" class="level3">
@@ -272,7 +395,7 @@ Tradition, convention, identity, and art influence the glyphs and alphabets used
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Food-fruit-unicode-emoji-chart.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure 2. The table for the food-fruit emoji category taken from the Unicode standard chart <span class="citation" data-cites="uni16:emojicharts">[<a href="#ref-uni16:emojicharts" role="doc-biblioref">6</a>]</span></figcaption>
+<figcaption class="figure-caption">Figure 1. The table for the food-fruit emoji category taken from the Unicode standard chart <span class="citation" data-cites="uni16:emojicharts">[<a href="#ref-uni16:emojicharts" role="doc-biblioref">6</a>]</span></figcaption>
 </figure>
 </div>
 <section id="c" class="level3">
