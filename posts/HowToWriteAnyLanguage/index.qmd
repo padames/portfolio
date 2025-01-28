@@ -18,7 +18,7 @@ Chat bots, web pages, and screen monitors display information on cell phones, ho
 
 Text and human language are technologies developed to build and transmit culture. As such, they have a fundamental role in sustaining our civilization.
 
-![Image from https://neuroflash.com/blog/automatic-text-editor-online/](https://neuroflash.com/wp-content/uploads/2022/09/feature-image-automatic-text-editor-online.jpg)
+![Image credit: https://neuroflash.com/blog/automatic-text-editor-online/](https://neuroflash.com/wp-content/uploads/2022/09/feature-image-automatic-text-editor-online.jpg)
 
 ## What is text anyway?
 
@@ -42,52 +42,66 @@ The input to and output from the program we will call data. Digital computers na
 
 Text as code is handled relatively well with a small character set. How about text as data?
 
-This is a complex subject. The complexity comes from human communication happening in rich, dynamic, and diverse cultural contexts.\
-Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and ultimately, ideas in human languages. These representations can be as diverse as the human groups that produce them.
+This is a complex subject. The complexity comes from human communication happening in rich, dynamic, and diverse cultural contexts. Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and ultimately, ideas in human languages. These representations can be as diverse as the human groups that produce them.
 
 How do we address this complexity? We use text encoding that machines can understand automatically and unequivocally. The accepted encoding standard is called Unicode. I will quote directly from the Unicode standard definition #51 @uni16:emoji.
 
 > Unicode is the foundation for text in all modern software: it's how all mobile phones, desktops, and other computers represent the text of every language.
 
+There are currently a total of 1,112,064 valid Unicode values or code points. There are scalar values represented in base-16, they range of values can be seen in Table 1 below. The first 128 code points correspond to the original ASCII.
+
+These values appear in Unicode tables associated with the typographical or artistic rendition of the glyph they represent. However, they are not used directly in the underlying machine code for each character. The main challenge is how to write text effectively in binary. Text consists of a sequence of characters, usually stored in contiguous memory.
+
+Text encoding is a mapping from the code points to some efficient way to write text in binary. A fixed bit width for each character would simplify parsing characters within some text sequence and it would make character boundaries trivial to infer, however, it would waste much space when representing the small ASCII characters. On the other side if we choose a variable bit width then space would be saved with the small values but an end-of-character marker would be required, also adding extra space and complexity.
+
 The common Unicode text encoding to write source code in modern computer languages is called UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet. UTF stands for the Unicode Transformation Format @enwiki:1268238400_. This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.
 
 
-| Range of Code Points | Byte 1 | Byte 2 | Byte 3 | Byte 4|
-|----------------------|--------|--------|--------|-------|
-| From U+0000 to U007F      | 0yyyzzzz|       |        |       |
-| From U+0080 to U+07FF | 110xxxyy | 10yyzzzz | | |
-| From U+0800 to U+FFFF| 1110wwww | 10xxxxyy | 10yyzzzz| |
-| From U+010000 to U+10FFFF | 11110uvv | 10vvwwww | 10xxxxyy | 10yyzzzz|
+| Range of Code Points      | Byte 1   | Byte 2   | Byte 3  | Byte 4  |
+|---------------------------|----------|----------|---------|---------|
+| From U+0000 to U007F      | 0yyyzzzz |          |         |         |
+| From U+0080 to U+07FF     | 110xxxyy | 10yyzzzz |         |         |
+| From U+0800 to U+FFFF     | 1110wwww | 10xxxxyy | 10yyzzzz|         |
+| From U+010000 to U+10FFFF | 11110uvv | 10vvwwww | 10xxxxyy| 10yyzzzz|
 
 : Table 1. Code point to UTF-8 encoding, from @convertcodes:encodeformats {.striped .hover}
 
 The code values or code points in Table 1 have a corresponding multi-byte representation in UTF-8 form, the encoding has a variable number of bytes. How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the current byte is sufficient to encode the character fully, that is, it fits in one byte, e.g. an ASCII character. One means the byte is part of a multi-byte sequence. Two means the byte marks the start of a character encoded in two bytes in total. Three and four ones mean the equivalent, the byte marks the beginning of characters represented by three and four bytes respectively, including the leading one. Table 2 shows examples of each one of these cases.
 
 
-| Character | Code point | Byte 1 | Byte 2 | Byte 3 | Byte 4|
-|-------|------------|--------|--------|--------|-------|
-|H      |  U+0048    | 01001000 | | | |
-|á      |  U+00E1    | 11000011 |10100001 | | |
-|ᜋ  |      U+170B | 11100001    |  10011100  | 10001011 |  |
-|🍇     | U+01F347   | 11110000 | 10011111 | 10001101 | 10000111|
+| Character | Code point | Byte 1   | Byte 2   | Byte 3   | Byte 4   |
+|-----------|------------|----------|----------|----------|----------|
+|H          |  U+0048    | 01001000 |          |          |          |
+|á          |  U+00E1    | 11000011 | 10100001 |          |          |
+|ᜋ  |      U+170B | 11100001    |    10011100 | 10001011 |          | 
+|🍇         | U+01F347   | 11110000 | 10011111 | 10001101 | 10000111 |
 
-: Table 2. Examples of characters in each of the ranges of Unicode points presented in Table 1. {.striped .hover}
+: Table 2. Examples of UTF-8 bytes for characters in each of the ranges of Unicode points presented in Table 1. {.striped .hover}
 
 
 This means that there is no need for escape sequences to mark the boundary of a single encoded multi-byte character. It also mean there is no need of a special marker for characters boundaries in a sequence of many characters. In addition to that it isolates semantic representation from character identification. Unicode encoding takes care of character boundaries but semantic parsing takes care of instruction or operator boundary.
 
 ## Trade-offs of choosing a Unicode encoding
 
-There are currently a total of 1,112,064 valid Unicode values. These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF. The first 128 correspond to the original ASCII.
-
-The code points as hexadecimal numbers can be encoded in three forms: UTF-8, UTF-16 and UTF-32. 
-Each encoding maps the Unicode code points to unique code unit sequences of variable length @uni16:encodingforms. 
-In particular, the larger code points need multiple single code units if using the code form UTF-8. 
+The code points can be encoded in three forms: UTF-8, UTF-16 and UTF-32. Each encoding maps the code points to unique code unit sequences of variable length @uni16:encodingforms. In particular, the larger code points need multiple single code units if using the code form UTF-8. 
 Conversely they may fit into a single code unit if encoded in UTF-32. 
 This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms.
-See Table 3 below for a comparison of three different encodings for large code point characters. 
+See Table 3 below for a comparison of three different encodings for a text sentence using short and long code points. 
+
+
+| Encoding| Hexadecimal |
+|--------|----------------------------------------------------------|
+| UTF-8  | 48 65 6c 6c 6f f0 9f 8d 87 2c 20 f0 9f 8d 88 21                         |
+| UTF-16 | 0048 0065 006c 006c 006f d83c df47 002c 0020 d83c df48 0021   |
+| UTF-32 | 00000048 00000065 0000006c 0000006c 0000006f 0001f347 0000002c 00000020 0001f348 00000021 |
+
+: Table 3. Unicode encoding of the sentence `Hello🍇, 🍈!` from the website [Convert Codes](https://convertcodes.com/unicode-converter-encode-decode-utf/) {.striped .hover}
+
+The long code points for the fruit emojis occupy a single UTF-32 code unit, look at 0001f347 and 0001f348, `🍇` and `🍈` in Table 4 below. from the same table one sees how these long codes require two code units in UTF-16 and four in UTF-8. That means more processing to read and write as more code units are required.
 
 The selection of a encoding form to map code points to code units forces a trade off between space and complexity. UTF-8 is very efficient for handling the smaller Unicode values while it is complex to handle the large ones. Conversely, UTF-32 is wasteful for storing the smaller values but simple for the higher ones.
+
+Windows chose to use UTF-16 natively since the NT version. It is efficient for the Asian alphabets that require at least two code points in UTF-8 but one in UTF-16 for most of their characters. 
 
 Consider the following emojis, their Unicode values and their multi-byte representation in three different encodings:
 
@@ -97,28 +111,35 @@ Consider the following emojis, their Unicode values and their multi-byte represe
 | 🍈          | melon| U+1F348 |f0 9f 8d 88| d83c df48 | 0001f348 |
 | 🍉          | watermelon| U+1F349 |f0 9f 8d 89| d83c df49 | 0001f349 |
 
-: Table 3. Food-fruit emoji codes and encoded representations {.striped .hover}
+: Table 4. Food-fruit emoji codes and equivalent encoded representations {.striped .hover}
 
 
 In general, UTF-8 is the most suitable option for web pages and computer programs. The reason is only pragmatic because it makes the web engines and text editors and parsers work well when consuming most html, Javascript, and general purpose computer languages.
 
-The Windows operating system uses UTF-16 for its internal encoding. As such Windows APIs must handle the UTF-8 to UTF-16 conversion internally.
+The Windows operating system uses APIs that handle the UTF-8 to UTF-16 conversion internally. In that way application code can pass UTF-8 encoded to the operating system.
+
 
 ### More definitions
 
 We are not done with definitions yet. Some additional considerations are necessary to process text correctly, for this a detailed reading of the Unicode standard is advised @uni16:texthandling. I will focus first on the difference between characters and glyphs.
 
-A character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph. The character abstraction is expressed as a Unicode value.
+A character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph. The character is the Unicode value that matches a glyph by convention.
 
 The standard defines how to represent and how to identify a text character as a code point, however it does not provide rules for determining what a valid text element is because that depends on what the context is. Examples of context are capitalization for a title in English text, or the brake down of long sequences of characters at the end of text lines.
 
 A text unit, thus is a valid sequence of one or more encoded text characters @uni16:texthandling.
 
+### Algorithms for text encoding
+
+I will spare the reader with the specifics of these algorithms to go from code point to any of the encodings. A easy to follow example of these algorithms can be found elsewhere, I like the rich examples from this website: [utf-8 encode-decode](https://convertcodes.com/utf8-encode-decode-convert-string/).
+If you follow those examples you will realize a text processing program needs a table of code points to glyphs, and an algorithm to encode code points to code units and the reversal.
+
+
 ## Practical character boundary examples
 
 I will present examples of character boundary identification in different computer languages. We will limit the scope to identifying emoticons mixed in with text for rendering text using UTF-8 encoding as most modern editors and terminals would do.
 
-I will be using emojis from the food-fruit category, as defined in the Unicode standard chart shown in the table below.
+I will be using emojis from the food-fruit category, as defined in the Unicode standard chart shown in the figure below.
 
 ![Figure 1. The table for the food-fruit emoji category taken from the Unicode standard chart @uni16:emojicharts](Food-fruit-unicode-emoji-chart.png)
 
@@ -131,9 +152,11 @@ Coming soon...
 
 In Rust I used the crate `emojis` from the public registry. A `crate` is a module in Rust. For more details read the free [cargo online book](https://doc.rust-lang.org/cargo/index.html).
 
-The code creates a Rust String by concatenating String slices. Then it uses the magic of the String function `chars` to find the character boundaries and to print them one by one. The 'magic' comes from the fact that some of these characters have multi-unit representations in UTF-8, the default UNICODE form used by the Rust String data type.
+The code creates a short vector with the first 5 elements of the Unicode emojis in the Food and Drink group. Then it creates a Rust String by concatenating String slices in UTF-8. It follows by using the magic of the String function `chars` to find the character boundaries and to print them one by one. The 'magic' comes from the fact that some of these characters have multiple code unit representations in UTF-8, the default this is the Unicode form used by the Rust String data type, regardless of the operating system.
 
-In other words the function has to parse the byte sequence and using the UTF-8 decoding rules find whole characters, using the rules explained below Figure 1. Once the base 16 UNICODE code points are found a rendering function has to find them in a table and create the matching glyph on the terminal.
+In other words the function has to parse the byte sequence and using the UTF-8 decoding rules find whole characters, using the rules shown in Table 1. Once the base 16 Unicode code points are found a rendering function has to find them in a table and create the matching glyph on the terminal for printing.
+
+Finally, the binary sequence for the whole sentence is printed to the terminal.
 
 ``` rust
 extern crate emojis;
