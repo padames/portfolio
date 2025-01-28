@@ -57,7 +57,7 @@ In the above table the code values or code points are defined by the range of va
 
 This means that there is no need for escape sequences to mark the boundary of a single encoded multi-byte character. It also mean there is no need of a special marker for characters boundaries in a sequence of many characters. In addition to that it isolates semantic representation from character identification. Unicode encoding takes care of character boundaries but semantic parsing takes care of instruction or operator boundary.
 
-## Trade-offs of chosing a Unicode encoding
+## Trade-offs of choosing a Unicode encoding
 
 UTF offers three forms to encode each of the 1,112,064 valid Unicode scalar values: UTF-8, UTF-16 and UTF-32. These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF. The first 128 correspond to the original ASCII.
 
@@ -83,6 +83,11 @@ A text unit, thus is a valid sequence of one or more encoded text chraracters @u
 
 I will present examples of character boundary identification in different computer languages. We will limit the scope to identifying emoticons mixed in with text for rendering text using UTF-8 encoding as most modern editors and terminals would do.
 
+I will be using emojis from the food-fruit category, as defined in the Unicode standard chart shown in the table below.
+
+![Figure 2. The table for the food-fruit emoji category taken from the Unicode standard chart @uni16:emojicharts](Food-fruit-unicode-emoji-chart.png)
+
+
 ### C++
 
 Coming soon...
@@ -93,11 +98,10 @@ In Rust I used the crate `emojis` from the public registry. A `crate` is a modul
 
 The code creates a Rust String by concatenating String slices. Then it uses the magic of the String function `chars` to find the character boundaries and to print them one by one. The 'magic' comes from the fact that some of these characters have multi-unit representations in UTF-8, the default UNICODE form used by the Rust String data type.
 
-In other words the function has to parse the byte sequence and using the UTF-8 deconding rules find whole characters, using the rules explained below Figure 1. Once the base 16 UNICODE code points are found a rendering function has to find them in a table and create the matching glyph on the terminal.
+In other words the function has to parse the byte sequence and using the UTF-8 decoding rules find whole characters, using the rules explained below Figure 1. Once the base 16 UNICODE code points are found a rendering function has to find them in a table and create the matching glyph on the terminal.
 
 ``` rust
 extern crate emojis;
-
 
 fn main() {
     let fruit: Vec<_> = emojis::Group::FoodAndDrink.emojis().map(|e| e.as_str()).take(5).collect();
@@ -111,7 +115,12 @@ fn main() {
     for letter in long_fruity_string.chars() {
         println!("{letter}");
     }
-}
+    let mut long_fruity_string_in_binary = "".to_string();
+
+    for character in long_fruity_string.clone().into_bytes() {
+        long_fruity_string_in_binary += &format!("0{:b} ", character);
+    }
+    println!(r#""{}" in binary is "{}""#, long_fruity_string, long_fruity_string_in_binary);
 ```
 
 The output:
@@ -131,13 +140,10 @@ o
 ,
  
 🍈
+"Hello🍇, 🍈" in binary is "01001000 01100101 01101100 01101100 01101111 011110000 010011111 010001101 010000111 0101100 0100000 011110000 010011111 010001101 010001000 "
 ```
 
-I can show the byte sequence in hexadecimal by adding the following lines of code:
-
-``` rust
-
-```
+Remember the rules for representing UTF-8 encoded bytes from startand end Unicode points (or values), well if you have a look at the last four bytes of the sentence above: `11110000 10011111 10001101 10001000` removing the initial 0 that indicates binary numbers, we observe that these correspond to the 4 bytes of a multi-byte encoded character: In hexadecimal xf0 x9f x8d x88.
 
 ### Python
 

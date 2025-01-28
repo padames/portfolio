@@ -250,8 +250,8 @@ Tradition, convention, identity, and art influence the glyphs and alphabets used
 <p>In the above table the code values or code points are defined by the range of values between the values in the first two columns. The corresponding UTF-8 form has a variable number of bytes. How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the current byte encodes all of the character, it fits in one byte, e.g.&nbsp;an ASCII character. One means the byte is part of a multi-byte sequence. Two means this byte marks the start of a character encoded in two bytes in total. Three and four ones mean the equivalent, bytes mark the beginning of characters represented by three and four bytes, including the leading one.</p>
 <p>This means that there is no need for escape sequences to mark the boundary of a single encoded multi-byte character. It also mean there is no need of a special marker for characters boundaries in a sequence of many characters. In addition to that it isolates semantic representation from character identification. Unicode encoding takes care of character boundaries but semantic parsing takes care of instruction or operator boundary.</p>
 </section>
-<section id="trade-offs-of-chosing-a-unicode-encoding" class="level2">
-<h2 class="anchored" data-anchor-id="trade-offs-of-chosing-a-unicode-encoding">Trade-offs of chosing a Unicode encoding</h2>
+<section id="trade-offs-of-choosing-a-unicode-encoding" class="level2">
+<h2 class="anchored" data-anchor-id="trade-offs-of-choosing-a-unicode-encoding">Trade-offs of choosing a Unicode encoding</h2>
 <p>UTF offers three forms to encode each of the 1,112,064 valid Unicode scalar values: UTF-8, UTF-16 and UTF-32. These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF. The first 128 correspond to the original ASCII.</p>
 <p>Each encoding form maps the Unicode code points to unique code unit sequences <span class="citation" data-cites="uni16:encodingforms">[<a href="#ref-uni16:encodingforms" role="doc-biblioref">4</a>]</span>. In particular, the larger UNICODE code points may need multiple single code units if using the code form UTF-8. Conversely they may fit into a single code unit if encoded in the form UTF-32. This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms.</p>
 <p>The selection of a encoding form to map code points to code units forces a trade off between space and complexity. UTF-8 is very efficient for handling the smaller UNICODE values while it is complex to handle the higher ones, Conversely, UTF-32 is wasteful for storing the smaller values but simple for the higher ones.</p>
@@ -268,6 +268,13 @@ Tradition, convention, identity, and art influence the glyphs and alphabets used
 <section id="practical-character-boundary-examples" class="level2">
 <h2 class="anchored" data-anchor-id="practical-character-boundary-examples">Practical character boundary examples</h2>
 <p>I will present examples of character boundary identification in different computer languages. We will limit the scope to identifying emoticons mixed in with text for rendering text using UTF-8 encoding as most modern editors and terminals would do.</p>
+<p>I will be using emojis from the food-fruit category, as defined in the Unicode standard chart shown in the table below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Food-fruit-unicode-emoji-chart.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure 2. The table for the food-fruit emoji category taken from the Unicode standard chart <span class="citation" data-cites="uni16:emojicharts">[<a href="#ref-uni16:emojicharts" role="doc-biblioref">6</a>]</span></figcaption>
+</figure>
+</div>
 <section id="c" class="level3">
 <h3 class="anchored" data-anchor-id="c">C++</h3>
 <p>Coming soon…</p>
@@ -276,23 +283,27 @@ Tradition, convention, identity, and art influence the glyphs and alphabets used
 <h3 class="anchored" data-anchor-id="rust">Rust</h3>
 <p>In Rust I used the crate <code>emojis</code> from the public registry. A <code>crate</code> is a module in Rust. For more details read the free <a href="https://doc.rust-lang.org/cargo/index.html">cargo online book</a>.</p>
 <p>The code creates a Rust String by concatenating String slices. Then it uses the magic of the String function <code>chars</code> to find the character boundaries and to print them one by one. The ‘magic’ comes from the fact that some of these characters have multi-unit representations in UTF-8, the default UNICODE form used by the Rust String data type.</p>
-<p>In other words the function has to parse the byte sequence and using the UTF-8 deconding rules find whole characters, using the rules explained below Figure 1. Once the base 16 UNICODE code points are found a rendering function has to find them in a table and create the matching glyph on the terminal.</p>
+<p>In other words the function has to parse the byte sequence and using the UTF-8 decoding rules find whole characters, using the rules explained below Figure 1. Once the base 16 UNICODE code points are found a rendering function has to find them in a table and create the matching glyph on the terminal.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="kw">crate</span> emojis<span class="op">;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> fruit<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;</span> <span class="op">=</span> <span class="pp">emojis::Group::</span>FoodAndDrink<span class="op">.</span>emojis()<span class="op">.</span>map(<span class="op">|</span>e<span class="op">|</span> e<span class="op">.</span>as_str())<span class="op">.</span>take(<span class="dv">5</span>)<span class="op">.</span>collect()<span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">assert_eq!</span>(fruit<span class="op">,</span> [<span class="st">"🍇"</span><span class="op">,</span> <span class="st">"🍈"</span><span class="op">,</span> <span class="st">"🍉"</span><span class="op">,</span> <span class="st">"🍊"</span><span class="op">,</span> <span class="st">"🍋"</span>])<span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> test_string <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(fruit[<span class="dv">0</span>])<span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> long_fruity_string <span class="op">=</span> <span class="st">"Hello"</span><span class="op">.</span>to_owned() <span class="op">+</span> <span class="op">&amp;</span>test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit[<span class="dv">1</span>]<span class="op">;</span> </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}!"</span><span class="op">,</span> long_fruity_string)<span class="op">;</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letter <span class="kw">in</span> long_fruity_string<span class="op">.</span>chars() <span class="op">{</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{letter}"</span>)<span class="op">;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> fruit<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;</span> <span class="op">=</span> <span class="pp">emojis::Group::</span>FoodAndDrink<span class="op">.</span>emojis()<span class="op">.</span>map(<span class="op">|</span>e<span class="op">|</span> e<span class="op">.</span>as_str())<span class="op">.</span>take(<span class="dv">5</span>)<span class="op">.</span>collect()<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">assert_eq!</span>(fruit<span class="op">,</span> [<span class="st">"🍇"</span><span class="op">,</span> <span class="st">"🍈"</span><span class="op">,</span> <span class="st">"🍉"</span><span class="op">,</span> <span class="st">"🍊"</span><span class="op">,</span> <span class="st">"🍋"</span>])<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> test_string <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(fruit[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> long_fruity_string <span class="op">=</span> <span class="st">"Hello"</span><span class="op">.</span>to_owned() <span class="op">+</span> <span class="op">&amp;</span>test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit[<span class="dv">1</span>]<span class="op">;</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}!"</span><span class="op">,</span> long_fruity_string)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letter <span class="kw">in</span> long_fruity_string<span class="op">.</span>chars() <span class="op">{</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{letter}"</span>)<span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> long_fruity_string_in_binary <span class="op">=</span> <span class="st">""</span><span class="op">.</span>to_string()<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> character <span class="kw">in</span> long_fruity_string<span class="op">.</span>clone()<span class="op">.</span>into_bytes() <span class="op">{</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        long_fruity_string_in_binary <span class="op">+=</span> <span class="op">&amp;</span><span class="pp">format!</span>(<span class="st">"0{:b} "</span><span class="op">,</span> character)<span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">r#""{}" in binary is "{}""#</span><span class="op">,</span> long_fruity_string<span class="op">,</span> long_fruity_string_in_binary)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The output:</p>
 <pre><code>$ cargo run
    Compiling word_boundary v0.1.0 (/home/pablo/git/Rust/rust-practice/word_boundary)
@@ -307,9 +318,9 @@ o
 🍇
 ,
  
-🍈</code></pre>
-<p>I can show the byte sequence in hexadecimal by adding the following lines of code:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+🍈
+"Hello🍇, 🍈" in binary is "01001000 01100101 01101100 01101100 01101111 011110000 010011111 010001101 010000111 0101100 0100000 011110000 010011111 010001101 010001000 "</code></pre>
+<p>Remember the rules for representing UTF-8 encoded bytes from startand end Unicode points (or values), well if you have a look at the last four bytes of the sentence above: <code>11110000 10011111 10001101 10001000</code> removing the initial 0 that indicates binary numbers, we observe that these correspond to the 4 bytes of a multi-byte encoded character: In hexadecimal xf0 x9f x8d x88.</p>
 </section>
 <section id="python" class="level3">
 <h3 class="anchored" data-anchor-id="python">Python</h3>
@@ -317,16 +328,16 @@ o
 </section>
 <section id="r" class="level3">
 <h3 class="anchored" data-anchor-id="r">R</h3>
-<p>R has the <code>emoji</code> package. After a short exploration of its manual <span class="citation" data-cites="r-package:emoji">[<a href="#ref-r-package:emoji" role="doc-biblioref">6</a>]</span> it is possible to print the characters of a sentence using the fruit emojis by identifying their boundaries boundaries seamlessly.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"emoji"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"emoji"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>fruit <span class="ot">&lt;-</span> emojis[ emojis<span class="sc">$</span>name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"grapes"</span>, <span class="st">"watermelon"</span>, <span class="st">"melon"</span>, <span class="st">"lemon"</span>, <span class="st">"tangerine"</span>),]<span class="sc">$</span>emoji</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>test_string <span class="ot">&lt;-</span> fruit[<span class="dv">1</span>]</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>long_fruity_string <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Hello"</span>, test_string,<span class="st">", "</span>,fruit[<span class="dv">2</span>] )</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(long_fruity_string)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="at">x =</span> long_fruity_string, <span class="at">split =</span> <span class="st">""</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'strsplit' returns a list in case x has multiple strings to be processed, we grab only the first one</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>results[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>R has the <code>emoji</code> package. After a short exploration of its manual <span class="citation" data-cites="r-package:emoji">[<a href="#ref-r-package:emoji" role="doc-biblioref">7</a>]</span> it is possible to print the characters of a sentence using the fruit emojis by identifying their boundaries boundaries seamlessly.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"emoji"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"emoji"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>fruit <span class="ot">&lt;-</span> emojis[ emojis<span class="sc">$</span>name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"grapes"</span>, <span class="st">"watermelon"</span>, <span class="st">"melon"</span>, <span class="st">"lemon"</span>, <span class="st">"tangerine"</span>),]<span class="sc">$</span>emoji</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>test_string <span class="ot">&lt;-</span> fruit[<span class="dv">1</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>long_fruity_string <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Hello"</span>, test_string,<span class="st">", "</span>,fruit[<span class="dv">2</span>] )</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(long_fruity_string)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="at">x =</span> long_fruity_string, <span class="at">split =</span> <span class="st">""</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'strsplit' returns a list in case x has multiple strings to be processed, we grab only the first one</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>results[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Produces the following output, a vector of characters, due to R’s native focus on vectorized operations:</p>
 <pre><code> [1] "Hello 🍇 ,  🍈"
  [1] "H"  "e"  "l"  "l"  "o"  " "  "🍇" " "  ","  " "  " "  "🍈"</code></pre>
@@ -353,8 +364,11 @@ o
 <div id="ref-uni16:texthandling" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[5] </div><div class="csl-right-inline">Unicode Inc. <a href="https://www.unicode.org/versions/Unicode16.0.0/core-spec/chapter-1/#G9708">Unicode 16<span>.</span>0<span>.</span>0 <span>Core Spec</span><span>,</span> <span>1.3</span> text handling</a> 2025.</div>
 </div>
+<div id="ref-uni16:emojicharts" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">Unicode Inc. <a href="https://www.unicode.org/emoji/charts/emoji-list.html">Emoji charts, v<span>16.0</span></a> 2025.</div>
+</div>
 <div id="ref-r-package:emoji" class="csl-entry" role="listitem">
-<div class="csl-left-margin">[6] </div><div class="csl-right-inline">Emil Hvitfeldt, Hadley Wickham. <a href="https://emilhvitfeldt.r-universe.dev/emoji/doc/manual.html">Package emoji, v<span>16.0.0.9000</span></a> 2025.</div>
+<div class="csl-left-margin">[7] </div><div class="csl-right-inline">Emil Hvitfeldt, Hadley Wickham. <a href="https://emilhvitfeldt.r-universe.dev/emoji/doc/manual.html">Package emoji, v<span>16.0.0.9000</span></a> 2025.</div>
 </div>
 </div>
 
