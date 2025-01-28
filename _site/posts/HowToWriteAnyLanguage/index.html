@@ -287,7 +287,7 @@ Tradition, convention, identity, and art influence the glyphs and alphabets used
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> test_string <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(fruit[<span class="dv">0</span>])<span class="op">;</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> long_fruity_string <span class="op">=</span> <span class="st">"Hello"</span><span class="op">.</span>to_owned() <span class="op">+</span> <span class="op">&amp;</span>test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit[<span class="dv">1</span>]<span class="op">;</span> </span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"Hello, {}!"</span><span class="op">,</span> long_fruity_string)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}!"</span><span class="op">,</span> long_fruity_string)<span class="op">;</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letter <span class="kw">in</span> long_fruity_string<span class="op">.</span>chars() <span class="op">{</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{letter}"</span>)<span class="op">;</span></span>
@@ -296,9 +296,9 @@ Tradition, convention, identity, and art influence the glyphs and alphabets used
 <p>The output:</p>
 <pre><code>$ cargo run
    Compiling word_boundary v0.1.0 (/home/pablo/git/Rust/rust-practice/word_boundary)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.27s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.22s
      Running `target/debug/word_boundary`
-Hello, Hello🍇, 🍈!
+Hello🍇, 🍈!
 H
 e
 l
@@ -309,7 +309,7 @@ o
  
 🍈</code></pre>
 <p>I can show the byte sequence in hexadecimal by adding the following lines of code:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="python" class="level3">
 <h3 class="anchored" data-anchor-id="python">Python</h3>

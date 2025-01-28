@@ -20,19 +20,17 @@ Text and human language are technologies developed to build and transmit culture
 
 ![Image from https://neuroflash.com/blog/automatic-text-editor-online/](https://neuroflash.com/wp-content/uploads/2022/09/feature-image-automatic-text-editor-online.jpg)
 
-
-## What is text anyway? 
+## What is text anyway?
 
 To narrow the scope of this post to a manageable size, let's constrain the answer to the world of computer languages. These are used to tell computers what to do when they receive data.
 
-Computer programming starts by writing instructions in a text editor. The characters used to form those instructions were initially called the ASCII characters. The characters in ASCII conveniently reflected the characters of the English alphabet plus the Arabic numerals and exclamation and punctuation marks. Thus knowing the English alphabet plus some additional computer language syntax can lower the barrier of entrance to programming a computer. 
-
+Computer programming starts by writing instructions in a text editor. The characters used to form those instructions were initially called the ASCII characters. The characters in ASCII conveniently reflected the characters of the English alphabet plus the Arabic numerals and exclamation and punctuation marks. Thus knowing the English alphabet plus some additional computer language syntax can lower the barrier of entrance to programming a computer.
 
 ## How do we use text as code?
 
-The human-readable text instructions of a computer program have to be interpreted and then transformed into machine-readable code before the computer can execute them. The first step implies parsing the text into functional parts: line breaks, plain data, commands, operators and variable and function names. 
+The human-readable text instructions of a computer program have to be interpreted and then transformed into machine-readable code before the computer can execute them. The first step implies parsing the text into functional parts: line breaks, plain data, commands, operators and variable and function names.
 
-The next step is to put those components into and abstract syntax tree (AST) that represents the program. The AST is then further converted into bite code instructions for a run time or into machine instructions to be executed in a process under the supervision of the operating system scheduler, or even directly in the microchip of a single board computer in the case of embedded systems. 
+The next step is to put those components into and abstract syntax tree (AST) that represents the program. The AST is then further converted into bite code instructions for a run time or into machine instructions to be executed in a process under the supervision of the operating system scheduler, or even directly in the microchip of a single board computer in the case of embedded systems.
 
 Everybody benefits from using text instead of programming directly using the instructions of the operating system or the bite code commands. Somehow using ASCII makes programming a computer a skill similar to learning one of the human languages. However, bias always favours the English-speaking programmer who knows how English reads.
 
@@ -40,83 +38,50 @@ Accepting the historical facts, let's dive into the ASCII character set. Its pur
 
 The input to and output from the program we will call data. Digital computers natively process only zeros and ones. Any computer data, including text, must be transformed into a sequence of these two values.
 
-
 ## Entering text encoding
 
 Text as code is handled relatively well with a small character set. How about text as data?
 
-This is a complex subject. The complexity comes from human communication happening in rich, dynamic, and diverse cultural contexts.  
-Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and ultimately, ideas in human languages. These representations can be as diverse as the human groups that produce them. 
+This is a complex subject. The complexity comes from human communication happening in rich, dynamic, and diverse cultural contexts.\
+Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and ultimately, ideas in human languages. These representations can be as diverse as the human groups that produce them.
 
-How do we address this complexity? 
-We use text encoding that machines can understand automatically and unequivocally.
-The accepted encoding standard is called Unicode.
-I will quote directly from the Unicode standard definition \#51 @uni16:emoji.
-  
->Unicode is the foundation for text in all modern software: it’s how all mobile phones, desktops, and other computers represent the text of every language.
+How do we address this complexity? We use text encoding that machines can understand automatically and unequivocally. The accepted encoding standard is called Unicode. I will quote directly from the Unicode standard definition #51 @uni16:emoji.
 
-The common Unicode text encoding to write source code in modern computer languages is called UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet.
-UTF stands for the Unicode Transformation Format @enwiki:1268238400_.
-This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.
+> Unicode is the foundation for text in all modern software: it's how all mobile phones, desktops, and other computers represent the text of every language.
+
+The common Unicode text encoding to write source code in modern computer languages is called UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet. UTF stands for the Unicode Transformation Format @enwiki:1268238400_. This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.
 
 ![Figure from @convertcodes:encodeformats showing ranges of code points and how they are encoded in UTF-8 form](codePointToUTF8Conversion.png)
 
-In the above table the code values or code points are defined by the range of values between the values in the first two columns. 
-The corresponding UTF-8 form has a variable number of bytes.
-How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the current byte encodes all of the character, it fits in one byte, e.g. an ASCII character.
-One means the byte is part of a multi-byte sequence.
-Two means this byte marks the start of a character encoded in two bytes in total.
-Three and four ones mean the equivalent, bytes mark the beginning of characters represented by three and four bytes, including the leading one.
+In the above table the code values or code points are defined by the range of values between the values in the first two columns. The corresponding UTF-8 form has a variable number of bytes. How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the current byte encodes all of the character, it fits in one byte, e.g. an ASCII character. One means the byte is part of a multi-byte sequence. Two means this byte marks the start of a character encoded in two bytes in total. Three and four ones mean the equivalent, bytes mark the beginning of characters represented by three and four bytes, including the leading one.
 
-This means that there is no need for escape sequences to mark the boundary of a single encoded multi-byte character.
-It also mean there is no need of a special marker for characters boundaries in a sequence of many characters. 
-In addition to that it isolates semantic representation from character identification.
-Unicode encoding takes care of character boundaries but semantic parsing takes care of instruction or operator boundary.
-
+This means that there is no need for escape sequences to mark the boundary of a single encoded multi-byte character. It also mean there is no need of a special marker for characters boundaries in a sequence of many characters. In addition to that it isolates semantic representation from character identification. Unicode encoding takes care of character boundaries but semantic parsing takes care of instruction or operator boundary.
 
 ## Trade-offs of chosing a Unicode encoding
 
-UTF offers three forms to encode each of the 1,112,064 valid Unicode scalar values: UTF-8, UTF-16 and UTF-32.
-These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF.
-The first 128 correspond to the original ASCII.
+UTF offers three forms to encode each of the 1,112,064 valid Unicode scalar values: UTF-8, UTF-16 and UTF-32. These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF. The first 128 correspond to the original ASCII.
 
-Each encoding form maps the Unicode code points to unique code unit sequences @uni16:encodingforms.
-In particular, the larger UNICODE code points may need multiple single code units if using the code form UTF-8.
-Conversely they may fit into a single code unit if encoded in the form UTF-32.
-This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms.
+Each encoding form maps the Unicode code points to unique code unit sequences @uni16:encodingforms. In particular, the larger UNICODE code points may need multiple single code units if using the code form UTF-8. Conversely they may fit into a single code unit if encoded in the form UTF-32. This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms.
 
-The selection of a encoding form to map code points to code units forces a trade off between space and complexity.
-UTF-8 is very efficient for handling the smaller UNICODE values while it is complex to handle the higher ones, 
-Conversely, UTF-32 is wasteful for storing the smaller values but simple for the higher ones.
+The selection of a encoding form to map code points to code units forces a trade off between space and complexity. UTF-8 is very efficient for handling the smaller UNICODE values while it is complex to handle the higher ones, Conversely, UTF-32 is wasteful for storing the smaller values but simple for the higher ones.
 
-In general, UTF-8 is the most suitable option for web pages and computer programs.
-The reason is only pragmatic because it makes the web engines and text editors and parsers work well when consuming most html, Javascript, and general purpose computer languages.
+In general, UTF-8 is the most suitable option for web pages and computer programs. The reason is only pragmatic because it makes the web engines and text editors and parsers work well when consuming most html, Javascript, and general purpose computer languages.
 
-The Windows operating system uses UTF-16 for its internal encoding. As such Windows APIs must handle the UTF-8 to UTF-16 conversion internally. 
-
+The Windows operating system uses UTF-16 for its internal encoding. As such Windows APIs must handle the UTF-8 to UTF-16 conversion internally.
 
 ### More definitions
 
-We are not done with definitions yet.
-Some additional considerations are necessary to process text correctly, for this a detailed reading of the Unicode standard is advised @uni16:texthandling.
-I will focus first on the difference between characters and glyphs. 
+We are not done with definitions yet. Some additional considerations are necessary to process text correctly, for this a detailed reading of the Unicode standard is advised @uni16:texthandling. I will focus first on the difference between characters and glyphs.
 
-A character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph.
-The character abstraction is expressed as a UNICODE value.
+A character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph. The character abstraction is expressed as a UNICODE value.
 
-
-The standard defines how to represent and how to identify a text character as a code point, however it does not provide rules for determining what a valid text element is because that depends on what the context is.
-Examples of context are capitalization for a title in English text, or the brake down of long sequences of characters at the end of text lines.
+The standard defines how to represent and how to identify a text character as a code point, however it does not provide rules for determining what a valid text element is because that depends on what the context is. Examples of context are capitalization for a title in English text, or the brake down of long sequences of characters at the end of text lines.
 
 A text unit, thus is a valid sequence of one or more encoded text chraracters @uni16:texthandling.
 
-
-
 ## Practical character boundary examples
 
-I will present examples of character boundary identification in different computer languages.
-We will limit the scope to identifying emoticons mixed in with text for rendering text using UTF-8 encoding as most modern editors and terminals would do.
-
+I will present examples of character boundary identification in different computer languages. We will limit the scope to identifying emoticons mixed in with text for rendering text using UTF-8 encoding as most modern editors and terminals would do.
 
 ### C++
 
@@ -124,18 +89,13 @@ Coming soon...
 
 ### Rust
 
-In Rust I used the crate `emojis` from the public registry. 
-A `crate` is a module in Rust. 
-For more details read the free [cargo online book](https://doc.rust-lang.org/cargo/index.html).
+In Rust I used the crate `emojis` from the public registry. A `crate` is a module in Rust. For more details read the free [cargo online book](https://doc.rust-lang.org/cargo/index.html).
 
-The code creates a Rust String by concatenating String slices.
-Then it  uses the magic of the String function `chars` to find the character boundaries and to print them one by one.
-The 'magic' comes from the fact that some of these characters have multi-unit representations in UTF-8, the default UNICODE form used by the Rust String data type. 
+The code creates a Rust String by concatenating String slices. Then it uses the magic of the String function `chars` to find the character boundaries and to print them one by one. The 'magic' comes from the fact that some of these characters have multi-unit representations in UTF-8, the default UNICODE form used by the Rust String data type.
 
-In other words the function has to parse the byte sequence and using the UTF-8 deconding rules find whole characters, using the rules explained below Figure 1. 
-Once the base 16 UNICODE code points are found a rendering function has to find them in a table  and create the matching glyph on the terminal.
+In other words the function has to parse the byte sequence and using the UTF-8 deconding rules find whole characters, using the rules explained below Figure 1. Once the base 16 UNICODE code points are found a rendering function has to find them in a table and create the matching glyph on the terminal.
 
-```rust
+``` rust
 extern crate emojis;
 
 
@@ -146,21 +106,22 @@ fn main() {
     let test_string = String::from(fruit[0]);
     let long_fruity_string = "Hello".to_owned() + &test_string + ", " + fruit[1]; 
     
-    println!("Hello, {}!", long_fruity_string);
+    println!("{}!", long_fruity_string);
 
     for letter in long_fruity_string.chars() {
         println!("{letter}");
     }
 }
 ```
+
 The output:
 
-```
+```         
 $ cargo run
    Compiling word_boundary v0.1.0 (/home/pablo/git/Rust/rust-practice/word_boundary)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.27s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.22s
      Running `target/debug/word_boundary`
-Hello, Hello🍇, 🍈!
+Hello🍇, 🍈!
 H
 e
 l
@@ -174,11 +135,9 @@ o
 
 I can show the byte sequence in hexadecimal by adding the following lines of code:
 
-```rust
-
+``` rust
 
 ```
-
 
 ### Python
 
@@ -186,9 +145,9 @@ Coming soon...
 
 ### R
 
-R has the `emoji` package. After a short exploration of its manual @r-package:emoji it is possible to print the characters of a sentence using the fruit emojis by identifying their  boundaries boundaries seamlessly.
+R has the `emoji` package. After a short exploration of its manual @r-package:emoji it is possible to print the characters of a sentence using the fruit emojis by identifying their boundaries boundaries seamlessly.
 
-```r
+``` r
 install.packages("emoji")
 library("emoji")
 fruit <- emojis[ emojis$name %in% c("grapes", "watermelon", "melon", "lemon", "tangerine"),]$emoji
@@ -200,17 +159,16 @@ results <- strsplit(x = long_fruity_string, split = "")
 results[[1]]
 ```
 
-Produces the following output, a vector of characters, due to R's native focus on vectorized operations: 
-```
+Produces the following output, a vector of characters, due to R's native focus on vectorized operations:
+
+```         
  [1] "Hello 🍇 ,  🍈"
  [1] "H"  "e"  "l"  "l"  "o"  " "  "🍇" " "  ","  " "  " "  "🍈"
- ```
+```
 
 ## Conclusion
 
 Coming soon...
-
-
 
 ### References
 
