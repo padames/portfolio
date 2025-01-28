@@ -103,11 +103,11 @@ The Windows operating system uses UTF-16 for its internal encoding. As such Wind
 
 We are not done with definitions yet. Some additional considerations are necessary to process text correctly, for this a detailed reading of the Unicode standard is advised @uni16:texthandling. I will focus first on the difference between characters and glyphs.
 
-A character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph. The character abstraction is expressed as a UNICODE value.
+A character is an abstract representation of a concrete mark made on paper or rendered to a computer screen, a so-called glyph. The character abstraction is expressed as a Unicode value.
 
 The standard defines how to represent and how to identify a text character as a code point, however it does not provide rules for determining what a valid text element is because that depends on what the context is. Examples of context are capitalization for a title in English text, or the brake down of long sequences of characters at the end of text lines.
 
-A text unit, thus is a valid sequence of one or more encoded text chraracters @uni16:texthandling.
+A text unit, thus is a valid sequence of one or more encoded text characters @uni16:texthandling.
 
 ## Practical character boundary examples
 
@@ -173,7 +173,7 @@ o
 "Hello🍇, 🍈" in binary is "01001000 01100101 01101100 01101100 01101111 011110000 010011111 010001101 010000111 0101100 0100000 011110000 010011111 010001101 010001000 "
 ```
 
-Remember the rules for representing UTF-8 encoded bytes from startand end Unicode points (or values), well if you have a look at the last four bytes of the sentence above: `11110000 10011111 10001101 10001000` removing the initial 0 that indicates binary numbers, we observe that these correspond to the 4 bytes of a multi-byte encoded character: In hexadecimal xf0 x9f x8d x88.
+Remember the rules for representing UTF-8 encoded bytes from standard Unicode points, well if you have a look at the last four bytes of the sentence above: `11110000 10011111 10001101 10001000` removing the initial 0 that indicates binary numbers, we observe that these correspond to the 4 bytes of the multi-byte encoded character 🍈, U+1F348, in UTF-8 encoding in hexadecimal is f0 9f 8d 88 (from Table 3).
 
 ### Python
 
