@@ -204,7 +204,13 @@ Produces the following output, a vector of characters, due to R's native focus o
 
 ## Conclusion
 
-Coming soon...
+Text representation using Unicode values and encondings has become an invisible technical detail. 
+Its standarization, maintenance, and enhancement is in the hands of a few experts, interest groups and users that drive their constant adaptation to modern communication via the web.
+
+The software we use already handles text encoding, most likely UTF-8, via the libraries of the computer languages used to build those programs.
+We saw examples of how well they do it. 
+From human readable to binary data that can travel through wires, optic fibre, or electromagnetic waves, text is everywhere.
+
 
 ### References
 
