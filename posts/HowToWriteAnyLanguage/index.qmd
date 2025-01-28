@@ -78,8 +78,7 @@ This means that there is no need for escape sequences to mark the boundary of a 
 
 ## Trade-offs of choosing a Unicode encoding
 
-There is currently a total of 1,112,064 valid Unicode scalar values.  
-These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF. The first 128 correspond to the original ASCII.
+There are currently a total of 1,112,064 valid Unicode values. These Unicode values are also called code points, in base-16 they are the scalar values defined by the following two sequences: U+0000 to U+D7FF and U+E000 to U+10FFFF. The first 128 correspond to the original ASCII.
 
 The code points as hexadecimal numbers can be encoded in three forms: UTF-8, UTF-16 and UTF-32. 
 Each encoding maps the Unicode code points to unique code unit sequences of variable lenght @uni16:encodingforms. 
