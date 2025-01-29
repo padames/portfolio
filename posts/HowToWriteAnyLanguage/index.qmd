@@ -146,7 +146,60 @@ I will be using emojis from the food-fruit category, as defined in the Unicode s
 
 ### C++
 
-Coming soon...
+The platform agnostic support for UTF-8 in C++ 20 is not quite as simple as in other modern computer languages. POSIX operating systems like Linux work with UTF-8 out of the box. However Windows uses UTF-16 internally, making every system call dependent on text encoding translations.
+
+One of the alternatives is to use the Boost `nowide` libraries to make the IO UTF-8 aware regardles of the platform. The source code can be downloaded from [Boost nowide GitHub](https://github.com/boostorg/nowide) and it can be built with the CMake build system. On Ubuntu there is need to install supporting Boost libraries via: `sudo apt-get -y install libboost-filesystem-dev`.  
+
+```c++
+#include <boost/nowide/args.hpp>
+#include <boost/nowide/fstream.hpp>
+#include <boost/nowide/iostream.hpp>
+#include <vector>
+
+int main(int argc,char **argv)
+{
+    std::vector<std::string> fruit;
+    fruit.push_back("🍇");
+    fruit.push_back("🍈");
+    fruit.push_back("🍉");
+    fruit.push_back("🍊");
+    fruit.push_back("🍋");
+
+    std::string test_string = fruit[0];
+
+    std::string long_fruity_string = "Hello" + test_string + ", " + fruit[1];
+
+    boost::nowide::cout << long_fruity_string << std::endl;
+
+    for ( auto letter: long_fruity_string){
+        boost::nowide::cout << letter << std::endl;
+    }
+    return 0;
+}
+```
+Produces the following output in VSCode:
+
+```
+[Running] cd "/home/pablo/git/CPP/character_boundaries/" && g++ main.cpp -o main && "/home/pablo/git/CPP/character_boundaries/"main
+Hello🍇, 🍈
+H
+e
+l
+l
+o
+�
+�
+�
+�
+,
+ 
+�
+�
+�
+�
+```
+
+It is non-trivial to find the character boundaries in C++.
 
 ### Rust
 

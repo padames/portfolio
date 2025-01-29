@@ -430,7 +430,52 @@ div.csl-indent {
 </div>
 <section id="c" class="level3">
 <h3 class="anchored" data-anchor-id="c">C++</h3>
-<p>Coming soon…</p>
+<p>The platform agnostic support for UTF-8 in C++ 20 is not quite as simple as in other modern computer languages. POSIX operating systems like Linux work with UTF-8 out of the box. However Windows uses UTF-16 internally, making every system call dependent on text encoding translations.</p>
+<p>One of the alternatives is to use the Boost <code>nowide</code> libraries to make the IO UTF-8 aware regardles of the platform. The source code can be downloaded from <a href="https://github.com/boostorg/nowide">Boost nowide GitHub</a> and it can be built with the CMake build system. On Ubuntu there is need to install supporting Boost libraries via: <code>sudo apt-get -y install libboost-filesystem-dev</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/nowide/args.hpp&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/nowide/fstream.hpp&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/nowide/iostream.hpp&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span><span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> fruit<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍇"</span><span class="op">);</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍈"</span><span class="op">);</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍉"</span><span class="op">);</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍊"</span><span class="op">);</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍋"</span><span class="op">);</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>test_string <span class="op">=</span> fruit<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>long_fruity_string <span class="op">=</span> <span class="st">"Hello"</span> <span class="op">+</span> test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">boost::</span>nowide<span class="ex">::</span>cout<span class="op"> &lt;&lt;</span> long_fruity_string <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span> <span class="kw">auto</span> letter<span class="op">:</span> long_fruity_string<span class="op">){</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="ex">boost::</span>nowide<span class="ex">::</span>cout<span class="op"> &lt;&lt;</span> letter <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Produces the following output in VSCode:</p>
+<pre><code>[Running] cd "/home/pablo/git/CPP/character_boundaries/" &amp;&amp; g++ main.cpp -o main &amp;&amp; "/home/pablo/git/CPP/character_boundaries/"main
+Hello🍇, 🍈
+H
+e
+l
+l
+o
+�
+�
+�
+�
+,
+ 
+�
+�
+�
+�</code></pre>
+<p>It is non-trivial to find the character boundaries in C++.</p>
 </section>
 <section id="rust" class="level3">
 <h3 class="anchored" data-anchor-id="rust">Rust</h3>
@@ -438,26 +483,26 @@ div.csl-indent {
 <p>The code creates a short vector with the first 5 elements of the Unicode emojis in the Food and Drink group. Then it creates a Rust String by concatenating String slices in UTF-8. It follows by using the magic of the String function <code>chars</code> to find the character boundaries and to print them one by one. The ‘magic’ comes from the fact that some of these characters have multiple code unit representations in UTF-8, the default this is the Unicode form used by the Rust String data type, regardless of the operating system.</p>
 <p>In other words the function has to parse the byte sequence and using the UTF-8 decoding rules find whole characters, using the rules shown in Table 1. Once the base 16 Unicode code points are found a rendering function has to find them in a table and create the matching glyph on the terminal for printing.</p>
 <p>Finally, the binary sequence for the whole sentence is printed to the terminal.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="kw">crate</span> emojis<span class="op">;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> fruit<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;</span> <span class="op">=</span> <span class="pp">emojis::Group::</span>FoodAndDrink<span class="op">.</span>emojis()<span class="op">.</span>map(<span class="op">|</span>e<span class="op">|</span> e<span class="op">.</span>as_str())<span class="op">.</span>take(<span class="dv">5</span>)<span class="op">.</span>collect()<span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">assert_eq!</span>(fruit<span class="op">,</span> [<span class="st">"🍇"</span><span class="op">,</span> <span class="st">"🍈"</span><span class="op">,</span> <span class="st">"🍉"</span><span class="op">,</span> <span class="st">"🍊"</span><span class="op">,</span> <span class="st">"🍋"</span>])<span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> test_string <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(fruit[<span class="dv">0</span>])<span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> long_fruity_string <span class="op">=</span> <span class="st">"Hello"</span><span class="op">.</span>to_owned() <span class="op">+</span> <span class="op">&amp;</span>test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit[<span class="dv">1</span>]<span class="op">;</span> </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}!"</span><span class="op">,</span> long_fruity_string)<span class="op">;</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letter <span class="kw">in</span> long_fruity_string<span class="op">.</span>chars() <span class="op">{</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{letter}"</span>)<span class="op">;</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> long_fruity_string_in_binary <span class="op">=</span> <span class="st">""</span><span class="op">.</span>to_string()<span class="op">;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> character <span class="kw">in</span> long_fruity_string<span class="op">.</span>clone()<span class="op">.</span>into_bytes() <span class="op">{</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        long_fruity_string_in_binary <span class="op">+=</span> <span class="op">&amp;</span><span class="pp">format!</span>(<span class="st">"0{:b} "</span><span class="op">,</span> character)<span class="op">;</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">r#""{}" in binary is "{}""#</span><span class="op">,</span> long_fruity_string<span class="op">,</span> long_fruity_string_in_binary)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode rust code-with-copy"><code class="sourceCode rust"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">extern</span> <span class="kw">crate</span> emojis<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> fruit<span class="op">:</span> <span class="dt">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;</span> <span class="op">=</span> <span class="pp">emojis::Group::</span>FoodAndDrink<span class="op">.</span>emojis()<span class="op">.</span>map(<span class="op">|</span>e<span class="op">|</span> e<span class="op">.</span>as_str())<span class="op">.</span>take(<span class="dv">5</span>)<span class="op">.</span>collect()<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">assert_eq!</span>(fruit<span class="op">,</span> [<span class="st">"🍇"</span><span class="op">,</span> <span class="st">"🍈"</span><span class="op">,</span> <span class="st">"🍉"</span><span class="op">,</span> <span class="st">"🍊"</span><span class="op">,</span> <span class="st">"🍋"</span>])<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> test_string <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(fruit[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> long_fruity_string <span class="op">=</span> <span class="st">"Hello"</span><span class="op">.</span>to_owned() <span class="op">+</span> <span class="op">&amp;</span>test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit[<span class="dv">1</span>]<span class="op">;</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}!"</span><span class="op">,</span> long_fruity_string)<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letter <span class="kw">in</span> long_fruity_string<span class="op">.</span>chars() <span class="op">{</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{letter}"</span>)<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> long_fruity_string_in_binary <span class="op">=</span> <span class="st">""</span><span class="op">.</span>to_string()<span class="op">;</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> character <span class="kw">in</span> long_fruity_string<span class="op">.</span>clone()<span class="op">.</span>into_bytes() <span class="op">{</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        long_fruity_string_in_binary <span class="op">+=</span> <span class="op">&amp;</span><span class="pp">format!</span>(<span class="st">"0{:b} "</span><span class="op">,</span> character)<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">r#""{}" in binary is "{}""#</span><span class="op">,</span> long_fruity_string<span class="op">,</span> long_fruity_string_in_binary)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The output:</p>
 <pre><code>$ cargo run
    Compiling word_boundary v0.1.0 (/home/pablo/git/Rust/rust-practice/word_boundary)
@@ -483,15 +528,15 @@ o
 <section id="r" class="level3">
 <h3 class="anchored" data-anchor-id="r">R</h3>
 <p>R has the <code>emoji</code> package. After a short exploration of its manual <span class="citation" data-cites="r-package:emoji">[<a href="#ref-r-package:emoji" role="doc-biblioref">7</a>]</span> it is possible to print the characters of a sentence using the fruit emojis by identifying their boundaries boundaries seamlessly.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"emoji"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"emoji"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>fruit <span class="ot">&lt;-</span> emojis[ emojis<span class="sc">$</span>name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"grapes"</span>, <span class="st">"watermelon"</span>, <span class="st">"melon"</span>, <span class="st">"lemon"</span>, <span class="st">"tangerine"</span>),]<span class="sc">$</span>emoji</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>test_string <span class="ot">&lt;-</span> fruit[<span class="dv">1</span>]</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>long_fruity_string <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Hello"</span>, test_string,<span class="st">", "</span>,fruit[<span class="dv">2</span>] )</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(long_fruity_string)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="at">x =</span> long_fruity_string, <span class="at">split =</span> <span class="st">""</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'strsplit' returns a list in case x has multiple strings to be processed, we grab only the first one</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>results[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"emoji"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"emoji"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fruit <span class="ot">&lt;-</span> emojis[ emojis<span class="sc">$</span>name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"grapes"</span>, <span class="st">"watermelon"</span>, <span class="st">"melon"</span>, <span class="st">"lemon"</span>, <span class="st">"tangerine"</span>),]<span class="sc">$</span>emoji</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>test_string <span class="ot">&lt;-</span> fruit[<span class="dv">1</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>long_fruity_string <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Hello"</span>, test_string,<span class="st">", "</span>,fruit[<span class="dv">2</span>] )</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(long_fruity_string)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="at">x =</span> long_fruity_string, <span class="at">split =</span> <span class="st">""</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'strsplit' returns a list in case x has multiple strings to be processed, we grab only the first one</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>results[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Produces the following output, a vector of characters, due to R’s native focus on vectorized operations:</p>
 <pre><code> [1] "Hello 🍇 ,  🍈"
  [1] "H"  "e"  "l"  "l"  "o"  " "  "🍇" " "  ","  " "  " "  "🍈"</code></pre>
