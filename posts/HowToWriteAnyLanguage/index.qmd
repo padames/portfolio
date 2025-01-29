@@ -199,7 +199,7 @@ o
 �
 ```
 
-It is non-trivial to find the character boundaries in C++. The std::string treats the emojis as 4 `u_int8_t` bytes but it does not map them to the glyphs for rendering.
+It is non-trivial to find the character boundaries in C++. The std::string treats the emojis as 4 bytes but it does not map them to the glyphs for rendering.
 
 ### Rust
 
