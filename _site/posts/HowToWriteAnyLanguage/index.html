@@ -452,7 +452,7 @@ div.csl-indent {
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">boost::</span>nowide<span class="ex">::</span>cout<span class="op"> &lt;&lt;</span> long_fruity_string <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span> <span class="kw">auto</span> letter<span class="op">:</span> long_fruity_string<span class="op">){</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span> <span class="at">const</span> <span class="dt">char</span><span class="op">&amp;</span> letter<span class="op">:</span> long_fruity_string<span class="op">){</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="ex">boost::</span>nowide<span class="ex">::</span>cout<span class="op"> &lt;&lt;</span> letter <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -475,7 +475,7 @@ o
 �
 �
 �</code></pre>
-<p>It is non-trivial to find the character boundaries in C++.</p>
+<p>It is non-trivial to find the character boundaries in C++. The std::string treats the emojis as 4 <code>u_int8_t</code> bytes but it does not map them to the glyphs for rendering.</p>
 </section>
 <section id="rust" class="level3">
 <h3 class="anchored" data-anchor-id="rust">Rust</h3>

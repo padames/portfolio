@@ -171,7 +171,7 @@ int main(int argc,char **argv)
 
     boost::nowide::cout << long_fruity_string << std::endl;
 
-    for ( auto letter: long_fruity_string){
+    for ( const char& letter: long_fruity_string){
         boost::nowide::cout << letter << std::endl;
     }
     return 0;
@@ -199,7 +199,7 @@ o
 �
 ```
 
-It is non-trivial to find the character boundaries in C++.
+It is non-trivial to find the character boundaries in C++. The std::string treats the emojis as 4 `u_int8_t` bytes but it does not map them to the glyphs for rendering.
 
 ### Rust
 
