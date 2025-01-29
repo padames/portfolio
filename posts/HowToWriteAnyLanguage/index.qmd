@@ -16,7 +16,7 @@ knitr:
 
 Chat bots, web pages, and screen monitors display information on cell phones, home and office computers, airports, bus and train stations. The text used in these scenarios enables clear communication. Text is not impeded by sound or obstructed by environmental noise and can deliver impact and meaning through semantically dense words reinforced by visual or aural context.
 
-Text and human language are technologies developed to build and transmit culture. As such, they have a fundamental role in sustaining our civilization. Accurate textual information plays a critical role in international trade, e-commerce, and customer-facing software.
+Text and human language are technologies developed to build and transmit culture. Accurate textual information also plays a critical role in international trade, e-commerce, and customer-facing software. Text has a fundamental role in sustaining our civilization.
 
 ![Image credit: https://neuroflash.com/blog/automatic-text-editor-online/](https://neuroflash.com/wp-content/uploads/2022/09/feature-image-automatic-text-editor-online.jpg)
 
