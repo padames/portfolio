@@ -56,68 +56,59 @@ Text encoding is a mapping from the code points to some efficient way to write t
 
 The common Unicode text encoding to write source code in modern computer languages is called UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet. UTF stands for the Unicode Transformation Format @enwiki:1268238400_. This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.
 
-
-| Range of Code Points      | Byte 1   | Byte 2   | Byte 3  | Byte 4  |
-|---------------------------|----------|----------|---------|---------|
-| From U+0000 to U007F      | 0yyyzzzz |          |         |         |
-| From U+0080 to U+07FF     | 110xxxyy | 10yyzzzz |         |         |
-| From U+0800 to U+FFFF     | 1110wwww | 10xxxxyy | 10yyzzzz|         |
-| From U+010000 to U+10FFFF | 11110uvv | 10vvwwww | 10xxxxyy| 10yyzzzz|
+| Range of Code Points      | Byte 1   | Byte 2   | Byte 3   | Byte 4   |
+|---------------------------|----------|----------|----------|----------|
+| From U+0000 to U007F      | 0yyyzzzz |          |          |          |
+| From U+0080 to U+07FF     | 110xxxyy | 10yyzzzz |          |          |
+| From U+0800 to U+FFFF     | 1110wwww | 10xxxxyy | 10yyzzzz |          |
+| From U+010000 to U+10FFFF | 11110uvv | 10vvwwww | 10xxxxyy | 10yyzzzz |
 
 : Table 1. Code point to UTF-8 encoding, from @convertcodes:encodeformats {.striped .hover}
 
 The code values or code points in Table 1 have a corresponding multi-byte representation in UTF-8 form, the encoding has a variable number of bytes. How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the current byte is sufficient to encode the character fully, that is, it fits in one byte, e.g. an ASCII character. One means the byte is part of a multi-byte sequence. Two means the byte marks the start of a character encoded in two bytes in total. Three and four ones mean the equivalent, the byte marks the beginning of characters represented by three and four bytes respectively, including the leading one. Table 2 shows examples of each one of these cases.
 
-
 | Character | Code point | Byte 1   | Byte 2   | Byte 3   | Byte 4   |
 |-----------|------------|----------|----------|----------|----------|
-|H          |  U+0048    | 01001000 |          |          |          |
-|á          |  U+00E1    | 11000011 | 10100001 |          |          |
-|ᜋ  |      U+170B | 11100001    |    10011100 | 10001011 |          | 
-|🍇         | U+01F347   | 11110000 | 10011111 | 10001101 | 10000111 |
+| H         | U+0048     | 01001000 |          |          |          |
+| á         | U+00E1     | 11000011 | 10100001 |          |          |
+| ᜋ         | U+170B     | 11100001 | 10011100 | 10001011 |          |
+| 🍇        | U+01F347   | 11110000 | 10011111 | 10001101 | 10000111 |
 
 : Table 2. Examples of UTF-8 bytes for characters in each of the ranges of Unicode points presented in Table 1. {.striped .hover}
-
 
 This means that there is no need for escape sequences to mark the boundary of a single encoded multi-byte character. It also mean there is no need of a special marker for characters boundaries in a sequence of many characters. In addition to that it isolates semantic representation from character identification. Unicode encoding takes care of character boundaries but semantic parsing takes care of instruction or operator boundary.
 
 ## Trade-offs of choosing a Unicode encoding
 
-The code points can be encoded in three forms: UTF-8, UTF-16 and UTF-32. Each encoding maps the code points to unique code unit sequences of variable length @uni16:encodingforms. In particular, the larger code points need multiple single code units if using the code form UTF-8. 
-Conversely they may fit into a single code unit if encoded in UTF-32. 
-This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms.
-See Table 3 below for a comparison of three different encodings for a text sentence using short and long code points. 
+The code points can be encoded in three forms: UTF-8, UTF-16 and UTF-32. Each encoding maps the code points to unique code unit sequences of variable length @uni16:encodingforms. In particular, the larger code points need multiple single code units if using the code form UTF-8. Conversely they may fit into a single code unit if encoded in UTF-32. This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms. See Table 3 below for a comparison of three different encodings for a text sentence using short and long code points.
 
+| Encoding | Hexadecimal                                                                               |
+|--------------|----------------------------------------------------------|
+| UTF-8    | 48 65 6c 6c 6f 20 f0 9f 8d 87 2c 20 f0 9f 8d 88 21                                        |
+| UTF-16   | 0048 0065 006c 006c 006f 0020 d83c df47 002c 0020 d83c df48 0021            |
+| UTF-32   |  00000048 00000065 0000006c 0000006c 0000006f 00000020 0001f347 0000002c 00000020 0001f348 00000021 |
 
-| Encoding| Hexadecimal |
-|--------|----------------------------------------------------------|
-| UTF-8  | 48 65 6c 6c 6f f0 9f 8d 87 2c 20 f0 9f 8d 88 21                         |
-| UTF-16 | 0048 0065 006c 006c 006f d83c df47 002c 0020 d83c df48 0021   |
-| UTF-32 | 00000048 00000065 0000006c 0000006c 0000006f 0001f347 0000002c 00000020 0001f348 00000021 |
-
-: Table 3. Unicode encoding of the sentence `Hello🍇, 🍈!` from the website [Convert Codes](https://convertcodes.com/unicode-converter-encode-decode-utf/) {.striped .hover}
+: Table 3. Unicode encoding of the sentence `Hello 🍇, 🍈!` from the website [Convert Codes](https://convertcodes.com/unicode-converter-encode-decode-utf/) {.striped .hover}
 
 The long code points for the fruit emojis occupy a single UTF-32 code unit, look at 0001f347 and 0001f348, `🍇` and `🍈` in Table 4 below. from the same table one sees how these long codes require two code units in UTF-16 and four in UTF-8. That means more processing to read and write as more code units are required.
 
 The selection of a encoding form to map code points to code units forces a trade off between space and complexity. UTF-8 is very efficient for handling the smaller Unicode values while it is complex to handle the large ones. Conversely, UTF-32 is wasteful for storing the smaller values but simple for the higher ones.
 
-Windows chose to use UTF-16 natively since the NT version. It is efficient for the Asian alphabets that require at least two code points in UTF-8 but one in UTF-16 for most of their characters. 
+Windows chose to use UTF-16 natively since the NT version. It is efficient for the Asian alphabets that require at least two code points in UTF-8 but one in UTF-16 for most of their characters.
 
 Consider the following emojis, their Unicode values and their multi-byte representation in three different encodings:
 
-| fruit emoji | name  | Unicode point | UTF-8 | UTF-16 | UTF-32 |
-|-------------|-------|---------------|-------|--------|--------|
-| 🍇          | grapes| U+1F347 |f0 9f 8d 87| d83c udf47 | 0001f347|
-| 🍈          | melon| U+1F348 |f0 9f 8d 88| d83c df48 | 0001f348 |
-| 🍉          | watermelon| U+1F349 |f0 9f 8d 89| d83c df49 | 0001f349 |
+| fruit emoji | name       | Unicode point | UTF-8       | UTF-16     | UTF-32   |
+|-------------|------------|---------------|-------------|------------|----------|
+| 🍇          | grapes     | U+1F347       | f0 9f 8d 87 | d83c udf47 | 0001f347 |
+| 🍈          | melon      | U+1F348       | f0 9f 8d 88 | d83c df48  | 0001f348 |
+| 🍉          | watermelon | U+1F349       | f0 9f 8d 89 | d83c df49  | 0001f349 |
 
 : Table 4. Food-fruit emoji codes and equivalent encoded representations {.striped .hover}
-
 
 In general, UTF-8 is the most suitable option for web pages and computer programs. The reason is only pragmatic because it makes the web engines and text editors and parsers work well when consuming most html, Javascript, and general purpose computer languages.
 
 The Windows operating system uses APIs that handle the UTF-8 to UTF-16 conversion internally. In that way application code can pass UTF-8 encoded to the operating system.
-
 
 ### More definitions
 
@@ -131,9 +122,7 @@ A text unit, thus is a valid sequence of one or more encoded text characters @un
 
 ### Algorithms for text encoding
 
-I will spare the reader with the specifics of these algorithms to go from code point to any of the encodings. A easy to follow example of these algorithms can be found elsewhere, I like the rich examples from this website: [utf-8 encode-decode](https://convertcodes.com/utf8-encode-decode-convert-string/).
-If you follow those examples you will realize a text processing program needs a table of code points to glyphs, and an algorithm to encode code points to code units and the reversal.
-
+I will spare the reader with the specifics of these algorithms to go from code point to any of the encodings. A easy to follow example of these algorithms can be found elsewhere, I like the rich examples from this website: [utf-8 encode-decode](https://convertcodes.com/utf8-encode-decode-convert-string/). If you follow those examples you will realize a text processing program needs a table of code points to glyphs, and an algorithm to encode code points to code units and the reversal.
 
 ## Practical character boundary examples
 
@@ -143,20 +132,39 @@ I will be using emojis from the food-fruit category, as defined in the Unicode s
 
 ![Figure 1. The table for the food-fruit emoji category taken from the Unicode standard chart @uni16:emojicharts](Food-fruit-unicode-emoji-chart.png)
 
-
 ### C++
 
 The platform agnostic support for UTF-8 in C++ 20 is not quite as simple as in other modern computer languages. POSIX operating systems like Linux work with UTF-8 out of the box. However Windows uses UTF-16 internally, making every system call dependent on text encoding translations.
 
-One of the alternatives is to use the Boost `nowide` libraries to make the IO UTF-8 aware regardles of the platform. The source code can be downloaded from [Boost nowide GitHub](https://github.com/boostorg/nowide) and it can be built with the CMake build system. On Ubuntu there is need to install supporting Boost libraries via: `sudo apt-get -y install libboost-filesystem-dev`.  
+There is a C/C++ library for handling Unicode from the International Components for Unicode, ICU for short. This organization sits under the same umbrella of Unicode, Inc.
+The library is old judging by the 25 year-ago commits as of the time of writing. However, it is still maintained and it has been moved to GitHUb where it has a modern CI/CD pipeline. 
 
-```c++
-#include <boost/nowide/args.hpp>
-#include <boost/nowide/fstream.hpp>
-#include <boost/nowide/iostream.hpp>
+In particular there is an ICU project that showcases the applications of the library through web pages for interactive text manipulation. The app for text segmentation is quite interesting. The app is hosted in [icusegments-demo](https://icu4c-demos.unicode.org/icu-bin/icusegments#3/en). The source code can be found in [icu-demos](https://github.com/unicode-org/icu-demos) in GitHub.   
+
+I found that the pages are quite slow at certain times of day, using them is easier late at night in the North American time zones. Below is a successful test of the target sentence I want to parse by _grapheme cluster_, what we as users would identify as characters on the screen.
+
+![Figure 2. The result from segmenting the test sentence using Unicode character boundaries using the web page at [icusegment](https://icu4c-demos.unicode.org/icu-bin/icusegments#0/en__ULI).](ICU_segments_sample.png)
+
+### Building the ICU library
+
+Now I am certain the library can be used for this task. The ICU library can be installed in an Ubuntu system either from the upstream repository through the package manager or by getting it from sources, then building and installing it locally. The last option is also available in a Windows operating system. Multiple versions can coexist simultaneously.
+
+After cloning the project from [ICU](https://github.com/unicode-org/icu/tree/main), one can follow the steps in [building-icu4c](https://unicode-org.github.io/icu/userguide/icu4c/build.html) to configure, build and install the version 77.0.1 as of the date of this writing. A minimal working example was then build using CMake. The only caveat is to explicitly link the ICU shared libraries necessary, as an example, using the GNU toolchain on Linux: `g++ your_file.cpp -o your_program -licuio -licui18n -licuuc`, for a program that needs the `libicuio.so`, `libicui18n.so`, and `libicuuc.so` shared libraries.    
+
+### The C++ test driver code
+
+
+As far as the code goes, below is a first attempt at illustrating what analysis we want to do. We want to segment an UTF-8 string with variable width code units that represent a blend of plain English ASCII and some emojis. 
+
+``` cpp
+#include <unicode/chariter.h>
+#include <unicode/errorcode.h>
+#include <unicode/brkiter.h>
+#include <iostream>
+#include <cassert>
 #include <vector>
 
-int main(int argc,char **argv)
+int main(int argc, char **argv)
 {
     std::vector<std::string> fruit;
     fruit.push_back("🍇");
@@ -167,43 +175,86 @@ int main(int argc,char **argv)
 
     std::string test_string = fruit[0];
 
-    std::string long_fruity_string = "Hello" + test_string + ", " + fruit[1];
+    std::string long_fruity_string = "Hello " + test_string + ", " + fruit[1];
+    
+    //Note: Since C++17 and ICU 76, you can use UTF-16 string literals with compile-time
+    //      length determination.
+    const icu::UnicodeString str = icu::UnicodeString::fromUTF8(long_fruity_string);
+    std::string st;
+    str.toUTF8String(st);
+    std::cout << "Sentence to parse: \"" << st << "\"" << std::endl;
 
-    boost::nowide::cout << long_fruity_string << std::endl;
-
-    for ( const char& letter: long_fruity_string){
-        boost::nowide::cout << letter << std::endl;
+    UErrorCode err = U_ZERO_ERROR;
+    
+    std::unique_ptr<icu::BreakIterator> iter(
+        icu::BreakIterator::createCharacterInstance(icu::Locale::getDefault(), err));
+    assert(U_SUCCESS(err));
+    iter->setText(str);
+    auto start = iter->first();
+    auto end = start;
+    std::string charToPrintUTF8{};
+    auto ctp = icu::UnicodeString{};
+    while (iter->next() != icu::BreakIterator::DONE) {
+        start = end; // set start of the current grapheme before a pass throught the loop
+        end = iter->current(); // update the end position of the current grapheme boundary found via iter->next 
+        auto len = end - start; // in code units containing a grapheme
+        charToPrintUTF8.clear(); 
+        ctp = str.tempSubString(start, len); 
+        ctp.toUTF8String(charToPrintUTF8);
+        auto grapheme = len<2? std::string{charToPrintUTF8.front()}: charToPrintUTF8;
+        std::cout << "Code units: " << len << "; grapheme: '" << grapheme << "' of " << charToPrintUTF8.length() << " bytes" << std::endl;
     }
-    return 0;
+    return 0; 
 }
 ```
-Produces the following output in VSCode:
 
-```
-[Running] cd "/home/pablo/git/CPP/character_boundaries/" && g++ main.cpp -o main && "/home/pablo/git/CPP/character_boundaries/"main
-Hello🍇, 🍈
-H
-e
-l
-l
-o
-�
-�
-�
-�
-,
- 
-�
-�
-�
-�
+The output is shown below when this code is compiled using the GNU compiler g++ 13.3 using the C++17 standard, the ICU libraries version 77.0.1 (built from latest GitHub as of this writing), _CMake_ version 3.28.3 for the build system, and Ubuntu 24.04 for the Linux operating system. The output was edited to remove unnecessary details, linking to the ICU libraries is not a simple job, there is a learning curve to go through. The pay off for this complexity is a lot of control in the output. 
+
+```         
+$ cmake ../ -DCMAKE_BUILD_TYPE=Debug
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+...
+-- Found the following ICU libraries:
+--   data (required): /usr/local/lib/libicudata.so
+--   uc (required): /usr/local/lib/libicuuc.so
+--   i18n (required): /usr/local/lib/libicui18n.so
+--   io (required): /usr/local/lib/libicuio.so
+-- Found ICU: /usr/local/include (found suitable version "77.0.1", minimum required is "77.0") 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/pablo/git/CPP/character_boundaries/build-debug
+Thu Jan 30, 21:48:26; pablo@XPS13:~/git/CPP/character_boundaries/build-debug 
+$ make
+[ 50%] Building CXX object CMakeFiles/cbd.dir/main.cpp.o
+[100%] Linking CXX executable cbd
+[100%] Built target cbd
+Thu Jan 30, 22:58:20; pablo@XPS13:~/git/CPP/character_boundaries/build-debug [main]
+$ ./cbd
+Sentence to parse: "Hello 🍇, 🍈!"
+Code units: 1; grapheme: 'H' of 1 bytes
+Code units: 1; grapheme: 'e' of 1 bytes
+Code units: 1; grapheme: 'l' of 1 bytes
+Code units: 1; grapheme: 'l' of 1 bytes
+Code units: 1; grapheme: 'o' of 1 bytes
+Code units: 1; grapheme: ' ' of 1 bytes
+Code units: 2; grapheme: '🍇' of 4 bytes
+Code units: 1; grapheme: ',' of 1 bytes
+Code units: 1; grapheme: ' ' of 1 bytes
+Code units: 2; grapheme: '🍈' of 4 bytes
+Code units: 1; grapheme: '!' of 1 bytes
 ```
 
-It is non-trivial to find the character boundaries in C++. The std::string treats the emojis as 4 bytes but it does not map them to the glyphs for rendering.
+It is non-trivial to find the character boundaries in C++. The ICU **BreakIterator** for characters and its functions **next()** and **current()** apply rules for grapheme cluster identification based on the locale and the Unicode pages for the glyphs. When **UnicodeString** object is parsed into these _graphemes_ and an individual one is converted to UTF-8 we observe that the regular letters of the English alphabet, the white space and the punctuation characters use 1 byte, as expected, while the fruit _emojis_ take 4 bytes, also as expected.
+
+The reader is invited to look under the hood to the complexity in the parsing algorithm to identify these _grapheme_ clusters. This kind of software is infrastructure that has to remain hidden so we can communicate using all of our languages and all of the emojis of the world in our devices. 
+
+The reader is also invited to look up this [Stack Overflow answer](https://stackoverflow.com/a/45581810/1585486) on doing exactly the same character segmentation exercise in C++ using the **Boost** library and its module called **locale**. It has a more modern interface in terms of function names and paradigm. I like that it uses the term **boost::locale::boundary::character** as the function to map over an UTF-8 string using an object of type **boost::locale::boundary::csegment_index**. It is all in the naming!   
+
 
 ### Rust
 
-In Rust I used the crate `emojis` from the public registry. A `crate` is a module in Rust. For more details read the free [cargo online book](https://doc.rust-lang.org/cargo/index.html).
+In Rust I used the crate `emojis` from the official public registry. A `crate` is a module in Rust. For more details consult the free [cargo online book](https://doc.rust-lang.org/cargo/index.html).
 
 The code creates a short vector with the first 5 elements of the Unicode emojis in the Food and Drink group. Then it creates a Rust String by concatenating String slices in UTF-8. It follows by using the magic of the String function `chars` to find the character boundaries and to print them one by one. The 'magic' comes from the fact that some of these characters have multiple code unit representations in UTF-8, the default this is the Unicode form used by the Rust String data type, regardless of the operating system.
 
@@ -219,9 +270,9 @@ fn main() {
     assert_eq!(fruit, ["🍇", "🍈", "🍉", "🍊", "🍋"]);
     
     let test_string = String::from(fruit[0]);
-    let long_fruity_string = "Hello".to_owned() + &test_string + ", " + fruit[1]; 
+    let long_fruity_string = "Hello ".to_owned() + &test_string + ", " + fruit[1] + "!"; 
     
-    println!("{}!", long_fruity_string);
+    println!("\"{}\"", long_fruity_string);
 
     for letter in long_fruity_string.chars() {
         println!("{letter}");
@@ -232,6 +283,7 @@ fn main() {
         long_fruity_string_in_binary += &format!("0{:b} ", character);
     }
     println!(r#""{}" in binary is "{}""#, long_fruity_string, long_fruity_string_in_binary);
+}
 ```
 
 The output:
@@ -239,19 +291,21 @@ The output:
 ```         
 $ cargo run
    Compiling word_boundary v0.1.0 (/home/pablo/git/Rust/rust-practice/word_boundary)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.22s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.24s
      Running `target/debug/word_boundary`
-Hello🍇, 🍈!
+"Hello 🍇, 🍈!"
 H
 e
 l
 l
 o
+ 
 🍇
 ,
  
 🍈
-"Hello🍇, 🍈" in binary is "01001000 01100101 01101100 01101100 01101111 011110000 010011111 010001101 010000111 0101100 0100000 011110000 010011111 010001101 010001000 "
+!
+"Hello 🍇, 🍈!" in binary is "01001000 01100101 01101100 01101100 01101111 0100000 011110000 010011111 010001101 010000111 0101100 0100000 011110000 010011111 010001101 010001000 0100001 "
 ```
 
 Remember the rules for representing UTF-8 encoded bytes from standard Unicode points, well if you have a look at the last four bytes of the sentence above: `11110000 10011111 10001101 10001000` removing the initial 0 that indicates binary numbers, we observe that these correspond to the 4 bytes of the multi-byte encoded character 🍈, U+1F348, in UTF-8 encoding in hexadecimal is f0 9f 8d 88 (from Table 3).
@@ -269,7 +323,7 @@ install.packages("emoji")
 library("emoji")
 fruit <- emojis[ emojis$name %in% c("grapes", "watermelon", "melon", "lemon", "tangerine"),]$emoji
 test_string <- fruit[1]
-long_fruity_string <- paste("Hello", test_string,", ",fruit[2] )
+long_fruity_string <- paste("Hello ", test_string,", ",fruit[2], "!" )
 paste(long_fruity_string)
 results <- strsplit(x = long_fruity_string, split = "")
 #'strsplit' returns a list in case x has multiple strings to be processed, we grab only the first one
@@ -279,19 +333,17 @@ results[[1]]
 Produces the following output, a vector of characters, due to R's native focus on vectorized operations:
 
 ```         
- [1] "Hello 🍇 ,  🍈"
- [1] "H"  "e"  "l"  "l"  "o"  " "  "🍇" " "  ","  " "  " "  "🍈"
+ [1] "Hello  🍇 ,  🍈 !"
+ [1] "H"  "e"  "l"  "l"  "o"  " "  " "  "🍇" " "  ","  " "  " "  "🍈" " "  "!"
 ```
 
 ## Conclusion
 
-Text representation using Unicode values and encondings has become an invisible technical detail. 
-Its standarization, maintenance, and enhancement is in the hands of a few experts, interest groups and users that drive their constant adaptation to modern communication via the web.
+Text representation using Unicode values and encondings has become an invisible technical detail. Its standardization, maintenance, and enhancement is in the hands of a few experts, interest groups and users that drive their constant adaptation to modern communication via the web.
 
-The software we use already handles text encoding, most likely UTF-8, via the libraries of the computer languages used to build those programs.
-We saw examples of how well they do it. 
-From human readable to binary data that can travel through wires, optic fibre, or electromagnetic waves, text is everywhere.
+Of the computer languages tested, Rust, Python, and R have a rich supply of modules to access Unicode pages, parsing and rendering functions that apply the Unicode standards. The needs of the world have evolved in the last decades towards more internationalization through the Internet, global supply chain trade, and e-commerce. Rust and Python 3 have been developed in the last 10 years. I think that these languages treating Unicode text as a first class citizen, reflects their response to the times we live.
 
+All the software we use handles text encodings, most likely UTF-8 or UTF-16 like Windows does, via the libraries of the computer languages or the operating system. We saw examples of how well they do it. From human readable representation to binary data that can travel through wires, optic fibre, or electromagnetic waves, text is everywhere.
 
 ### References
 

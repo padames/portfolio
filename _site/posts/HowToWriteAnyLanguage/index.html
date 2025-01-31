@@ -245,6 +245,13 @@ div.csl-indent {
 <p>The common Unicode text encoding to write source code in modern computer languages is called UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet. UTF stands for the Unicode Transformation Format <span class="citation" data-cites="enwiki:1268238400_">[<a href="#ref-enwiki:1268238400_" role="doc-biblioref">2</a>]</span>. This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.</p>
 <table class="table-striped table-hover table">
 <caption>Table 1. Code point to UTF-8 encoding, from <span class="citation" data-cites="convertcodes:encodeformats">[<a href="#ref-convertcodes:encodeformats" role="doc-biblioref">3</a>]</span></caption>
+<colgroup>
+<col style="width: 40%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Range of Code Points</th>
@@ -339,7 +346,7 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="trade-offs-of-choosing-a-unicode-encoding">Trade-offs of choosing a Unicode encoding</h2>
 <p>The code points can be encoded in three forms: UTF-8, UTF-16 and UTF-32. Each encoding maps the code points to unique code unit sequences of variable length <span class="citation" data-cites="uni16:encodingforms">[<a href="#ref-uni16:encodingforms" role="doc-biblioref">4</a>]</span>. In particular, the larger code points need multiple single code units if using the code form UTF-8. Conversely they may fit into a single code unit if encoded in UTF-32. This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms. See Table 3 below for a comparison of three different encodings for a text sentence using short and long code points.</p>
 <table class="table-striped table-hover table">
-<caption>Table 3. Unicode encoding of the sentence <code>Hello🍇, 🍈!</code> from the website <a href="https://convertcodes.com/unicode-converter-encode-decode-utf/">Convert Codes</a></caption>
+<caption>Table 3. Unicode encoding of the sentence <code>Hello 🍇, 🍈!</code> from the website <a href="https://convertcodes.com/unicode-converter-encode-decode-utf/">Convert Codes</a></caption>
 <thead>
 <tr class="header">
 <th>Encoding</th>
@@ -349,15 +356,15 @@ div.csl-indent {
 <tbody>
 <tr class="odd">
 <td>UTF-8</td>
-<td>48 65 6c 6c 6f f0 9f 8d 87 2c 20 f0 9f 8d 88 21</td>
+<td>48 65 6c 6c 6f 20 f0 9f 8d 87 2c 20 f0 9f 8d 88 21</td>
 </tr>
 <tr class="even">
 <td>UTF-16</td>
-<td>0048 0065 006c 006c 006f d83c df47 002c 0020 d83c df48 0021</td>
+<td>0048 0065 006c 006c 006f 0020 d83c df47 002c 0020 d83c df48 0021</td>
 </tr>
 <tr class="odd">
 <td>UTF-32</td>
-<td>00000048 00000065 0000006c 0000006c 0000006f 0001f347 0000002c 00000020 0001f348 00000021</td>
+<td>00000048 00000065 0000006c 0000006c 0000006f 00000020 0001f347 0000002c 00000020 0001f348 00000021</td>
 </tr>
 </tbody>
 </table>
@@ -367,6 +374,14 @@ div.csl-indent {
 <p>Consider the following emojis, their Unicode values and their multi-byte representation in three different encodings:</p>
 <table class="table-striped table-hover table">
 <caption>Table 4. Food-fruit emoji codes and equivalent encoded representations</caption>
+<colgroup>
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 19%">
+<col style="width: 17%">
+<col style="width: 15%">
+<col style="width: 13%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>fruit emoji</th>
@@ -431,55 +446,113 @@ div.csl-indent {
 <section id="c" class="level3">
 <h3 class="anchored" data-anchor-id="c">C++</h3>
 <p>The platform agnostic support for UTF-8 in C++ 20 is not quite as simple as in other modern computer languages. POSIX operating systems like Linux work with UTF-8 out of the box. However Windows uses UTF-16 internally, making every system call dependent on text encoding translations.</p>
-<p>One of the alternatives is to use the Boost <code>nowide</code> libraries to make the IO UTF-8 aware regardles of the platform. The source code can be downloaded from <a href="https://github.com/boostorg/nowide">Boost nowide GitHub</a> and it can be built with the CMake build system. On Ubuntu there is need to install supporting Boost libraries via: <code>sudo apt-get -y install libboost-filesystem-dev</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/nowide/args.hpp&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/nowide/fstream.hpp&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;boost/nowide/iostream.hpp&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span><span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> fruit<span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍇"</span><span class="op">);</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍈"</span><span class="op">);</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍉"</span><span class="op">);</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍊"</span><span class="op">);</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍋"</span><span class="op">);</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>test_string <span class="op">=</span> fruit<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<p>There is a C/C++ library for handling Unicode from the International Components for Unicode, ICU for short. This organization sits under the same umbrella of Unicode, Inc. The library is old judging by the 25 year-ago commits as of the time of writing. However, it is still maintained and it has been moved to GitHUb where it has a modern CI/CD pipeline.</p>
+<p>In particular there is an ICU project that showcases the applications of the library through web pages for interactive text manipulation. The app for text segmentation is quite interesting. The app is hosted in <a href="https://icu4c-demos.unicode.org/icu-bin/icusegments#3/en">icusegments-demo</a>. The source code can be found in <a href="https://github.com/unicode-org/icu-demos">icu-demos</a> in GitHub.</p>
+<p>I found that the pages are quite slow at certain times of day, using them is easier late at night in the North American time zones. Below is a successful test of the target sentence I want to parse by <em>grapheme cluster</em>, what we as users would identify as characters on the screen.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ICU_segments_sample.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure 2. The result from segmenting the test sentence using Unicode character boundaries using the web page at <a href="https://icu4c-demos.unicode.org/icu-bin/icusegments#0/en__ULI">icusegment</a>.</figcaption>
+</figure>
+</div>
+</section>
+<section id="building-the-icu-library" class="level3">
+<h3 class="anchored" data-anchor-id="building-the-icu-library">Building the ICU library</h3>
+<p>Now I am certain the library can be used for this task. The ICU library can be installed in an Ubuntu system either from the upstream repository through the package manager or by getting it from sources, then building and installing it locally. The last option is also available in a Windows operating system. Multiple versions can coexist simultaneously.</p>
+<p>After cloning the project from <a href="https://github.com/unicode-org/icu/tree/main">ICU</a>, one can follow the steps in <a href="https://unicode-org.github.io/icu/userguide/icu4c/build.html">building-icu4c</a> to configure, build and install the version 77.0.1 as of the date of this writing. A minimal working example was then build using CMake. The only caveat is to explicitly link the ICU shared libraries necessary, as an example, using the GNU toolchain on Linux: <code>g++ your_file.cpp -o your_program -licuio -licui18n -licuuc</code>, for a program that needs the <code>libicuio.so</code>, <code>libicui18n.so</code>, and <code>libicuuc.so</code> shared libraries.</p>
+</section>
+<section id="the-c-test-driver-code" class="level3">
+<h3 class="anchored" data-anchor-id="the-c-test-driver-code">The C++ test driver code</h3>
+<p>As far as the code goes, below is a first attempt at illustrating what analysis we want to do. We want to segment an UTF-8 string with variable width code units that represent a blend of plain English ASCII and some emojis.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unicode/chariter.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unicode/errorcode.h&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unicode/brkiter.h&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;iostream&gt;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;cassert&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="op">**</span>argv<span class="op">)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>vector<span class="op">&lt;</span><span class="bu">std::</span>string<span class="op">&gt;</span> fruit<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍇"</span><span class="op">);</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍈"</span><span class="op">);</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍉"</span><span class="op">);</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍊"</span><span class="op">);</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍋"</span><span class="op">);</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>long_fruity_string <span class="op">=</span> <span class="st">"Hello"</span> <span class="op">+</span> test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>test_string <span class="op">=</span> fruit<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="ex">boost::</span>nowide<span class="ex">::</span>cout<span class="op"> &lt;&lt;</span> long_fruity_string <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span> <span class="at">const</span> <span class="dt">char</span><span class="op">&amp;</span> letter<span class="op">:</span> long_fruity_string<span class="op">){</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="ex">boost::</span>nowide<span class="ex">::</span>cout<span class="op"> &lt;&lt;</span> letter <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Produces the following output in VSCode:</p>
-<pre><code>[Running] cd "/home/pablo/git/CPP/character_boundaries/" &amp;&amp; g++ main.cpp -o main &amp;&amp; "/home/pablo/git/CPP/character_boundaries/"main
-Hello🍇, 🍈
-H
-e
-l
-l
-o
-�
-�
-�
-�
-,
- 
-�
-�
-�
-�</code></pre>
-<p>It is non-trivial to find the character boundaries in C++. The std::string treats the emojis as 4 bytes but it does not map them to the glyphs for rendering.</p>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>long_fruity_string <span class="op">=</span> <span class="st">"Hello "</span> <span class="op">+</span> test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit<span class="op">[</span><span class="dv">1</span><span class="op">];</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">//Note: Since C++17 and ICU 76, you can use UTF-16 string literals with compile-time</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">//      length determination.</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> icu<span class="op">::</span>UnicodeString str <span class="op">=</span> icu<span class="op">::</span>UnicodeString<span class="op">::</span>fromUTF8<span class="op">(</span>long_fruity_string<span class="op">);</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>st<span class="op">;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    str<span class="op">.</span>toUTF8String<span class="op">(</span>st<span class="op">);</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Sentence to parse: </span><span class="sc">\"</span><span class="st">"</span> <span class="op">&lt;&lt;</span> st <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\"</span><span class="st">"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    UErrorCode err <span class="op">=</span> U_ZERO_ERROR<span class="op">;</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>unique_ptr<span class="op">&lt;</span>icu<span class="op">::</span>BreakIterator<span class="op">&gt;</span> iter<span class="op">(</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        icu<span class="op">::</span>BreakIterator<span class="op">::</span>createCharacterInstance<span class="op">(</span>icu<span class="op">::</span>Locale<span class="op">::</span>getDefault<span class="op">(),</span> err<span class="op">));</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="ot">assert</span><span class="op">(</span>U_SUCCESS<span class="op">(</span>err<span class="op">));</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    iter<span class="op">-&gt;</span>setText<span class="op">(</span>str<span class="op">);</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> start <span class="op">=</span> iter<span class="op">-&gt;</span>first<span class="op">();</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> end <span class="op">=</span> start<span class="op">;</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>charToPrintUTF8<span class="op">{};</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> ctp <span class="op">=</span> icu<span class="op">::</span>UnicodeString<span class="op">{};</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>iter<span class="op">-&gt;</span>next<span class="op">()</span> <span class="op">!=</span> icu<span class="op">::</span>BreakIterator<span class="op">::</span>DONE<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        start <span class="op">=</span> end<span class="op">;</span> <span class="co">// set start of the current grapheme before a pass throught the loop</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        end <span class="op">=</span> iter<span class="op">-&gt;</span>current<span class="op">();</span> <span class="co">// update the end position of the current grapheme boundary found via iter-&gt;next </span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> len <span class="op">=</span> end <span class="op">-</span> start<span class="op">;</span> <span class="co">// in code units containing a grapheme</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        charToPrintUTF8<span class="op">.</span>clear<span class="op">();</span> </span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        ctp <span class="op">=</span> str<span class="op">.</span>tempSubString<span class="op">(</span>start<span class="op">,</span> len<span class="op">);</span> </span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        ctp<span class="op">.</span>toUTF8String<span class="op">(</span>charToPrintUTF8<span class="op">);</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> grapheme <span class="op">=</span> len<span class="op">&lt;</span><span class="dv">2</span><span class="op">?</span> <span class="bu">std::</span>string<span class="op">{</span>charToPrintUTF8<span class="op">.</span>front<span class="op">()}:</span> charToPrintUTF8<span class="op">;</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Code units: "</span> <span class="op">&lt;&lt;</span> len <span class="op">&lt;&lt;</span> <span class="st">"; grapheme: '"</span> <span class="op">&lt;&lt;</span> grapheme <span class="op">&lt;&lt;</span> <span class="st">"' of "</span> <span class="op">&lt;&lt;</span> charToPrintUTF8<span class="op">.</span>length<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">" bytes"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span> </span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The output is shown below when this code is compiled using the GNU compiler g++ 13.3 using the C++17 standard, the ICU libraries version 77.0.1 (built from latest GitHub as of this writing), <em>CMake</em> version 3.28.3 for the build system, and Ubuntu 24.04 for the Linux operating system. The output was edited to remove unnecessary details, linking to the ICU libraries is not a simple job, there is a learning curve to go through. The pay off for this complexity is a lot of control in the output.</p>
+<pre><code>$ cmake ../ -DCMAKE_BUILD_TYPE=Debug
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+...
+-- Found the following ICU libraries:
+--   data (required): /usr/local/lib/libicudata.so
+--   uc (required): /usr/local/lib/libicuuc.so
+--   i18n (required): /usr/local/lib/libicui18n.so
+--   io (required): /usr/local/lib/libicuio.so
+-- Found ICU: /usr/local/include (found suitable version "77.0.1", minimum required is "77.0") 
+-- Configuring done (0.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/pablo/git/CPP/character_boundaries/build-debug
+Thu Jan 30, 21:48:26; pablo@XPS13:~/git/CPP/character_boundaries/build-debug 
+$ make
+[ 50%] Building CXX object CMakeFiles/cbd.dir/main.cpp.o
+[100%] Linking CXX executable cbd
+[100%] Built target cbd
+Thu Jan 30, 22:58:20; pablo@XPS13:~/git/CPP/character_boundaries/build-debug [main]
+$ ./cbd
+Sentence to parse: "Hello 🍇, 🍈!"
+Code units: 1; grapheme: 'H' of 1 bytes
+Code units: 1; grapheme: 'e' of 1 bytes
+Code units: 1; grapheme: 'l' of 1 bytes
+Code units: 1; grapheme: 'l' of 1 bytes
+Code units: 1; grapheme: 'o' of 1 bytes
+Code units: 1; grapheme: ' ' of 1 bytes
+Code units: 2; grapheme: '🍇' of 4 bytes
+Code units: 1; grapheme: ',' of 1 bytes
+Code units: 1; grapheme: ' ' of 1 bytes
+Code units: 2; grapheme: '🍈' of 4 bytes
+Code units: 1; grapheme: '!' of 1 bytes</code></pre>
+<p>It is non-trivial to find the character boundaries in C++. The ICU <strong>BreakIterator</strong> for characters and its functions <strong>next()</strong> and <strong>current()</strong> apply rules for grapheme cluster identification based on the locale and the Unicode pages for the glyphs. When <strong>UnicodeString</strong> object is parsed into these <em>graphemes</em> and an individual one is converted to UTF-8 we observe that the regular letters of the English alphabet, the white space and the punctuation characters use 1 byte, as expected, while the fruit <em>emojis</em> take 4 bytes, also as expected.</p>
+<p>The reader is invited to look under the hood to the complexity in the parsing algorithm to identify these <em>grapheme</em> clusters. This kind of software is infrastructure that has to remain hidden so we can communicate using all of our languages and all of the emojis of the world in our devices.</p>
+<p>The reader is also invited to look up this <a href="https://stackoverflow.com/a/45581810/1585486">Stack Overflow answer</a> on doing exactly the same character segmentation exercise in C++ using the <strong>Boost</strong> library and its module called <strong>locale</strong>. It has a more modern interface in terms of function names and paradigm. I like that it uses the term <strong>boost::locale::boundary::character</strong> as the function to map over an UTF-8 string using an object of type <strong>boost::locale::boundary::csegment_index</strong>. It is all in the naming!</p>
 </section>
 <section id="rust" class="level3">
 <h3 class="anchored" data-anchor-id="rust">Rust</h3>
-<p>In Rust I used the crate <code>emojis</code> from the public registry. A <code>crate</code> is a module in Rust. For more details read the free <a href="https://doc.rust-lang.org/cargo/index.html">cargo online book</a>.</p>
+<p>In Rust I used the crate <code>emojis</code> from the official public registry. A <code>crate</code> is a module in Rust. For more details consult the free <a href="https://doc.rust-lang.org/cargo/index.html">cargo online book</a>.</p>
 <p>The code creates a short vector with the first 5 elements of the Unicode emojis in the Food and Drink group. Then it creates a Rust String by concatenating String slices in UTF-8. It follows by using the magic of the String function <code>chars</code> to find the character boundaries and to print them one by one. The ‘magic’ comes from the fact that some of these characters have multiple code unit representations in UTF-8, the default this is the Unicode form used by the Rust String data type, regardless of the operating system.</p>
 <p>In other words the function has to parse the byte sequence and using the UTF-8 decoding rules find whole characters, using the rules shown in Table 1. Once the base 16 Unicode code points are found a rendering function has to find them in a table and create the matching glyph on the terminal for printing.</p>
 <p>Finally, the binary sequence for the whole sentence is printed to the terminal.</p>
@@ -490,9 +563,9 @@ o
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">assert_eq!</span>(fruit<span class="op">,</span> [<span class="st">"🍇"</span><span class="op">,</span> <span class="st">"🍈"</span><span class="op">,</span> <span class="st">"🍉"</span><span class="op">,</span> <span class="st">"🍊"</span><span class="op">,</span> <span class="st">"🍋"</span>])<span class="op">;</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> test_string <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(fruit[<span class="dv">0</span>])<span class="op">;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> long_fruity_string <span class="op">=</span> <span class="st">"Hello"</span><span class="op">.</span>to_owned() <span class="op">+</span> <span class="op">&amp;</span>test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit[<span class="dv">1</span>]<span class="op">;</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> long_fruity_string <span class="op">=</span> <span class="st">"Hello "</span><span class="op">.</span>to_owned() <span class="op">+</span> <span class="op">&amp;</span>test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit[<span class="dv">1</span>] <span class="op">+</span> <span class="st">"!"</span><span class="op">;</span> </span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"{}!"</span><span class="op">,</span> long_fruity_string)<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">"</span><span class="sc">\"</span><span class="st">{}</span><span class="sc">\"</span><span class="st">"</span><span class="op">,</span> long_fruity_string)<span class="op">;</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> letter <span class="kw">in</span> long_fruity_string<span class="op">.</span>chars() <span class="op">{</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">"{letter}"</span>)<span class="op">;</span></span>
@@ -502,23 +575,26 @@ o
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> character <span class="kw">in</span> long_fruity_string<span class="op">.</span>clone()<span class="op">.</span>into_bytes() <span class="op">{</span></span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        long_fruity_string_in_binary <span class="op">+=</span> <span class="op">&amp;</span><span class="pp">format!</span>(<span class="st">"0{:b} "</span><span class="op">,</span> character)<span class="op">;</span></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">r#""{}" in binary is "{}""#</span><span class="op">,</span> long_fruity_string<span class="op">,</span> long_fruity_string_in_binary)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">r#""{}" in binary is "{}""#</span><span class="op">,</span> long_fruity_string<span class="op">,</span> long_fruity_string_in_binary)<span class="op">;</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The output:</p>
 <pre><code>$ cargo run
    Compiling word_boundary v0.1.0 (/home/pablo/git/Rust/rust-practice/word_boundary)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.22s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.24s
      Running `target/debug/word_boundary`
-Hello🍇, 🍈!
+"Hello 🍇, 🍈!"
 H
 e
 l
 l
 o
+ 
 🍇
 ,
  
 🍈
-"Hello🍇, 🍈" in binary is "01001000 01100101 01101100 01101100 01101111 011110000 010011111 010001101 010000111 0101100 0100000 011110000 010011111 010001101 010001000 "</code></pre>
+!
+"Hello 🍇, 🍈!" in binary is "01001000 01100101 01101100 01101100 01101111 0100000 011110000 010011111 010001101 010000111 0101100 0100000 011110000 010011111 010001101 010001000 0100001 "</code></pre>
 <p>Remember the rules for representing UTF-8 encoded bytes from standard Unicode points, well if you have a look at the last four bytes of the sentence above: <code>11110000 10011111 10001101 10001000</code> removing the initial 0 that indicates binary numbers, we observe that these correspond to the 4 bytes of the multi-byte encoded character 🍈, U+1F348, in UTF-8 encoding in hexadecimal is f0 9f 8d 88 (from Table 3).</p>
 </section>
 <section id="python" class="level3">
@@ -532,20 +608,21 @@ o
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"emoji"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fruit <span class="ot">&lt;-</span> emojis[ emojis<span class="sc">$</span>name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"grapes"</span>, <span class="st">"watermelon"</span>, <span class="st">"melon"</span>, <span class="st">"lemon"</span>, <span class="st">"tangerine"</span>),]<span class="sc">$</span>emoji</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>test_string <span class="ot">&lt;-</span> fruit[<span class="dv">1</span>]</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>long_fruity_string <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Hello"</span>, test_string,<span class="st">", "</span>,fruit[<span class="dv">2</span>] )</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>long_fruity_string <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">"Hello "</span>, test_string,<span class="st">", "</span>,fruit[<span class="dv">2</span>], <span class="st">"!"</span> )</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span>(long_fruity_string)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">strsplit</span>(<span class="at">x =</span> long_fruity_string, <span class="at">split =</span> <span class="st">""</span>)</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'strsplit' returns a list in case x has multiple strings to be processed, we grab only the first one</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>results[[<span class="dv">1</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Produces the following output, a vector of characters, due to R’s native focus on vectorized operations:</p>
-<pre><code> [1] "Hello 🍇 ,  🍈"
- [1] "H"  "e"  "l"  "l"  "o"  " "  "🍇" " "  ","  " "  " "  "🍈"</code></pre>
+<pre><code> [1] "Hello  🍇 ,  🍈 !"
+ [1] "H"  "e"  "l"  "l"  "o"  " "  " "  "🍇" " "  ","  " "  " "  "🍈" " "  "!"</code></pre>
 </section>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>Text representation using Unicode values and encondings has become an invisible technical detail. Its standarization, maintenance, and enhancement is in the hands of a few experts, interest groups and users that drive their constant adaptation to modern communication via the web.</p>
-<p>The software we use already handles text encoding, most likely UTF-8, via the libraries of the computer languages used to build those programs. We saw examples of how well they do it. From human readable to binary data that can travel through wires, optic fibre, or electromagnetic waves, text is everywhere.</p>
+<p>Text representation using Unicode values and encondings has become an invisible technical detail. Its standardization, maintenance, and enhancement is in the hands of a few experts, interest groups and users that drive their constant adaptation to modern communication via the web.</p>
+<p>Of the computer languages tested, Rust, Python, and R have a rich supply of modules to access Unicode pages, parsing and rendering functions that apply the Unicode standards. The needs of the world have evolved in the last decades towards more internationalization through the Internet, global supply chain trade, and e-commerce. Rust and Python 3 have been developed in the last 10 years. I think that these languages treating Unicode text as a first class citizen, reflects their response to the times we live.</p>
+<p>All the software we use handles text encodings, most likely UTF-8 or UTF-16 like Windows does, via the libraries of the computer languages or the operating system. We saw examples of how well they do it. From human readable representation to binary data that can travel through wires, optic fibre, or electromagnetic waves, text is everywhere.</p>
 <section id="references" class="level3">
 <h3 class="anchored" data-anchor-id="references">References</h3>
 <div id="refs" class="references csl-bib-body" role="list">
