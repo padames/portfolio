@@ -157,13 +157,6 @@ After cloning the project from [ICU](https://github.com/unicode-org/icu/tree/mai
 As far as the code goes, below is a first attempt at illustrating what analysis we want to do. We want to segment an UTF-8 string with variable width code units that represent a blend of plain English ASCII and some emojis. 
 
 ``` cpp
-#include <unicode/chariter.h>
-#include <unicode/errorcode.h>
-#include <unicode/brkiter.h>
-#include <iostream>
-#include <cassert>
-#include <vector>
-
 int main(int argc, char **argv)
 {
     std::vector<std::string> fruit;
@@ -175,10 +168,10 @@ int main(int argc, char **argv)
 
     std::string test_string = fruit[0];
 
-    std::string long_fruity_string = "Hello " + test_string + ", " + fruit[1];
+    std::string long_fruity_string = "Hello " + test_string + ", " + fruit[1] + "!";
     
     //Note: Since C++17 and ICU 76, you can use UTF-16 string literals with compile-time
-    //      length determination.
+    //      length determination. 
     const icu::UnicodeString str = icu::UnicodeString::fromUTF8(long_fruity_string);
     std::string st;
     str.toUTF8String(st);
