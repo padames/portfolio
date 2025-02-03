@@ -124,7 +124,16 @@ A text unit, thus is a valid sequence of one or more encoded text characters @un
 
 I will spare the reader with the specifics of these algorithms to go from code point to any of the encodings. A easy to follow example of these algorithms can be found elsewhere, I like the rich examples from this website: [utf-8 encode-decode](https://convertcodes.com/utf8-encode-decode-convert-string/). If you follow those examples you will realize a text processing program needs a table of code points to glyphs, and an algorithm to encode code points to code units and the reversal.
 
-## Practical character boundary examples
+## Why does all of this matter?
+
+Text is used in the web and operating systems for any language, even for pseudo-languages like modern emojis. We have come to expect web apps, web sites, and our computers and mobile devices to be able to display our language and emojis correctly.
+
+The programs that process text have to be break it down into its smallest components and then interpreted it as groups of characters that form words and punctuation, whole sentences, and whole paragraphs. And this has to work for any language supported by the software. 
+
+I am avoiding the discussion on general rules for displaying numbers, dates, and so on, commonly included in the definition of the locale used by a computer. Keeping the focus exclusively on text, the main technique to process it is called **text boundary analysis**. In a nutshell, this is about finding where lines can be wrapped for display, where sentences end, how to move a cursor for one word to the next, how to find words and count them, how to move the cursor one character at a time, etc. The ICU has an excellent explanation of it in its [page on this subject](https://unicode-org.github.io/icu/userguide/boundaryanalysis/#overview-of-text-boundary-analysis).
+
+
+## Simple character boundary examples
 
 I will present examples of character boundary identification in different computer languages. We will limit the scope to identifying emoticons mixed in with text for rendering text using UTF-8 encoding as most modern editors and terminals would do.
 
@@ -144,6 +153,34 @@ In particular there is an ICU project that showcases the applications of the lib
 I found that the pages are quite slow at certain times of day, using them is easier late at night in the North American time zones. Below is a successful test of the target sentence I want to parse by _grapheme cluster_, what we as users would identify as characters on the screen.
 
 ![Figure 2. The result from segmenting the test sentence using Unicode character boundaries using the web page at [icusegment](https://icu4c-demos.unicode.org/icu-bin/icusegments#0/en__ULI).](ICU_segments_sample.png)
+
+<!-- The ICU libraries are everywhere in a Ubuntu operating system. -->
+<!-- A quick search of one component shows it is packaged by many susbsystems: -->
+
+<!-- Mon Feb 03, 01:15:15; pablo@XPS13:/usr/local/lib/cmake  -->
+<!-- $ find / -type f -name libicuuc* 2>/dev/null -->
+<!-- /snap/kf5-5-113-qt-5-15-11-core22/1/usr/lib/x86_64-linux-gnu/libicuuc.so.70.1 -->
+<!-- /snap/cups/1058/usr/lib/x86_64-linux-gnu/libicuuc.so.70.1 -->
+<!-- /snap/cups/1067/usr/lib/x86_64-linux-gnu/libicuuc.so.70.1 -->
+<!-- /snap/gnome-42-2204/176/usr/lib/x86_64-linux-gnu/libicuuc.so.70.1 -->
+<!-- /snap/gnome-42-2204/202/usr/lib/x86_64-linux-gnu/libicuuc.so.70.1 -->
+<!-- /snap/kf6-core22/40/usr/lib/x86_64-linux-gnu/libicuuc.so.70.1 -->
+<!-- /snap/kf6-core22/41/usr/lib/x86_64-linux-gnu/libicuuc.so.70.1 -->
+<!-- /snap/gnome-3-38-2004/140/usr/lib/x86_64-linux-gnu/libicuuc.so.66.1 -->
+<!-- /snap/gnome-3-38-2004/143/usr/lib/x86_64-linux-gnu/libicuuc.so.66.1 -->
+<!-- /snap/kf5-5-110-qt-5-15-11-core22/3/usr/lib/x86_64-linux-gnu/libicuuc.so.70.1 -->
+<!-- /snap/mesa-2404/44/usr/lib/i386-linux-gnu/libicuuc.so.74.2 -->
+<!-- /snap/mesa-2404/44/usr/lib/x86_64-linux-gnu/libicuuc.so.74.2 -->
+<!-- /snap/mesa-2404/143/usr/lib/i386-linux-gnu/libicuuc.so.74.2 -->
+<!-- /snap/mesa-2404/143/usr/lib/x86_64-linux-gnu/libicuuc.so.74.2 -->
+<!-- /usr/lib/x86_64-linux-gnu/libicuuc.so.70.1 -->
+<!-- /usr/lib/x86_64-linux-gnu/libicuuc.a -->
+<!-- /usr/lib/x86_64-linux-gnu/libicuuc.so.74.2 -->
+<!-- /home/pablo/git/CPP/icu/icu4c/source/lib/libicuuc.so.77.0.1 -->
+<!-- /home/pablo/.dropbox-dist/dropbox-lnx.x86_64-216.4.4420/libicuuc.so.42 -->
+<!-- /opt/zoom/Qt/lib/libicuuc.so.56 -->
+
+
 
 ### Building the ICU library
 
