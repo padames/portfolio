@@ -210,7 +210,7 @@ div.csl-indent {
 <section id="text-is-everywhere" class="level2">
 <h2 class="anchored" data-anchor-id="text-is-everywhere">Text is everywhere</h2>
 <p>Chatbots, web pages, and stand-alone applications display information on the screens of our cell phones, home and office computers, at airports, bus and train stations. The text used in these scenarios enables clear communication. Text is not impeded by sound or obstructed by environmental noise and can deliver impact and meaning through semantically dense symbols reinforced by other visual or aural cues.</p>
-<p>Text and written human language are, at their core, technologies developed to build and transmit culture. Accurate textual information has a critical role in international trade, e-commerce, and customer-facing software. It is safe to say that text has a fundamental role in sustaining our civilization.</p>
+<p>Text and written human language are, at their core, technologies developed to build and transmit culture. Accurate textual information is critical in international trade, e-commerce, and customer-facing software. It is safe to say that text has a fundamental role in sustaining our civilization.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://neuroflash.com/wp-content/uploads/2022/09/feature-image-automatic-text-editor-online.jpg" class="img-fluid figure-img"></p>
@@ -221,26 +221,45 @@ div.csl-indent {
 <section id="what-is-text-anyway" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-text-anyway">What is text anyway?</h2>
 <p>To narrow the scope of this post to a manageable size, let’s constrain the answer to the world of computer languages. These are used to tell computers what to do when they receive data.</p>
-<p>Computer programming starts by writing instructions in a text editor. The characters used to form those instructions were initially called the ASCII characters. The characters in ASCII conveniently reflected the characters of the English alphabet plus the Arabic numerals and exclamation and punctuation marks. Thus knowing the English alphabet plus some additional computer language syntax can lower the barrier of entrance to programming a computer.</p>
+<p>Computer programming starts by writing instructions in a text editor. The characters used to form those instructions were initially called the ASCII characters. These characters conveniently reflected the characters of the English alphabet plus the Arabic numerals and exclamation and punctuation marks.</p>
+<p>In this context, text is used for two purposes. One is to write human-readable instructions for a computer to perform a task, the other is to be the data for the instructions to act upon.</p>
 </section>
 <section id="how-do-we-use-text-as-code" class="level2">
 <h2 class="anchored" data-anchor-id="how-do-we-use-text-as-code">How do we use text as code?</h2>
-<p>The human-readable text instructions of a computer program have to be interpreted and then transformed into machine-readable code before the computer can execute them. The first step implies parsing the text into functional parts: line breaks, plain data, commands, operators and variable and function names.</p>
-<p>The next step is to put those components into and abstract syntax tree (AST) that represents the program. The AST is then further converted into bite code instructions for a run time or into machine instructions to be executed in a process under the supervision of the operating system scheduler, or even directly in the microchip of a single board computer in the case of embedded systems.</p>
-<p>Everybody benefits from using text instead of programming directly using the instructions of the operating system or the bite code commands. Somehow using ASCII makes programming a computer a skill similar to learning one of the human languages. However, bias always favours the English-speaking programmer who knows how English reads.</p>
-<p>Accepting the historical facts, let’s dive into the ASCII character set. Its purpose is for programmers to encode rules that control the computer as it consumes input and produces output. We call these rules the program’s logic.</p>
-<p>The input to and output from the program we will call data. Digital computers natively process only zeros and ones. Any computer data, including text, must be transformed into a sequence of these two values.</p>
+<p>The instructions that a computer program are made of have to be interpreted and then transformed into machine-readable code before the machine can execute them. The first step implies parsing the text into functional parts: line breaks, plain data, commands, operators, variable and function names.</p>
+<p>The next step is to put those components into and abstract syntax tree (AST) that represents the program. The AST is then further converted into bite code instructions for a run time or into machine instructions to be executed by the operating system scheduler in a process under its supervision, or even directly in to the microchip clock scheduler of a single board computer in the case of real time embedded systems.</p>
+<!-- Everybody benefits from using text instead of programming directly using the instructions of the operating system or the bite code commands. Somehow using ASCII makes programming a computer a skill similar to learning one of the human languages. However, bias always favours the English-speaking programmer who knows how English reads. -->
+<!-- Accepting the historical facts, let's dive into the ASCII character set. Its purpose is for programmers to encode rules that control the computer as it consumes input and produces output. We call these rules the program's logic. -->
+<p>The input to and output from the program we call data. Digital computers natively process only zeros and ones. The text, images and sound supplied to a computer must be transformed first into a sequence of these two values.</p>
+<p>Text as code is handled relatively well with a small character set. How about the handling of text, images, and sound as data?</p>
 </section>
 <section id="entering-text-encoding" class="level2">
 <h2 class="anchored" data-anchor-id="entering-text-encoding">Entering text encoding</h2>
-<p>Text as code is handled relatively well with a small character set. How about text as data?</p>
-<p>This is a complex subject. The complexity comes from human communication happening in rich, dynamic, and diverse cultural contexts. Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and ultimately, ideas in human languages. These representations can be as diverse as the human groups that produce them.</p>
+<p>Restraining myself to write about text only, I am ready to discuss the transformation of what we see as text in our preferred language into bits. A computer program must discern what part of those zeros and ones represent text and put together a message to act on it, whether it is displaying it on a screen, writing to a database, or “launching the missiles”, so to speak. Welcome to text decoding and encoding.</p>
+<p>The complexity of this subject arises from the fact that human communication occurs within rich, dynamic, and diverse cultural contexts. Tradition, convention, identity, and art influence the glyphs and alphabets used to articulate words, sentences and, ultimately, ideas in human languages. Furthermore, each written language has rules for what a sentence and a word are, the direction of writing, what punctuation is, etc. It is easy to imagine that text can be as diverse as the human groups that use it.</p>
 <p>How do we address this complexity? We use text encoding that machines can understand automatically and unequivocally. The accepted encoding standard is called Unicode. I will quote directly from the Unicode standard definition #51 <span class="citation" data-cites="uni16:emoji">[<a href="#ref-uni16:emoji" role="doc-biblioref">1</a>]</span>.</p>
 <blockquote class="blockquote">
 <p>Unicode is the foundation for text in all modern software: it’s how all mobile phones, desktops, and other computers represent the text of every language.</p>
 </blockquote>
-<p>There are currently a total of 1,112,064 valid Unicode values or code points. There are scalar values represented in base-16, they range of values can be seen in Table 1 below. The first 128 code points correspond to the original ASCII.</p>
-<p>These values appear in Unicode tables associated with the typographical or artistic rendition of the glyph they represent. However, they are not used directly in the underlying machine code for each character. The main challenge is how to write text effectively in binary. Text consists of a sequence of characters, usually stored in contiguous memory.</p>
+<p>A good source of interesting information on Unicode can be found in the web page called the <a href="https://www.unifont.org/unicodeprimer/">Unicode Primer</a>. Only to give an idea of an interpretation of the 1,112,064 valid Unicode values or code points, have a squinting look at an image at of the Unifont character map. Just for context the ASCII characters fit in less than the first full row on this table.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://free-images.com/or/8728/unifont_full_map_png.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure 1. The Unifont full charcater map. Image Credit: https://free-images.com/or/8728/unifont_full_map_png.png</figcaption>
+</figure>
+</div>
+<p>A font table like the one above is needed to render the Unicode characters or glyphs from their numerical values. There are currently a total of 1,112,064 valid Unicode values or code points. These are scalar values represented in base-16 (using the digits and the letters A to F), their range of values can be seen in Table 1 below. The first 128 code points correspond to the original ASCII and yes you may try to go back to the Unifont table to find them on the first row.</p>
+<p>Independent of the artistic design of the font, the Unicode values appear in official tables associated with the typographical or artistic rendition of the glyph they represent. Long before and after they are rendered to a screen or printer, each character is treated as a series of numbers.</p>
+<p>The text encodings address the challenge of writing effectively in binary. Text consists of a sequence of characters, usually stored in contiguous memory. The encoding schema must also address the identification of character boundaries when all the program sees is endless zeros and ones.</p>
+<section id="a-journey-from-text-to-bits-and-back" class="level3">
+<h3 class="anchored" data-anchor-id="a-journey-from-text-to-bits-and-back">A Journey from text to bits and back</h3>
+<p>To illustrate the modern context in which we process text let’s consider a chat bot application in a mobile device, see the Figure 2 below. Text is entered on the mobile device through a virtual keyboard, rendered on screen, transformed ultimately into a byte stream with an UTF-8 encoding and sent through the wire/air using Internet protocols. On the receiving end, the bytes of zeros and ones are decoded into UTF-8, further transformed if necessary, interpreted using the indicated language and then displayed on the computer screen of the Browser used by the Customer Support agent to interact with the customer.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="text_journey.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure 2. The journey of a text message entered in a chat bot application in a mobile device to its destination in a computer screen of a customer support agent.</figcaption>
+</figure>
+</div>
 <p>Text encoding is a mapping from the code points to some efficient way to write text in binary. A fixed bit width for each character would simplify parsing characters within some text sequence and it would make character boundaries trivial to infer, however, it would waste much space when representing the small ASCII characters. On the other side if we choose a variable bit width then space would be saved with the small values but an end-of-character marker would be required, also adding extra space and complexity.</p>
 <p>The common Unicode text encoding to write source code in modern computer languages is called UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet. UTF stands for the Unicode Transformation Format <span class="citation" data-cites="enwiki:1268238400_">[<a href="#ref-enwiki:1268238400_" role="doc-biblioref">2</a>]</span>. This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.</p>
 <table class="table-striped table-hover table">
@@ -341,6 +360,7 @@ div.csl-indent {
 </tbody>
 </table>
 <p>This means that there is no need for escape sequences to mark the boundary of a single encoded multi-byte character. It also mean there is no need of a special marker for characters boundaries in a sequence of many characters. In addition to that it isolates semantic representation from character identification. Unicode encoding takes care of character boundaries but semantic parsing takes care of instruction or operator boundary.</p>
+</section>
 </section>
 <section id="trade-offs-of-choosing-a-unicode-encoding" class="level2">
 <h2 class="anchored" data-anchor-id="trade-offs-of-choosing-a-unicode-encoding">Trade-offs of choosing a Unicode encoding</h2>
@@ -446,13 +466,13 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Food-fruit-unicode-emoji-chart.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure 1. The table for the food-fruit emoji category taken from the Unicode standard chart <span class="citation" data-cites="uni16:emojicharts">[<a href="#ref-uni16:emojicharts" role="doc-biblioref">6</a>]</span></figcaption>
+<figcaption class="figure-caption">Figure 3. The table for the food-fruit emoji category taken from the Unicode standard chart <span class="citation" data-cites="uni16:emojicharts">[<a href="#ref-uni16:emojicharts" role="doc-biblioref">6</a>]</span></figcaption>
 </figure>
 </div>
 <section id="c" class="level3">
 <h3 class="anchored" data-anchor-id="c">C++</h3>
-<p>The platform agnostic support for UTF-8 in C++ 20 is not quite as simple as in other modern computer languages. POSIX operating systems like Linux work with UTF-8 out of the box. However Windows uses UTF-16 internally, making every system call dependent on text encoding translations.</p>
-<p>There is a C/C++ library for handling Unicode from the International Components for Unicode, ICU for short. This organization sits under the same umbrella of Unicode, Inc. The library is old judging by the 25 year-ago commits as of the time of writing. However, it is still maintained and it has been moved to GitHUb where it has a modern CI/CD pipeline.</p>
+<p>The platform agnostic support for UTF-8 in C++ 20 is not quite as simple as in other modern computer languages. POSIX operating systems like Linux work with UTF-8 out of the box. However Windows uses UTF-16 internally, making every system call dependent on text encoding translations. Thankfully those translations are hidden under Windows API calls.</p>
+<p>There is a C/C++ library for handling Unicode from the International Components for Unicode, ICU for short. This organization sits under the same umbrella of Unicode, Inc.&nbsp;The library is old judging by the 25 year-ago commits as of the time of writing. However, it is still maintained and it has been moved to GitHUb where it has a modern CI/CD pipeline. Furthermore the more modern Boost locale library uses the ICU libraries under the hood. These libraries are used by Linux packages everywhere to support internationalization.</p>
 <p>In particular there is an ICU project that showcases the applications of the library through web pages for interactive text manipulation. The app for text segmentation is quite interesting. The app is hosted in <a href="https://icu4c-demos.unicode.org/icu-bin/icusegments#3/en">icusegments-demo</a>. The source code can be found in <a href="https://github.com/unicode-org/icu-demos">icu-demos</a> in GitHub.</p>
 <p>I found that the pages are quite slow at certain times of day, using them is easier late at night in the North American time zones. Below is a successful test of the target sentence I want to parse by <em>grapheme cluster</em>, what we as users would identify as characters on the screen.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -488,7 +508,7 @@ div.csl-indent {
 </section>
 <section id="building-the-icu-library" class="level3">
 <h3 class="anchored" data-anchor-id="building-the-icu-library">Building the ICU library</h3>
-<p>Now I am certain the library can be used for this task. The ICU library can be installed in an Ubuntu system either from the upstream repository through the package manager or by getting it from sources, then building and installing it locally. The last option is also available in a Windows operating system. Multiple versions can coexist simultaneously.</p>
+<p>The ICU library can be installed in a Ubuntu system either from the upstream repository through the package manager or by getting it from sources, then building and installing it locally. The last option is also available in a Windows operating system. Multiple versions can coexist simultaneously.</p>
 <p>After cloning the project from <a href="https://github.com/unicode-org/icu/tree/main">ICU</a>, one can follow the steps in <a href="https://unicode-org.github.io/icu/userguide/icu4c/build.html">building-icu4c</a> to configure, build and install the version 77.0.1 as of the date of this writing. A minimal working example was then build using CMake. The only caveat is to explicitly link the ICU shared libraries necessary, as an example, using the GNU toolchain on Linux: <code>g++ your_file.cpp -o your_program -licuio -licui18n -licuuc</code>, for a program that needs the <code>libicuio.so</code>, <code>libicui18n.so</code>, and <code>libicuuc.so</code> shared libraries.</p>
 </section>
 <section id="the-c-test-driver-code" class="level3">
@@ -571,7 +591,8 @@ Code units: 2; grapheme: '🍈' of 4 bytes
 Code units: 1; grapheme: '!' of 1 bytes</code></pre>
 <p>It is non-trivial to find the character boundaries in C++. The ICU <strong>BreakIterator</strong> for characters and its functions <strong>next()</strong> and <strong>current()</strong> apply rules for grapheme cluster identification based on the locale and the Unicode pages for the glyphs. When <strong>UnicodeString</strong> object is parsed into these <em>graphemes</em> and an individual one is converted to UTF-8 we observe that the regular letters of the English alphabet, the white space and the punctuation characters use 1 byte, as expected, while the fruit <em>emojis</em> take 4 bytes, also as expected.</p>
 <p>The reader is invited to look under the hood to the complexity in the parsing algorithm to identify these <em>grapheme</em> clusters. This kind of software is infrastructure that has to remain hidden so we can communicate using all of our languages and all of the emojis of the world in our devices.</p>
-<p>The reader is also invited to look up this <a href="https://stackoverflow.com/a/45581810/1585486">Stack Overflow answer</a> on doing exactly the same character segmentation exercise in C++ using the <strong>Boost</strong> library and its module called <strong>locale</strong>. It has a more modern interface in terms of function names and paradigm. I like that it uses the term <strong>boost::locale::boundary::character</strong> as the function to map over an UTF-8 string using an object of type <strong>boost::locale::boundary::csegment_index</strong>. It is all in the naming!</p>
+<p>The reader is also invited to look up this <a href="https://stackoverflow.com/a/45581810/1585486">Stack Overflow answer</a> on doing exactly the same character segmentation exercise in C++ using the <strong>Boost</strong> library and its module called <strong>locale</strong>. It has a more modern interface in terms of function names and paradigm. However, as I mentioned earlier, it relies on the ICU libraries to do the detailed work. I like it that it uses the term <strong>boost::locale::boundary::character</strong> as the function to map over an UTF-8 string using an object of type <strong>boost::locale::boundary::csegment_index</strong>. It is all in the naming!</p>
+<p>A caveat though, to be able to use <strong>Boost locale</strong> and the ICU libraries in the same executable their versions must match. The default Ubuntu 24.04 system Boost (v1.83) and ICU libraries (v74) did not match out out of the box because the Boost locale v1.83 was built with ICU v77. There is enough material for a full post on that subject alone.</p>
 </section>
 <section id="rust" class="level3">
 <h3 class="anchored" data-anchor-id="rust">Rust</h3>
