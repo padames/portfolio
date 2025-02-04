@@ -2,7 +2,7 @@
 title: "How to process any text with Unicode"
 author: "Pablo Adames"
 date: "2025-01-21"
-categories: [text, C++, unicode, Rust, R]
+categories: [text, C++, Unicode, Rust, R]
 bibliography: references.bib
 csl: elsevier-vancouver.csl
 format: html
@@ -320,9 +320,9 @@ The output:
 
 ```         
 $ cargo run
-   Compiling word_boundary v0.1.0 (/home/pablo/git/Rust/rust-practice/word_boundary)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.24s
-     Running `target/debug/word_boundary`
+   Compiling character_boundary v0.1.0 (/home/pablo/git/Rust/rust-practice/character_boundary)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.41s
+     Running `target/debug/character_boundary`
 "Hello 🍇, 🍈!"
 H
 e
@@ -342,7 +342,43 @@ Remember the rules for representing UTF-8 encoded bytes from standard Unicode po
 
 ### Python
 
-Coming soon...
+Pyhton 3 was a re-write of Python 2 in great part to make the language Unicode aware, therefore it is no surprise that it is one the most straight forward code for our character boundary discovery exercise.
+
+```python
+#!/usr/bin/env python3
+ 
+def print_each_grapheme( unicode_string: str):
+    """ 
+    prints each unicode grapheme cluster
+    """
+    [print(c) for c in unicode_string]
+
+
+if __name__ =="__main__":
+    """
+    runs the script when called as a stand alone
+    """
+    fruits = u"🍇🍈🍉🍊🍋"
+    test_string = fruits[0]
+    long_fruity_string = "Hello " + test_string + ", " + fruits[1] +"!"
+    print_each_grapheme(long_fruity_string)
+```
+Python 3 extends the concept of a string to an array of Unicode grapheme clusters. This facilitates character boundary identification using the idiomatic list comprehension syntax and a string iterator. Under the hood the iterator is using Unicode code pages. The output is as expected.
+
+```
+$ ./main.py 
+H
+e
+l
+l
+o
+ 
+🍇
+,
+ 
+🍈
+!
+```
 
 ### R
 
@@ -366,6 +402,44 @@ Produces the following output, a vector of characters, due to R's native focus o
  [1] "Hello  🍇 ,  🍈 !"
  [1] "H"  "e"  "l"  "l"  "o"  " "  " "  "🍇" " "  ","  " "  " "  "🍈" " "  "!"
 ```
+
+### Character boundary identification complexity
+
+One might be tempted to  think that character boundary is always a simple task. By simple I mean, decode the bytes into Unicode code points, look them up in tables, render each. However some languages have special symbols to compose the individual glyphs into sentences, these have to be identified and decomposed.
+To illustrate this look at the python and Rust examples below.
+
+The text comes from this Stack Overflow question [cross-platform-iteration-of-unicode-string-counting-graphemes-using-icu](https://stackoverflow.com/q/4579215/1585486)
+
+```python
+#!/usr/bin/env python3
+
+from main import print_each_grapheme
+
+if __name__ == "__main__":
+    test_word = "नमस्ते"
+    print_each_grapheme(test_word)
+```
+The output is correct because the two combining marks are discovered correctly.
+
+![](SO_graphemes_with_combining_marks_python){height=100pt}
+
+Rust does likewise:
+```rust
+extern crate emojis;
+
+fn main() {
+    let tets_word = "नमस्ते";
+    println!("\"{}\"", tets_word);
+
+    for letter in tets_word.chars() {
+        println!("{letter}");
+    }
+}
+```
+
+![](SO_grapheme_identification_rust.png)
+
+
 
 ## Conclusion
 
