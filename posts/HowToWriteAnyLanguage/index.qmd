@@ -32,7 +32,7 @@ In this context, text is used for two purposes. One is to write human-readable i
 
 The instructions that a computer program are made of have to be interpreted and then transformed into machine-readable code before the machine can execute them. The first step implies parsing the text into functional parts: line breaks, plain data, commands, operators, variable and function names.
 
-The next step is to put those components into and abstract syntax tree (AST) that represents the program. The AST is then further converted into bite code instructions for a run time or into machine instructions to be executed by the operating system scheduler in a process under its supervision, or even directly in to the microchip clock scheduler of a single board computer in the case of real time embedded systems.
+The next step is to put those components into an abstract syntax tree (AST) that represents the program. The AST is then further converted into bite code instructions for a run time or into machine instructions to be executed by the operating system scheduler in a process under its supervision, or even directly in to the microchip clock scheduler of a single board computer in the case of real time embedded systems.
 
 <!-- Everybody benefits from using text instead of programming directly using the instructions of the operating system or the bite code commands. Somehow using ASCII makes programming a computer a skill similar to learning one of the human languages. However, bias always favours the English-speaking programmer who knows how English reads. -->
 
