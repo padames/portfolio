@@ -639,11 +639,11 @@ o
 🍈
 !
 "Hello 🍇, 🍈!" in binary is "01001000 01100101 01101100 01101100 01101111 0100000 011110000 010011111 010001101 010000111 0101100 0100000 011110000 010011111 010001101 010001000 0100001 "</code></pre>
-<p>Remember the rules for representing UTF-8 encoded bytes from standard Unicode points, well if you have a look at the last four bytes of the sentence above: <code>11110000 10011111 10001101 10001000</code> removing the initial 0 that indicates binary numbers, we observe that these correspond to the 4 bytes of the multi-byte encoded character 🍈, U+1F348, in UTF-8 encoding in hexadecimal is f0 9f 8d 88 (from Table 3).</p>
+<p>Remember the rules for representing UTF-8 encoded bytes from standard Unicode points? Here are the first four of the last five bytes of the sentence: <code>11110000 10011111 10001101 10001000</code>, after removing the initial 0 that indicates binary numbers. Observe that these correspond to the 4 bytes of the multi-byte encoded character for the melon emoji: 🍈, with Unicode value U+1F348, and with value in UTF-8 encoding in hexadecimal as f0 9f 8d 88 (from Table 3).</p>
 </section>
 <section id="python" class="level3">
 <h3 class="anchored" data-anchor-id="python">Python</h3>
-<p>Pyhton 3 was a re-write of Python 2 in great part to make the language Unicode aware, therefore it is no surprise that it is one the most straight forward code for our character boundary discovery exercise.</p>
+<p>Pyhton 3 was a re-write of Python 2 in great part to make the language Unicode aware, therefore it is no surprise that it is one the most straight forward codes for our character boundary discovery exercise.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env python3</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_each_grapheme( unicode_string: <span class="bu">str</span>):</span>
