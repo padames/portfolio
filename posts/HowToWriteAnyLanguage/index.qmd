@@ -65,9 +65,9 @@ The text encodings address the challenge of writing effectively in binary. Text 
 
 ### A Journey from text to bits and back
 
-To illustrate the modern context in which we process text let's consider a chat bot application in a mobile device, see the Figure 2 below.  Text is entered on the mobile device through a virtual keyboard, rendered on screen, transformed ultimately into a byte stream with an UTF-8 encoding and sent through the wire/air using Internet protocols. On the receiving end, the bytes of zeros and ones are decoded into UTF-8, further transformed if necessary, interpreted using the indicated language and then displayed on the computer screen of the Browser used by the Customer Support agent to interact with  the customer.   
+To illustrate the modern context in which we process text let's consider a chat application for customer support in a mobile device, see the Figure 2 below.  Text is entered on the mobile device through a virtual keyboard, rendered on screen, transformed ultimately into a byte stream with an UTF-8 encoding and sent through the wire/air using Internet protocols. On the receiving end, the bytes of zeros and ones are decoded into UTF-8, further transformed if necessary, interpreted using the indicated language and then displayed on the computer screen of the Browser used by the Customer Support agent to interact with  the customer.   
 
-![Figure 2. The journey of a text message entered in a chat bot application in a mobile device to its destination in a computer screen of a customer support agent.](text_journey.png)
+![Figure 2. The journey of a text message entered in a chat application in a mobile device to its destination in a computer screen of a customer support agent. Text does the same journey in the opposite direction when the support agent responds.](text_journey.png)
 
 
 
