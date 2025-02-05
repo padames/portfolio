@@ -480,7 +480,7 @@ The character segmentation examples used in this post are anything but an eye op
 
 <!-- Python 3.0 was launched in 2008 and Rust 1.0 in 2015. Java was not tested here but the ICU project has dedicated Java libraries similar to the C/C++ libraries.  -->
 
-I hope this post has given the reader a feel for the size of the task when it comes to writing software that processes text as data in diverse languages. From human readable representation to binary data that can travel through wires, optic fibre, or electromagnetic waves, text is everywhere and it is not going away any time soon.
+I hope this post has given the reader a feel for the size of the task of writing software that processes text as data in diverse languages. From human readable representation to binary data that can travel through wires, optic fibre, or electromagnetic waves, text is everywhere and it is not going away any time soon.
 
 ### References
 
