@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/Rust will have generators/index.html",
       "/posts/HowToWriteAnyLanguage/index.html",
       "/posts/animationRescue/index.html",
       "/posts/AnimationWorkflow/index.html",

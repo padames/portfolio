@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Software Engineering bits",
     "section": "",
-    "text": "This is the home for a few short posts and presentations made throughout the years. Most are related to subjects of personal interest like data modeling and visualization. I am also very fond of Machine Learning, High-Performance computing, and computer languages in general.\n\nEverything here is licensed under Creative Commons Attribution-ShareAlike 4.0 International\n\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nHow to process any text with Unicode\n\n\n\n\n\n\n\ntext\n\n\nC++\n\n\nUnicode\n\n\nRust\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nJan 21, 2025\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nAnimation to explain coupled time-series\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\nggplot2\n\n\n\n\n\n\n\n\n\n\n\nDec 15, 2024\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nHow to create a GIF file from individual images\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nSep 6, 2021\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nA User Interface to Analyze Storm Data\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\nLeaflet\n\n\n\n\n\n\n\n\n\n\n\nApr 2, 2017\n\n\nPablo Adames\n\n\n\n\n\n\nNo matching items"
+    "text": "This is the home for a few short posts and presentations made throughout the years. Most are related to subjects of personal interest like data modeling and visualization. I am also very fond of Machine Learning, High-Performance computing, and computer languages in general.\n\nEverything here is licensed under Creative Commons Attribution-ShareAlike 4.0 International\n\n\n\n\n\n\n\n\n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nRust will have generators\n\n\n\n\n\n\n\nRust\n\n\nprogramming\n\n\niteration\n\n\n\n\n\n\n\n\n\n\n\nFeb 11, 2025\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nHow to process any text with Unicode\n\n\n\n\n\n\n\ntext\n\n\nC++\n\n\nUnicode\n\n\nRust\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nJan 21, 2025\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nAnimation to explain coupled time-series\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\nggplot2\n\n\n\n\n\n\n\n\n\n\n\nDec 15, 2024\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nHow to create a GIF file from individual images\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\nSep 6, 2021\n\n\nPablo Adames\n\n\n\n\n\n\n  \n\n\n\n\nA User Interface to Analyze Storm Data\n\n\n\n\n\n\n\nVisualization\n\n\nR\n\n\nLeaflet\n\n\n\n\n\n\n\n\n\n\n\nApr 2, 2017\n\n\nPablo Adames\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -299,5 +299,61 @@
     "title": "How to process any text with Unicode",
     "section": "Discussion",
     "text": "Discussion\nCharacter boundary identification seems a trivial task when done over text written in simple Unicode characters like those from ASCII. However, it is an increasingly difficult task when glyphs don’t map to the letter in an alphabet but instead, they map directly to higher order ideas like in many Asian languages, and in most emojis. In the latter cases, character boundary identification may require additional steps to assign meaning to the sequence of Unicode characters, especially when the glyphs are modified by adjacent special markers, like accent or combiner marks. For this the libraries of a specific computer language or even the ICU libraries may not be sufficient. This is a text processing specific task and it should probably be developed in application specific logic curated and maintained with emphasis on the cultural needs of the users. A potential exception to this is emoji semantic interpretation, a flag emoji only changes meaning according to geopolitical events and a sad face emoji represents the idea of sadness regardless of the language.\nOf the computer languages tested, Rust, Python, and R have a rich supply of modules for easy accessing Unicode glyphs by subject, and for parsing and finding character boundaries effectively. The ICU libraries in C++ have a more complex API. Boost C++ has a more modern API to interface with the ICU libraries. The non-standard Boost build process introduces additional complexity in the exact coordination of dynamically linked ICU libraries used to build Boost itself and used by the program directly. This becomes an issue only when building an executable where both ICU and ICU-dependent Boost locale libraries are used with dynamic linking to the ICU libraries. The challenge is to isolate the program build process from the operating system’s own Boost and ICU libraries. Also there are potential collisions in ABI interface version used to build the ICU and the Boost libraries, the C++ standard (C++11, 17 or 20) for the Boost libraries and the executable, the ICU library order of inclusion (uc before i18n and data)."
+  },
+  {
+    "objectID": "posts/Rust will have generators/index.html",
+    "href": "posts/Rust will have generators/index.html",
+    "title": "Rust will have generators",
+    "section": "",
+    "text": "Computer languages never stay the same. They experience change in response to the needs of the industries they serve. These needs are discovered as adoption expands and meets the challenges of scale, efficiency, robustness, maintenance, tooling and safety.\nRust is a modern language that is characterized by two things: performance and memory safety. The other characteristic that is mentioned less frequently is that it is community driven, no benevolent dictators like in Python or ivory tower language committees like in C++. I believe that gives it the ability to experience gradual change delivered in an orderly fashion at constant pace, in other words you know what to expect and when to expect it. Dictators can be more often fast and chaotic, while committees can be in general slower and also too rigorous.\nThe principle adopted by the language since the release of Rust 1.0 in May 2015 is called “stability without stagnation”. The governance model is a core team acting as stewards of the process to achieve consensus through open and public discussions in the format of Request for Comments (RFC) and Pull Requests (PR) [1]."
+  },
+  {
+    "objectID": "posts/Rust will have generators/index.html#what-are-generators",
+    "href": "posts/Rust will have generators/index.html#what-are-generators",
+    "title": "Rust will have generators",
+    "section": "",
+    "text": "Image credit: https://aigeeked.com/wp-content/uploads/2022/12/ai-text-generator.jpg/"
+  },
+  {
+    "objectID": "posts/Rust will have generators/index.html#why-problem-do-generators-solve",
+    "href": "posts/Rust will have generators/index.html#why-problem-do-generators-solve",
+    "title": "Rust will have generators",
+    "section": "Why problem do generators solve?",
+    "text": "Why problem do generators solve?"
+  },
+  {
+    "objectID": "posts/Rust will have generators/index.html#summary-and-conclusion",
+    "href": "posts/Rust will have generators/index.html#summary-and-conclusion",
+    "title": "Rust will have generators",
+    "section": "Summary and Conclusion",
+    "text": "Summary and Conclusion\n\nReferences\n\n\n[1] The Rust Language Organization. The rust language blog – open source and open governance 2025.\n\n\n[2] The Rust Language Organization. The rust edition guide – what are editions? 2025.\n\n\n[3] The Rust Language Organization. 2025."
+  },
+  {
+    "objectID": "posts/Rust will have generators/index.html#what-problem-do-generators-solve",
+    "href": "posts/Rust will have generators/index.html#what-problem-do-generators-solve",
+    "title": "Rust will have generators",
+    "section": "What problem do generators solve?",
+    "text": "What problem do generators solve?"
+  },
+  {
+    "objectID": "posts/Rust will have generators/index.html#a-practica-lexample",
+    "href": "posts/Rust will have generators/index.html#a-practica-lexample",
+    "title": "Rust will have generators",
+    "section": "A practica lexample",
+    "text": "A practica lexample"
+  },
+  {
+    "objectID": "posts/Rust will have generators/index.html#what-is-agenerator-in-computing-languages",
+    "href": "posts/Rust will have generators/index.html#what-is-agenerator-in-computing-languages",
+    "title": "Rust will have generators",
+    "section": "What is agenerator in computing languages?",
+    "text": "What is agenerator in computing languages?"
+  },
+  {
+    "objectID": "posts/Rust will have generators/index.html#a-practical-example",
+    "href": "posts/Rust will have generators/index.html#a-practical-example",
+    "title": "Rust will have generators",
+    "section": "A practical example",
+    "text": "A practical example"
   }
 ]
