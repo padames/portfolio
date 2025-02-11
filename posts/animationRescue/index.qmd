@@ -15,7 +15,7 @@ One of the time-series examples is a facet grid plot representing the evolution 
 
 Recently I was preparing a CalgaryR meetup presentation and reading the book by Hadley Wickham, the creator of ggplot2 (@Wickham:2016). To my surprise, the last example introducing the concept of plot geoms, just before presenting facet grids, matched the idea used in the subplots of the example mentioned by Tufte. I realized then that I had found a use case for animation to improve this visualization in the era of digital media. Allow me to explain in this post.
 
-![Except of an example of multiple subplots per country for the multi-year behaviour of inflation and unemployment rates. Taken from page 48 of @Tufte:2001](thumbnail.jpg)
+![Excerpt of an example of multiple subplots per country for the multi-year behaviour of inflation and unemployment rates. Taken from page 48 of @Tufte:2001](thumbnail.jpg)
 
 ```{r loading-ggplot2, echo=FALSE, attr.warning=FALSE, message=FALSE}
 ## functional and vectorized single function from 
@@ -44,8 +44,7 @@ The problem is how confusing it can be to add time as a third variable in a plot
 
 It is simple to represent a time series by drawing the variable on one axis and time on the other. Tufte has many creative examples from several authors using this principle in his book. The difficulty becomes visualizing two of those time series on the same graph.
 
-A possible research question is what has been tried to address this limitation? 
-And also, is there a novel approach to add visual dimensions to a flat X-Y plot without sacrificing visual excellence?  
+A possible research question is what has been tried to address this limitation? And also, is there a novel approach to add visual dimensions to a flat X-Y plot without sacrificing visual excellence?
 
 ## The `economics` data set
 
@@ -149,13 +148,11 @@ fig <- fig %>% animation_slider(currentvalue = list(prefix = "YEAR ",
 fig
 ```
 
-From watching the motion of the annual data after pressing the Play button, one gets the sense that for the first 41 years the values of these two time series remained within the quadrant below the 15 week and to the left of 4% unemployment rate except for the years 1982 and 83.
-Then after 2009 the median unemployment length in weeks has increased over and above any value of the previous years in the USA according to this dataset.
+From watching the motion of the annual data after pressing the Play button, one gets the sense that for the first 41 years the values of these two time series remained within the quadrant below the 15 week and to the left of 4% unemployment rate except for the years 1982 and 83. Then after 2009 the median unemployment length in weeks has increased over and above any value of the previous years in the USA according to this dataset.
 
-At this point an economist might formulate the research question, what was the cause of this change in mean time to regain employment status?
-I would even suggest reviewing other available independent data sources, to confirm the existence of this trend.
+At this point an economist might formulate the research question, what was the cause of this change in mean time to regain employment status? I would even suggest reviewing other available independent data sources, to confirm the existence of this trend.
 
-As far as the exploratory work goes, this animation has achieved the introduction of a new dimension to represent the flow of time over the plane representing the two observed variables. \
+As far as the exploratory work goes, this animation has achieved the introduction of a new dimension to represent the flow of time over the plane representing the two observed variables.\
 Before the digital era the only alternative we would have was representing time progression with other dimensions like point color intensity or perhaps point diameter.
 
 ### References
