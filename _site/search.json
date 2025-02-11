@@ -355,5 +355,12 @@
     "title": "Rust will have generators",
     "section": "A practical example",
     "text": "A practical example"
+  },
+  {
+    "objectID": "posts/Rust will have generators/index.html#the-gen-keyword-in-the-2024-edition",
+    "href": "posts/Rust will have generators/index.html#the-gen-keyword-in-the-2024-edition",
+    "title": "Rust will have generators",
+    "section": "The gen keyword in the 2024 Edition",
+    "text": "The gen keyword in the 2024 Edition\nAs of the 2024 edition the term gen is reserved as a Rust language keyword."
   }
 ]
