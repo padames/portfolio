@@ -31,18 +31,16 @@ There are more nuances to the process. For instance, to handle backwards-incompa
 On October 10, 2023, RFC #3513 was tabled for a new language feature called `gen_blocks` @theRustRFCBook:gen_blocks or Generator blocks. Generators can be implemented in languages like Python, JavaScript, Ruby, Kotlin, Swift, C#, Haskell, and Rust. 
  
 
-
-
-
-
 ![Image credit: https://aigeeked.com/wp-content/uploads/2022/12/ai-text-generator.jpg/](https://aigeeked.com/wp-content/uploads/2022/12/ai-text-generator.jpg)
 
 ## What is agenerator in computing languages?
 
+In computer programming a generator is a way to express the iteration in a reactive way, in other words, if the iteration is done with an infinite loop, the values created in each iteration only exist when the iteration loop is carried out.  This allows one to write an infinite sequence that does not over flow the computer memory. 
+
 
 ## What problem do generators solve?
 
-
+Fundamentally generators allow processing data structures that are too large to fit in the memory of the computer. 
 
 
 ## A practical example
