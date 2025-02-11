@@ -35,7 +35,7 @@ On October 10, 2023, RFC #3513 was tabled for a new language feature called `gen
 
 ## What is agenerator in computing languages?
 
-In computer programming a generator is a way to express the iteration in a reactive way, in other words, if the iteration is done with an infinite loop, the values created in each iteration only exist when the iteration loop is carried out.  This allows one to write an infinite sequence that does not over flow the computer memory. 
+In computer programming a generator is a way to express the iteration in a reactive way, in other words, if the iteration is done with an infinite loop, the values created in each iteration only exist when the iteration loop is carried out. This is also called lazy iteration and the function that does this is a lazy iterator. This allows one to write an infinite sequence that does not over flow the computer memory. 
 
 
 ## What problem do generators solve?

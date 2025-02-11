@@ -347,7 +347,7 @@
     "href": "posts/Rust will have generators/index.html#what-is-agenerator-in-computing-languages",
     "title": "Rust will have generators",
     "section": "What is agenerator in computing languages?",
-    "text": "What is agenerator in computing languages?\nIn computer programming a generator is a way to express the iteration in a reactive way, in other words, if the iteration is done with an infinite loop, the values created in each iteration only exist when the iteration loop is carried out. This allows one to write an infinite sequence that does not over flow the computer memory."
+    "text": "What is agenerator in computing languages?\nIn computer programming a generator is a way to express the iteration in a reactive way, in other words, if the iteration is done with an infinite loop, the values created in each iteration only exist when the iteration loop is carried out. This is also called lazy iteration and the function that does this is a lazy iterator. This allows one to write an infinite sequence that does not over flow the computer memory."
   },
   {
     "objectID": "posts/Rust will have generators/index.html#a-practical-example",
