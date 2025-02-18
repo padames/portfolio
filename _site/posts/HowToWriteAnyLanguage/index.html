@@ -694,7 +694,7 @@ o
 <section id="character-boundary-identification-complexity" class="level3">
 <h3 class="anchored" data-anchor-id="character-boundary-identification-complexity">Character boundary identification complexity</h3>
 <p>One might be tempted to think that character boundary is always a simple task. By simple I mean, decode the bytes into Unicode code points, look them up in tables, render each. However some languages have special symbols to compose the individual glyphs into sentences, these have to be identified and decomposed. To illustrate this look at the python and Rust examples below.</p>
-<p>The text comes from this Stack Overflow question <a href="https://stackoverflow.com/q/4579215/1585486">cross-platform-iteration-of-unicode-string-counting-graphemes-using-icu</a></p>
+<p>The text comes from this Stack Overflow question <a href="https://stackoverflow.com/q/4579215/1585486">cross-platform-iteration-of-unicode-string-counting-graphemes-using-icu</a>. It is a Hindi word written in the Devanagari script. Two of the Rust <code>char</code> type components of this UTF-8 string are diacritic symbols that don’t have meaning on their own. As explained in <span class="citation" data-cites="brownrustbook:utf8-with-strings">[<a href="#ref-brownrustbook:utf8-with-strings" role="doc-biblioref">8</a>]</span>, one cannot simply know how to slice the String in advance, this is known only until after it has been parsed and the number of full graphemes has been identified.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env python3</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> main <span class="im">import</span> print_each_grapheme</span>
@@ -716,6 +716,7 @@ o
 <span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><img src="SO_grapheme_identification_rust.png" class="img-fluid"></p>
+<p>Noticed the <code>char</code> elements at positions 3 and 5. They are not letters of this Hindi word, however they do help in composing the word. They are not full graphemes but diacritic symbols.</p>
 </section>
 </section>
 <section id="discussion" class="level2">
@@ -754,6 +755,9 @@ o
 </div>
 <div id="ref-r-package:emoji" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[7] </div><div class="csl-right-inline">Emil Hvitfeldt, Hadley Wickham. <a href="https://emilhvitfeldt.r-universe.dev/emoji/doc/manual.html">Package emoji, v<span>16.0.0.9000</span></a> 2025.</div>
+</div>
+<div id="ref-brownrustbook:utf8-with-strings" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[8] </div><div class="csl-right-inline">Brown University. <a href="https://rust-book.cs.brown.edu/ch08-02-strings.html#bytes-and-scalar-values-and-grapheme-clusters-oh-my">Storing UTF-8 encoded text with strings</a> 2025.</div>
 </div>
 </div>
 
