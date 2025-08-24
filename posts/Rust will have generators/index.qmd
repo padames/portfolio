@@ -33,7 +33,7 @@ On October 10, 2023, RFC #3513 was tabled for a new language feature called `gen
 
 ![Image credit: https://aigeeked.com/wp-content/uploads/2022/12/ai-text-generator.jpg/](https://aigeeked.com/wp-content/uploads/2022/12/ai-text-generator.jpg)
 
-## What is agenerator in computing languages?
+## What is a generator in computing languages?
 
 In computer programming a generator is a way to express the iteration in a reactive way, in other words, if the iteration is done with an infinite loop, the values created in each iteration only exist when the iteration loop is carried out. This is also called lazy iteration and the function that does this is a lazy iterator. This allows one to write an infinite sequence that does not over flow the computer memory. 
 
