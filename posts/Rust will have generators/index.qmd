@@ -1,8 +1,8 @@
 ---
 title: "Rust will have generators"
 author: "Pablo Adames"
-date: "2025-02-11"
-categories: [Rust, programming, iteration]
+date: "2025-08-23"
+categories: [Rust, programming, iteration, generators]
 bibliography: references.bib
 csl: elsevier-vancouver.csl
 format: html
@@ -40,14 +40,67 @@ In computer programming a generator is a way to express the iteration in a react
 
 ## What problem do generators solve?
 
-Fundamentally generators allow processing data structures that are too large to fit in the memory of the computer. 
+Fundamentally generators allow processing data structures that are too large to fit in the memory of the computer. Rust has iterators to express the concept of accessing the elements of a sequence of items @theRustBook:iterators. The implementation was done via the <span style="font-family: serif; color: red;"> Iterator</span> trait and the <span style="font-family: serif; color: red;"> next</span>  method.
+
+```rust
+fn main () -> Result<(), Box<dyn err>> {}
+    let s = "Name,3678".to_string();
+    let mut split = s.split(',');
+    let (Some(name), Some(age), None) = (split.next(), split.next(), split.next()) else {
+        return Err(ParsePersonError::BadLen);
+    };
+```
+
 
 
 ## The gen keyword in the 2024 Edition
 
 As of the 2024 edition the term `gen` is reserved as a Rust language keyword. 
 
+```rust
 
+    // Test basic gen syntax
+    let mut counter = gen {
+        let mut n = 0;
+        loop {
+            yield n;
+            n += 1;
+        }
+    };  
+
+    println!("Basic counter generator:");
+    for _ in 0..5 {
+        if let CoroutineState::Yielded(value) = Pin::new(&mut counter).resume(()) {
+            println!("Value: {}", value);
+        }
+    }   
+```
+
+```rust
+
+    // Test Fibonacci generator
+    let mut fibonacci = gen {
+        let mut a = 0u64;
+        let mut b = 1u64;
+    
+        yield a;
+        yield b;
+    
+        loop {
+            let next = a + b;
+            yield next;
+            a = b;
+            b = next;
+        }
+    };  
+
+    println!("Fibonacci generator:");
+    for _ in 0..8 {
+        if let CoroutineState::Yielded(value) = Pin::new(&mut fibonacci).resume(()) {
+            print!("{} ", value);
+        }
+    }
+```
 
 ## A practical example
 
