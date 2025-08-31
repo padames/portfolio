@@ -18,7 +18,7 @@ knitr:
 
 This community creates and maintains resources for all newcomers through the free online book [The Rust Book](https://doc.rust-lang.org/stable/book/) and the accompanying set of exercises called  [Rustlings](https://rustlings.rust-lang.org/).
 
-Rustlings exercises take you on a whirlwind tour through Rust land. It starts with the humble flats of variable declaration, drives you through the ambitious hills of multithreading syntax for fearless concurrency. It makes stops along the way on the valleys of traits and structs for complex data modelling, the streams of error definition to avoid exceptional behaviour from bumping the regular flow of execution when returning from functions, and the forests of iterators and smart pointers, where the canopy of simple ergonomic patterns allows you to get the job done in safety.
+Rustlings exercises take you on a whirlwind tour through Rust land. It starts with the humble flats of variable declaration and drives you through the ambitious hills of multithreading syntax for fearless concurrency. It makes stops along the way on the valleys of traits and structs for complex data modelling, the streams of error definition to avoid exceptional behaviour from bumping the regular flow of execution when returning from functions, and the forests of iterators and smart pointers, where the canopy of simple ergonomic patterns allows you to get the job done in safety.
 
 ![The list of folders with Rust exercises in the Rustlings, v6.5.0.](Exercise_folders.png){width=35%}
 
