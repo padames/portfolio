@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Pablo Adames">
 <meta name="dcterms.date" content="2025-01-21">
 
-<title>pablo adames - How to process any text with Unicode</title>
+<title>How to process any text with Unicode – pablo adames</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -35,7 +35,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -60,6 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -90,17 +91,23 @@ div.csl-indent {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-1e3f417f8ad03b0c186f1f7b7430e5f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -109,8 +116,10 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -121,43 +130,43 @@ div.csl-indent {
 <body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">pablo adames</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/padames" rel="" target=""><i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/padames"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://stackoverflow.com/users/1585486/pablo-adames" rel="" target=""><i class="bi bi-stack-overflow" role="img">
+    <a class="nav-link" href="https://stackoverflow.com/users/1585486/pablo-adames"> <i class="bi bi-stack-overflow" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://www.linkedin.com/in/pablo-adames-87149711/" rel="" target=""><i class="bi bi-linkedin" role="img">
+    <a class="nav-link" href="https://www.linkedin.com/in/pablo-adames-87149711/"> <i class="bi bi-linkedin" role="img">
 </i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
 </ul>
+          </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -207,6 +216,7 @@ div.csl-indent {
 
 
 
+
 <section id="text-is-everywhere" class="level2">
 <h2 class="anchored" data-anchor-id="text-is-everywhere">Text is everywhere</h2>
 <p>Chatbots, web pages, and stand-alone applications display information on the screens of our cell phones, home and office computers, at airports, bus and train stations. The text used in these scenarios enables clear communication in any of the languages used in the world. Text is not impeded by sound or obstructed by environmental noise and can deliver impact and meaning through semantically dense symbols reinforced by other visual or aural cues.</p>
@@ -214,7 +224,7 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://neuroflash.com/wp-content/uploads/2022/09/feature-image-automatic-text-editor-online.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Image credit: https://neuroflash.com/blog/automatic-text-editor-online/</figcaption>
+<figcaption>Image credit: https://neuroflash.com/blog/automatic-text-editor-online/</figcaption>
 </figure>
 </div>
 </section>
@@ -245,7 +255,7 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://free-images.com/or/8728/unifont_full_map_png.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure 1. The Unifont full charcater map. Image Credit: https://free-images.com/or/8728/unifont_full_map_png.png</figcaption>
+<figcaption>Figure 1. The Unifont full charcater map. Image Credit: https://free-images.com/or/8728/unifont_full_map_png.png</figcaption>
 </figure>
 </div>
 <p>A font table like the one above is needed to render the Unicode characters or glyphs from their numerical values. There are currently a total of 1,112,064 valid Unicode values or code points. These are scalar values represented in base-16 (using the digits and the letters A to F), their range of values can be seen in Table 1 below. The first 128 code points correspond to the original ASCII and yes you may try to go back to the Unifont table to find them on the first row.</p>
@@ -257,12 +267,12 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="text_journey.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure 2. The journey of a text message entered in a chat application in a mobile device to its destination in a computer screen of a customer support agent. Text does the same journey in the opposite direction when the support agent responds.</figcaption>
+<figcaption>Figure 2. The journey of a text message entered in a chat application in a mobile device to its destination in a computer screen of a customer support agent. Text does the same journey in the opposite direction when the support agent responds.</figcaption>
 </figure>
 </div>
 <p>Text encoding is a mapping from the code points to some efficient way to write text in binary. A fixed bit width for each character would simplify parsing characters within some text sequence and it would make character boundaries trivial to infer, however, it would waste much space when representing the small ASCII characters. On the other side if we choose a variable bit width then space would be saved with the small values but an end-of-character marker would be required, also adding extra space and complexity.</p>
 <p>The common Unicode text encoding to write source code in modern computer languages is called UTF-8, it is the encoding used to store the text of almost the entirety of the web pages of the Internet. UTF stands for the Unicode Transformation Format <span class="citation" data-cites="enwiki:1268238400_">[<a href="#ref-enwiki:1268238400_" role="doc-biblioref">2</a>]</span>. This is a super set of the ASCII character set used in the first computer languages like COBOL, FORTRAN and BASIC.</p>
-<table class="table-striped table-hover table">
+<table class="table-striped table-hover caption-top table">
 <caption>Table 1. Code point to UTF-8 encoding, from <span class="citation" data-cites="convertcodes:encodeformats">[<a href="#ref-convertcodes:encodeformats" role="doc-biblioref">3</a>]</span></caption>
 <colgroup>
 <col style="width: 40%">
@@ -312,7 +322,7 @@ div.csl-indent {
 </tbody>
 </table>
 <p>The code values or code points in Table 1 have a corresponding multi-byte representation in UTF-8 form, the encoding has a variable number of bytes. How many bytes is encoded by the number of consecutive ones in the most significant digits of the first byte in a byte sequence: none means the current byte is sufficient to encode the character fully, that is, it fits in one byte, e.g.&nbsp;an ASCII character. One means the byte is part of a multi-byte sequence. Two means the byte marks the start of a character encoded in two bytes in total. Three and four ones mean the equivalent, the byte marks the beginning of characters represented by three and four bytes respectively, including the leading one. Table 2 shows examples of each one of these cases.</p>
-<table class="table-striped table-hover table">
+<table class="table-striped table-hover caption-top table">
 <caption>Table 2. Examples of UTF-8 bytes for characters in each of the ranges of Unicode points presented in Table 1.</caption>
 <thead>
 <tr class="header">
@@ -365,7 +375,7 @@ div.csl-indent {
 <section id="trade-offs-of-choosing-a-unicode-encoding" class="level2">
 <h2 class="anchored" data-anchor-id="trade-offs-of-choosing-a-unicode-encoding">Trade-offs of choosing a Unicode encoding</h2>
 <p>The code points can be encoded in three forms: UTF-8, UTF-16 and UTF-32. Each encoding maps the code points to unique code unit sequences of variable length <span class="citation" data-cites="uni16:encodingforms">[<a href="#ref-uni16:encodingforms" role="doc-biblioref">4</a>]</span>. In particular, the larger code points need multiple single code units if using the code form UTF-8. Conversely they may fit into a single code unit if encoded in UTF-32. This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms. See Table 3 below for a comparison of three different encodings for a text sentence using short and long code points.</p>
-<table class="table-striped table-hover table">
+<table class="table-striped table-hover caption-top table">
 <caption>Table 3. Unicode encoding of the sentence <code>Hello 🍇, 🍈!</code> from the website <a href="https://convertcodes.com/unicode-converter-encode-decode-utf/">Convert Codes</a></caption>
 <thead>
 <tr class="header">
@@ -392,7 +402,7 @@ div.csl-indent {
 <p>The selection of a encoding form to map code points to code units forces a trade off between space and complexity. UTF-8 is very efficient for handling the smaller Unicode values while it is complex to handle the large ones. Conversely, UTF-32 is wasteful for storing the smaller values but simple for the higher ones.</p>
 <p>Windows chose to use UTF-16 natively since the NT version. It is efficient for the Asian alphabets that require at least two code points in UTF-8 but one in UTF-16 for most of their characters.</p>
 <p>Consider the following emojis, their Unicode values and their multi-byte representation in three different encodings:</p>
-<table class="table-striped table-hover table">
+<table class="table-striped table-hover caption-top table">
 <caption>Table 4. Food-fruit emoji codes and equivalent encoded representations</caption>
 <colgroup>
 <col style="width: 17%">
@@ -466,7 +476,7 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Food-fruit-unicode-emoji-chart.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure 3. The table for the food-fruit emoji category taken from the Unicode standard chart <span class="citation" data-cites="uni16:emojicharts">[<a href="#ref-uni16:emojicharts" role="doc-biblioref">6</a>]</span></figcaption>
+<figcaption>Figure 3. The table for the food-fruit emoji category taken from the Unicode standard chart <span class="citation" data-cites="uni16:emojicharts">[<a href="#ref-uni16:emojicharts" role="doc-biblioref">6</a>]</span></figcaption>
 </figure>
 </div>
 <section id="c" class="level3">
@@ -478,7 +488,7 @@ div.csl-indent {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="ICU_segments_sample.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure 2. The result from segmenting the test sentence using Unicode character boundaries using the web page at <a href="https://icu4c-demos.unicode.org/icu-bin/icusegments#0/en__ULI">icusegment</a>.</figcaption>
+<figcaption>Figure 2. The result from segmenting the test sentence using Unicode character boundaries using the web page at <a href="https://icu4c-demos.unicode.org/icu-bin/icusegments#0/en__ULI">icusegment</a>.</figcaption>
 </figure>
 </div>
 <!-- The ICU libraries are everywhere in a Ubuntu operating system. -->
@@ -523,16 +533,16 @@ div.csl-indent {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍊"</span><span class="op">);</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    fruit<span class="op">.</span>push_back<span class="op">(</span><span class="st">"🍋"</span><span class="op">);</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>test_string <span class="op">=</span> fruit<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string test_string <span class="op">=</span> fruit<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>long_fruity_string <span class="op">=</span> <span class="st">"Hello "</span> <span class="op">+</span> test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">+</span> <span class="st">"!"</span><span class="op">;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string long_fruity_string <span class="op">=</span> <span class="st">"Hello "</span> <span class="op">+</span> test_string <span class="op">+</span> <span class="st">", "</span> <span class="op">+</span> fruit<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">+</span> <span class="st">"!"</span><span class="op">;</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co">//Note: Since C++17 and ICU 76, you can use UTF-16 string literals with compile-time</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">//      length determination. </span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">const</span> icu<span class="op">::</span>UnicodeString str <span class="op">=</span> icu<span class="op">::</span>UnicodeString<span class="op">::</span>fromUTF8<span class="op">(</span>long_fruity_string<span class="op">);</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>st<span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string st<span class="op">;</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    str<span class="op">.</span>toUTF8String<span class="op">(</span>st<span class="op">);</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Sentence to parse: </span><span class="sc">\"</span><span class="st">"</span> <span class="op">&lt;&lt;</span> st <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\"</span><span class="st">"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Sentence to parse: </span><span class="sc">\"</span><span class="st">"</span> <span class="op">&lt;&lt;</span> st <span class="op">&lt;&lt;</span> <span class="st">"</span><span class="sc">\"</span><span class="st">"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    UErrorCode err <span class="op">=</span> U_ZERO_ERROR<span class="op">;</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -542,7 +552,7 @@ div.csl-indent {
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    iter<span class="op">-&gt;</span>setText<span class="op">(</span>str<span class="op">);</span></span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> start <span class="op">=</span> iter<span class="op">-&gt;</span>first<span class="op">();</span></span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> end <span class="op">=</span> start<span class="op">;</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string<span class="op"> </span>charToPrintUTF8<span class="op">{};</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">std::</span>string charToPrintUTF8<span class="op">{};</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">auto</span> ctp <span class="op">=</span> icu<span class="op">::</span>UnicodeString<span class="op">{};</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>iter<span class="op">-&gt;</span>next<span class="op">()</span> <span class="op">!=</span> icu<span class="op">::</span>BreakIterator<span class="op">::</span>DONE<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        start <span class="op">=</span> end<span class="op">;</span> <span class="co">// set start of the current grapheme before a pass throught the loop</span></span>
@@ -552,7 +562,7 @@ div.csl-indent {
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        ctp <span class="op">=</span> str<span class="op">.</span>tempSubString<span class="op">(</span>start<span class="op">,</span> len<span class="op">);</span> </span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        ctp<span class="op">.</span>toUTF8String<span class="op">(</span>charToPrintUTF8<span class="op">);</span></span>
 <span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>        <span class="kw">auto</span> grapheme <span class="op">=</span> len<span class="op">&lt;</span><span class="dv">2</span><span class="op">?</span> <span class="bu">std::</span>string<span class="op">{</span>charToPrintUTF8<span class="op">.</span>front<span class="op">()}:</span> charToPrintUTF8<span class="op">;</span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout<span class="op"> &lt;&lt;</span> <span class="st">"Code units: "</span> <span class="op">&lt;&lt;</span> len <span class="op">&lt;&lt;</span> <span class="st">"; grapheme: '"</span> <span class="op">&lt;&lt;</span> grapheme <span class="op">&lt;&lt;</span> <span class="st">"' of "</span> <span class="op">&lt;&lt;</span> charToPrintUTF8<span class="op">.</span>length<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">" bytes"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="bu">std::</span>cout <span class="op">&lt;&lt;</span> <span class="st">"Code units: "</span> <span class="op">&lt;&lt;</span> len <span class="op">&lt;&lt;</span> <span class="st">"; grapheme: '"</span> <span class="op">&lt;&lt;</span> grapheme <span class="op">&lt;&lt;</span> <span class="st">"' of "</span> <span class="op">&lt;&lt;</span> charToPrintUTF8<span class="op">.</span>length<span class="op">()</span> <span class="op">&lt;&lt;</span> <span class="st">" bytes"</span> <span class="op">&lt;&lt;</span> <span class="bu">std::</span>endl<span class="op">;</span></span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span> </span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -734,7 +744,7 @@ o
 <p>I hope this post has given the reader a feel for the size of the task of writing software that processes text as data in diverse languages. From human readable representation to binary data that can travel through wires, optic fibre, or electromagnetic waves, text is everywhere and it is not going away any time soon.</p>
 <section id="references" class="level3">
 <h3 class="anchored" data-anchor-id="references">References</h3>
-<div id="refs" class="references csl-bib-body" role="list">
+<div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
 <div id="ref-uni16:emoji" class="csl-entry" role="listitem">
 <div class="csl-left-margin">[1] </div><div class="csl-right-inline">Unicode Inc. <a href="https://unicode.org/reports/tr51/#Emoticons">Unicode technical standard #<span>51</span></a> 2024.</div>
 </div>
@@ -801,18 +811,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -844,11 +843,48 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -858,8 +894,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -871,7 +916,129 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -915,6 +1082,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -940,6 +1108,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1000,6 +1194,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
