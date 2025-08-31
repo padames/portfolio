@@ -203,22 +203,24 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Result of forking the official Rustlings repo on GitHub, cloning it locally and then trying to initialize an installation of the crate.</figcaption>
 </figure>
 </div>
+<p>So, what is the role of the offcial Github repo now? Before it was a way to get the source code for the exercises and the program itself. Read on for my analysis.</p>
 </section>
 <section id="git-and-github" class="level1">
 <h1>Git and Github</h1>
-<p>Up to this point you are working on your machine and your solutions will be stored in the folder exercises. You cna check official solutions in the corresponding under the solutions folder. But what if you wanted to store your solutions to the exercises in your account in Github? You may want to do this to keep a backup of your work in the cloud. Also to transfer your files between machines, like a desktop and a laptop. Whatever the reasons, for this don’t clone or fork the official Rustlings repo. Simply start a new repo on the machine where you installed Rustlings an setup a remote repo in GitHub.</p>
-<p>If, on the other side, you want and can contribute to the Rustlings project, then you need to follow the traditional GitHub fork, branch, pull-request workflow. Usual contributions can be a new exercise to offer practice on a yet un-touched section of the book, or a genuine bug fix to something that you have found not working correctly.</p>
+<p>Up to this point you are working on your machine and your solutions will be stored in the file system of your computer in the folder called <code>exercises</code>. You can check the official solutions in the corresponding file under the folder called <code>solutions</code>. But what if you wanted to store your solutions to the exercises in your account in Github? You may want to do this to keep a backup of your work in the cloud. Also to transfer your files between machines, like a desktop and a laptop. Whatever the reasons, avoid cloning or forking the official Rustlings repo. Simply start a new repo on the machine where you installed Rustlings, via cargo, and setup a remote repo on your GitHub account.</p>
+<p>If, on the other side, you want and can contribute to the Rustlings project, then you need to follow the traditional GitHub fork, branch, and pull-request workflow. Usual contributions can be a new exercise to offer practice on a yet un-covered section of the book, or a legit bug fix to something that you have found not working correctly.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Repo_collaboration.svg" class="img-fluid figure-img"></p>
 <figcaption>A simplified illustration of the traditional GitHub workflow for Open SOurce projects.</figcaption>
 </figure>
 </div>
+<p>Even when you follow the GitHub workflow you will likely have to do all your work on the regular installation and only after your work is complete add it to the branch of a clone of the official fork in your GitHub account to start a pull request from the branch of the forked repo.</p>
 </section>
 <section id="conclusions" class="level1">
 <h1>Conclusions</h1>
 <p>You don’t have to fork or clone the official Rustlings repo on Github anymore if all you want is to learn Rust by practicing while you read the book. You may still use your GitHub account and plain git to backup your work and share your specific solutions with others if you choose to do so.</p>
-<p>If you want to become a Rustlings project contributor then the traditional GitHub workflow for Open Source projects applies. In that case you need to fork, clone, branch, develop, pull-request and wait for the chanes to be merged into the official main after revised and approved.</p>
+<p>If you want to become a Rustlings project contributor then the traditional GitHub workflow for Open Source projects applies. In that case it may be better to do your software development on a Rustlings installation and after the work is completed, follow the full GitHub workflow and wait for the pull request to be approved and merged into the official main branch. You will only get your changes as part of the official project after a new crate release.</p>
 
 
 </section>
