@@ -36,7 +36,7 @@ However, now there is no need to go through Github or even git to work on Rustli
 
 ![Three folders in the rustlings folder after installation. Exercises and solutions contain the same numbers of subfolders and files.](Main_folders_rustlings_6_5_install.png){width="30%"}
 
-Typing `rustlings init` at the shell while on the rustlings folder for the first time will complete the setup. To get information type `rustlings --help` and to just get you started working type `rustlings` and you will gte the interactive solving tracking mode. The actual coding part, necessary to solve the exercises is done on a second, separate terminal window where you can edit the exercise file the interctive session points you to. Any Interactive Development Environment, IDE, will do. VS Code is very popular these days, so you can start the interactive program on the terminal emulator window while using the regular editor windows to make the code changes on the exercise file until the interactive program tells you the exercise succesfully compiles and all tests pass.
+Typing `rustlings init` at the shell while on the rustlings folder for the first time will complete the setup. To get information type `rustlings --help` and to get you started working type `rustlings,` that will get the interactive mode on. The actual coding part, necessary to solve the exercises is done on a second, separate terminal window where you can edit the exercise file the interactive session points you to. Any Interactive Development Environment, IDE, will do. VS Code is very popular these days, so you can start the interactive program on the terminal emulator window while using the regular editor windows to make the code changes on the exercise file. Ruslings tracks the changes you do on the text file and updates the status accordingly until the exercise successfully compiles and all tests pass. The image below illustrates a VS Code session where this process is happening as described.
 
 ![One possible layout on VS Code. The text editor is on the left, opened on the file of the current exercise `variables5.rs`. On the right is the Rustlings interactive terminal session pointing to the compiler messages for the same file and the interactive menu at the bottom.](VSCode_layout.png)
 
@@ -44,15 +44,17 @@ One last caveat, if you execute the command `cargo install rustlings` on the top
 
 ![Result of forking the official Rustlings repo on GitHub, cloning it locally and then trying to initialize an installation of the crate.](Attempt_init_over_cloned_fork.png)
 
-So, what is the role of the offcial Github repo now? Before it was a way to get the source code for the exercises and the program itself. Read on for my analysis.
+So, what is the role of the official Github repo now that a self-contained crate has replaced it? Read on for my analysis.
 
 # Git and Github
 
-Up to this point you are working on your machine and your solutions will be stored in the file system of your computer in the folder called `exercises`. You can check the official solutions in the corresponding file under the folder called `solutions`. But what if you wanted to store your solutions to the exercises in your account in Github? You may want to do this to keep a backup of your work in the cloud. Also to transfer your files between machines, like a desktop and a laptop. Whatever the reasons, avoid cloning or forking the official Rustlings repo. Simply start a new repo on the machine where you installed Rustlings, via cargo, and setup a remote repo on your GitHub account.
+When you install the Rustlings crate on your machine, your solutions will be stored in the file system in the folder called `exercises`. You can compare your solution versus the exercise author's solution in the corresponding file of the same name under the folder called `solutions`. Now imagine you want to do keep a backup of your work in the cloud as you go through the many chapters of the book. This is a process that may take months for some. Also what if you wanted to transfer your files, at their current state between two of your computers, maybe between a desktop and a laptop?
 
-If, on the other side, you want and can contribute to the Rustlings project, then you need to follow the traditional GitHub fork, branch, and pull-request workflow. Usual contributions can be a new exercise to offer practice on a yet un-covered section of the book, or a legit bug fix to something that you have found not working correctly.
+For those use cases, your Github account is an ideal solution. Avoid cloning or forking the official Rustlings repo. Simply start a new repo on the machine where you installed Rustlings and setup a remote repo on your GitHub account. At that point you can clone your own repo to other machines, work from them and push to GitHub as a means to keep everything in sync.
 
-![A simplified illustration of the traditional GitHub workflow for Open SOurce projects.](Repo_collaboration.svg)
+If, on the other side, you want and can contribute to the Rustlings project, then you need to follow the traditional GitHub fork, branch, and pull-request workflow. This is useful pattern for code review. The usual contributions can be a new exercise or a legit bug fix to something that you have found not working correctly. A new exercise may offer practice on a yet un-covered section of the book.
+
+![A simplified illustration of the traditional GitHub workflow for Open Source projects.](Repo_collaboration.svg)
 
 Even when you follow the GitHub workflow you will likely have to do all your work on the regular installation and only after your work is complete add it to the branch of a clone of the official fork in your GitHub account to start a pull request from the branch of the forked repo.
 
