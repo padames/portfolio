@@ -98,11 +98,11 @@ This means that there is no need for escape sequences to mark the boundary of a 
 
 The code points can be encoded in three forms: UTF-8, UTF-16 and UTF-32. Each encoding maps the code points to unique code unit sequences of variable length @uni16:encodingforms. In particular, the larger code points need multiple single code units if using the code form UTF-8. Conversely they may fit into a single code unit if encoded in UTF-32. This happens because the width of the smallest code unit is 8, 16, or 32 bits respectively for each of the forms. See Table 3 below for a comparison of three different encodings for a text sentence using short and long code points.
 
-| Encoding | Hexadecimal                                                                                        |
-|-----------------|-------------------------------------------------------|
-| UTF-8    | 48 65 6c 6c 6f 20 f0 9f 8d 87 2c 20 f0 9f 8d 88 21                                                 |
-| UTF-16   | 0048 0065 006c 006c 006f 0020 d83c df47 002c 0020 d83c df48 0021                                   |
-| UTF-32   | 00000048 00000065 0000006c 0000006c 0000006f 00000020 0001f347 0000002c 00000020 0001f348 00000021 |
+| Encoding | Hexadecimal |
+|----|----|
+| UTF-8 | 48 65 6c 6c 6f 20 f0 9f 8d 87 2c 20 f0 9f 8d 88 21 |
+| UTF-16 | 0048 0065 006c 006c 006f 0020 d83c df47 002c 0020 d83c df48 0021 |
+| UTF-32 | 00000048 00000065 0000006c 0000006c 0000006f 00000020 0001f347 0000002c 00000020 0001f348 00000021 |
 
 : Table 3. Unicode encoding of the sentence `Hello 🍇, 🍈!` from the website [Convert Codes](https://convertcodes.com/unicode-converter-encode-decode-utf/) {.striped .hover}
 
@@ -442,8 +442,7 @@ Produces the following output, a vector of characters, due to R's native focus o
 
 One might be tempted to think that character boundary is always a simple task. By simple I mean, decode the bytes into Unicode code points, look them up in tables, render each. However some languages have special symbols to compose the individual glyphs into sentences, these have to be identified and decomposed. To illustrate this look at the python and Rust examples below.
 
-The text comes from this Stack Overflow question [cross-platform-iteration-of-unicode-string-counting-graphemes-using-icu](https://stackoverflow.com/q/4579215/1585486). It is a Hindi word written in the Devanagari script. Two of the Rust `char` type components of this UTF-8 string are diacritic symbols that don't have meaning on their own.
-As explained in @brownrustbook:utf8-with-strings, one cannot simply know how to slice the String in advance, this is known only until after it has been parsed and the number of full graphemes has been identified. 
+The text comes from this Stack Overflow question [cross-platform-iteration-of-unicode-string-counting-graphemes-using-icu](https://stackoverflow.com/q/4579215/1585486). It is a Hindi word written in the Devanagari script. Two of the Rust `char` type components of this UTF-8 string are diacritic symbols that don't have meaning on their own. As explained in @brownrustbook:utf8-with-strings, one cannot simply know how to slice the String in advance, this is known only until after it has been parsed and the number of full graphemes has been identified.
 
 ``` python
 #!/usr/bin/env python3
@@ -476,9 +475,7 @@ fn main() {
 
 ![](SO_grapheme_identification_rust.png)
 
-Noticed the `char` elements at positions 3 and 5. They are not letters of this Hindi word, however they do help in composing the word. 
-They are not full graphemes but diacritic symbols.
-
+Noticed the `char` elements at positions 3 and 5. They are not letters of this Hindi word, however they do help in composing the word. They are not full graphemes but diacritic symbols.
 
 ## Discussion
 
