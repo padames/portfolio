@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Pablo Adames">
-<meta name="dcterms.date" content="2025-08-30">
+<meta name="dcterms.date" content="2026-01-11">
 
-<title>Rustlings installation changed – pablo adames</title>
+<title>How to use afile checksum – pablo adames</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -124,12 +144,13 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Rustlings installation changed</h1>
+      <h1 class="title">How to use afile checksum</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">Rust</div>
-                <div class="quarto-category">programming</div>
-                <div class="quarto-category">learning</div>
-                <div class="quarto-category">coding</div>
+                <div class="quarto-category">Linux</div>
+                <div class="quarto-category">man-in-the-middle</div>
+                <div class="quarto-category">checksum</div>
+                <div class="quarto-category">sha256</div>
+                <div class="quarto-category">encryption</div>
               </div>
                   </div>
   </div>
@@ -147,7 +168,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 30, 2025</p>
+        <p class="date">January 11, 2026</p>
       </div>
     </div>
     
@@ -166,73 +187,72 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="what-is-rustlings" class="level1">
-<h1>What is Rustlings?</h1>
-<p><a href="https://www.rust-lang.org/">Rust</a> has killer apps for systems programming, web servers, command-line tools, blockchain tools, game engines, networking and web assembly. However, a less spoken killer app of sorts is its welcoming and friendly community.</p>
-<p>This community creates and maintains resources for all newcomers through the free online book <a href="https://doc.rust-lang.org/stable/book/">The Rust Book</a> and the accompanying set of exercises called <a href="https://rustlings.rust-lang.org/">Rustlings</a>.</p>
-<p>Rustlings exercises take you on a whirlwind tour through Rust land. It starts with the humble flats of variable declaration and drives you through the ambitious hills of multithreading syntax for fearless concurrency. It makes stops along the way on the valleys of traits and structs for complex data modelling, the streams of error definition to avoid exceptional behaviour from bumping the regular flow of execution when returning from functions, and the forests of iterators and smart pointers, where the canopy of simple ergonomic patterns allows you to get the job done in safety.</p>
+<section id="yet-another-tutorial-on-how-to-use-a-file-checksum" class="level2">
+<h2 class="anchored" data-anchor-id="yet-another-tutorial-on-how-to-use-a-file-checksum">Yet another tutorial on how to use a file checksum</h2>
+<p>What is a check sum and why do we need one? The scenario is you are downloading a file containing software from a website you trust, for instance you want to install the latest RStudio IDE to develop R code in your computer. In this case, the website provides a hash value to verify the authenticity of the file you are about to download.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="Exercise_folders.png" class="img-fluid figure-img" style="width:35.0%"></p>
-<figcaption>The list of folders with Rust exercises in the Rustlings, v6.5.0.</figcaption>
+<p><img src="thumbnail.png" class="img-fluid figure-img"></p>
+<figcaption>RStudio Download Page showing the SHA 256 hash for the Ubuntu 24 installer file, <span class="citation" data-cites="RStudio-IDE:installer">[<a href="#ref-RStudio-IDE:installer" role="doc-biblioref">1</a>]</span></figcaption>
 </figure>
 </div>
 </section>
-<section id="what-does-rustlings-do" class="level1">
-<h1>What does Rustlings do?</h1>
-<p>It is an interactive exercise framework. You work through the exercises one by one in sequential order or in any desired order by selecting the next exercise to work on from the full list. The framework keeps track of the exercises that have been solved successfully so you are aware of your progress. Each exercise has references to the section of the book being applied through the exercise.</p>
-<p>Rustlings exercises have tests or just the main function plus data structures, and incomplete or missing statements. Once the missing parts are filled in and the tests pass successfully, one can move on to the next or quit the program.</p>
-<p><video src="rustlings.mp4" class="img-fluid" controls=""><a href="rustlings.mp4">Video</a></video></p>
+<section id="what-is-a-file-hash" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-file-hash">What is a file hash?</h2>
+<p>This is an alternative to doing a full encryption of the file in order to verify that its contents have not been modified. A hashing algorithm turns the bytes of the file into a unique text string. This conversion is irreversible and this makes it different from file encryption.</p>
+<p>The main application of a file hash is to distribute it along with the file itself. This assumes that the website information is genuine. However if the file is tampered with along the distribution channel, even by a single byte, the user would obtain a different hash value after applying the same hash algorithm on the altered file.</p>
+<p>This help secure a file while it is in transit from a website to a destination client. Other use cases for file hashing are file duplicate detection, file tracking, and in file content change detection as in version control systems.</p>
 </section>
-<section id="installation" class="level1">
-<h1>Installation</h1>
-<p>This post is about the change that version 6 brought to this project. It used to be necessary to clone the GitHub repository to be able to install the Rustlings executable that started tracking the exercises as you solved them.</p>
-<p>However, now there is no need to go through Github or even git to work on Rustlings. The program became a package on crates.io after version 6. As such you can install it following the traditional recipe <code>cargo install rustlings</code>. After the installation you will have the following three folders in the rustlings directory:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Main_folders_rustlings_6_5_install.png" class="img-fluid figure-img" style="width:30.0%"></p>
-<figcaption>Three folders in the rustlings folder after installation. Exercises and solutions contain the same numbers of subfolders and files.</figcaption>
-</figure>
-</div>
-<p>Typing <code>rustlings init</code> at the shell while on the rustlings folder for the first time will complete the setup. To get information type <code>rustlings --help</code> and to get you started working type <code>rustlings,</code> that will get the interactive mode on. The actual coding part, necessary to solve the exercises is done on a second, separate terminal window where you can edit the exercise file the interactive session points you to. Any Interactive Development Environment, IDE, will do. VS Code is very popular these days, so you can start the interactive program on the terminal emulator window while using the regular editor windows to make the code changes on the exercise file. Ruslings tracks the changes you do on the text file and updates the status accordingly until the exercise successfully compiles and all tests pass. The image below illustrates a VS Code session where this process is happening as described.</p>
-<p>!</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="VSCode_layout.png" class="img-fluid figure-img"></p>
-<figcaption>One possible layout on VS Code. The text editor is on the left, opened on the file of the current exercise <code>variables5.rs</code>. On the right is the Rustlings interactive terminal session pointing to the compiler messages for the same file and the interactive menu at the bottom.</figcaption>
-</figure>
-</div>
-<p>One last caveat, if you execute the command <code>cargo install rustlings</code> on the top folder of a cloned fork of the Rustlings repo, and then try to initialize the program (only necessary before you run it the first time), you will see an error and won’t be able to run the program. Have a look at the image below.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Attempt_init_over_cloned_fork.png" class="img-fluid figure-img"></p>
-<figcaption>Result of forking the official Rustlings repo on GitHub, cloning it locally and then trying to initialize an installation of the crate.</figcaption>
-</figure>
-</div>
-<p>So, what is the role of the official Github repo now that a self-contained crate has replaced it? Read on for my analysis.</p>
+<section id="how-to-generate-the-sha-256-file-hash-in-ubuntu-24" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-generate-the-sha-256-file-hash-in-ubuntu-24">How to generate the SHA-256 file hash in Ubuntu 24?</h2>
+<p>First of all download the file and the hash value. Then generate a target check file with the published original hash value and the path to the file that was downloaded on your local machine. Finally run the command <code>sha256sum --check</code> on the name of the check file. <code>sha256sum</code> will parse the original hash and will compare it to the one generated from the downloaded file. If they are the same then you will get an <code>OK</code> at the prompt, otherwise there will be a message about potential file corruption.</p>
+<p>In short, here are the commands:</p>
+<ol type="1">
+<li>Download the file using <code>wget</code>: <code>wget https://download1.rstudio.org/electron/jammy/amd64/rstudio-2026.01.0-392-amd64.deb ~/Downloads/rstudio-2026.01.0-392-amd64.deb</code> or using <code>curl</code>: <code>curl -L -o ~/Downloads/rstudio-2026.01.0-392-amd64.deb https://download1.rstudio.org/electron/jammy/amd64/rstudio-2026.01.0-392-amd64.deb</code></li>
+<li>Generate the target check file with the published hash: <code>echo a85734b70843d6157a423829ffbcff9eadc739403ab1c7425c17236f733f95d8 ~/Downloads/rstudio-2026.01.0-392-amd64.deb &gt; /tmp/sha256-target-check</code></li>
+<li>Use <code>sha256sum</code> to compare the original hash and the one generated from the downloaded file: <code>sha256sum --check /tmp/sha256-target-check</code></li>
+</ol>
+<p>If the two hashes are identical you will see:</p>
+<pre><code>/home/pablo/Downloads/rstudio-2026.01.0-392-amd64.deb: OK</code></pre>
+<p>To show the message you would get if a single byte is changed, let’s fabricate a tampered file from a copy of the downloaded one. To simulate the alteration let’s write <code>00</code> at position 1000 in the binary file using the combination of <code>print</code> and <code>dd</code> at the command line:</p>
+<pre><code>$ cp ~/Downloads/rstudio-2026.01.0-392-amd64.deb ~/Downloads/rstudio-2026.01.0-392-amd64-tampered.deb
+$ cd ~/Downloads
+$ printf '\x00' | dd of=~/Downloads/rstudio-2026.01.0-392-amd64-tampered.deb bs=1 seek=1000 count=1 conv=notrunc
+1+0 records in
+1+0 records out
+1 byte copied, 3.4209e-05 s, 29.2 kB/s</code></pre>
+<p>Now prepare the target check based on the simulated altered file:</p>
+<pre><code>`echo a85734b70843d6157a423829ffbcff9eadc739403ab1c7425c17236f733f95d8 ~/Downloads/rstudio-2026.01.0-392-amd64-tampered.deb &gt; /tmp/sha256-tampering-test`</code></pre>
+<p>Then the message is:</p>
+<pre><code>sha256sum --check /tmp/sha256-tampering-test
+/home/pablo/Downloads/rstudio-2026.01.0-392-amd64-tampered.deb: FAILED
+sha256sum: WARNING: 1 computed checksum did NOT match</code></pre>
+<p>Note what happens if a mistake is made copying the original hash into the target check file. In the example below the last digit, 8, was replaced with a 1:</p>
+<pre><code>echo a85734b70843d6157a423829ffbcff9eadc739403ab1c7425c17236f733f95d1 ~/Downloads/rstudio-2026.01.0-392-amd64.deb &gt; /tmp/sha256-target-hash-error-check`</code></pre>
+<p>Then <code>sha256sum</code> would also complain that a hash mismatch happened. This can lead to a false positive by signalling possible file tampering:</p>
+<pre><code>sha256sum --check /tmp/sha256-target-hash-error-check
+/home/pablo/Downloads/rstudio-2026.01.0-392-amd64.deb: FAILED
+sha256sum: WARNING: 1 computed checksum did NOT match</code></pre>
+<p>If the length of the hash is changed by mistake the error is different:</p>
+<pre><code>echo a85734b70843d6157a423829ffbcff9eadc739403ab1c7425c17236f733f95d81 ~/Downloads/rstudio-2026.01.0-392-amd64.deb &gt; /tmp/sha256-target-hash-too-long-check`</code></pre>
+<p>In this case the error is:</p>
+<pre><code>sha256sum --check /tmp/sha256-target-hash-too-long-check
+sha256sum: /tmp/sha256-target-hash-too-long-check: no properly formatted SHA256 checksum lines found</code></pre>
 </section>
-<section id="git-and-github" class="level1">
-<h1>Git and Github</h1>
-<p>When you install the Rustlings crate on your machine, your solutions will be stored in the file system in the folder called <code>exercises</code>. You can compare your solution versus the exercise author’s solution in the corresponding file of the same name under the folder called <code>solutions</code>. Now imagine you want to do keep a backup of your work in the cloud as you go through the many chapters of the book. This is a process that may take months for some. Also what if you wanted to transfer your files, at their current state between two of your computers, maybe between a desktop and a laptop?</p>
-<p>For those use cases, your Github account is an ideal solution. Avoid cloning or forking the official Rustlings repo. Simply start a new repo on the machine where you installed Rustlings and setup a remote repo on your GitHub account. At that point you can clone your own repo to other machines, work from them and push to GitHub as a means to keep everything in sync.</p>
-<p>If, on the other side, you want and can contribute to the Rustlings project, then you need to follow the traditional GitHub fork, branch, and pull-request workflow. This is useful pattern for code review. The usual contributions can be a new exercise or a legit bug fix to something that you have found not working correctly. A new exercise may offer practice on a yet un-covered section of the book.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Repo_collaboration.svg" class="img-fluid figure-img"></p>
-<figcaption>A simplified illustration of the traditional GitHub workflow for Open Source projects.</figcaption>
-</figure>
-</div>
-<p>Even when you follow the GitHub workflow you will likely have to do all your work on the regular installation and only after your work is complete add it to the branch of a clone of the official fork in your GitHub account to start a pull request from the branch of the forked repo.</p>
-</section>
-<section id="conclusions" class="level1">
-<h1>Conclusions</h1>
-<p>You don’t have to fork or clone the official Rustlings repo on Github anymore if all you want is to learn Rust by practicing while you read the book. You may still use your GitHub account and plain git to backup your work and share your specific solutions with others if you choose to do so.</p>
-<p>If you want to become a Rustlings project contributor then the traditional GitHub workflow for Open Source projects applies. In that case it may be better to do your software development on a Rustlings installation and after the work is completed, follow the full GitHub workflow and wait for the pull request to be approved and merged into the official main branch. You will only get your changes as part of the official project after a new crate release.</p>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>There is a three-step process to use the published sha-256 file hash to verify the integrity of a file download. Download the file. Create a target check file with the published hash and the full-path name of the downloaded file. Then run the comparison with the program <code>sha256sum --check &lt;target-check-file&gt;</code>.</p>
+<p>Some errors creating the target check file can mislead into thinking the downloaded file has been tampered with: a copy error in a single character of the original hash. Others are easily distinguishable from a real file hash mismatch, like accidentally shortening or lengthening the target hash by a single character.</p>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" data-entry-spacing="0" role="list">
+<div id="ref-RStudio-IDE:installer" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Posit. <a href="https://posit.co/download/rstudio-desktop/">Download RStudio desktop</a> 2026.</div>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

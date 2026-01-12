@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/How to use a file checksum/index.html",
       "/posts/Rustlings/index.html",
       "/posts/Rust will have generators/index.html",
       "/posts/HowToWriteAnyLanguage/index.html",

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -34,14 +34,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e106a3ce12116d8b0616f2b1e5a9e654.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-a2c7db9cb4ca6d62d241ca355af55b72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -113,7 +114,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -139,6 +140,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">pablo adames</span>
     </a>
@@ -181,7 +184,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(6)</span></div><div class="category" data-category="QyUyQiUyQg==">C++ <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y29kaW5n">coding <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Z2VuZXJhdG9ycw==">generators <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Z2dwbG90Mg==">ggplot2 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aXRlcmF0aW9u">iteration <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TGVhZmxldA==">Leaflet <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bGVhcm5pbmc=">learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHJvZ3JhbW1pbmc=">programming <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(4)</span></div><div class="category" data-category="UnVzdA==">Rust <span class="quarto-category-count">(3)</span></div><div class="category" data-category="dGV4dA==">text <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VW5pY29kZQ==">Unicode <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VmlzdWFsaXphdGlvbg==">Visualization <span class="quarto-category-count">(3)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="QyUyQiUyQg==">C++ <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y2hlY2tzdW0=">checksum <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Y29kaW5n">coding <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZW5jcnlwdGlvbg==">encryption <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Z2VuZXJhdG9ycw==">generators <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Z2dwbG90Mg==">ggplot2 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aXRlcmF0aW9u">iteration <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TGVhZmxldA==">Leaflet <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bGVhcm5pbmc=">learning <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TGludXg=">Linux <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bWFuLWluLXRoZS1taWRkbGU=">man-in-the-middle <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHJvZ3JhbW1pbmc=">programming <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(4)</span></div><div class="category" data-category="UnVzdA==">Rust <span class="quarto-category-count">(3)</span></div><div class="category" data-category="c2hhMjU2">sha256 <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dGV4dA==">text <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VW5pY29kZQ==">Unicode <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VmlzdWFsaXphdGlvbg==">Visualization <span class="quarto-category-count">(3)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -221,7 +224,45 @@ window.Quarto = {
     </div>
 </div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="UnVzdCUyQ3Byb2dyYW1taW5nJTJDbGVhcm5pbmclMkNjb2Rpbmc=" data-listing-date-sort="1756533600000" data-listing-file-modified-sort="1762894831638" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1119">
+<div class="quarto-post image-right" data-index="0" data-categories="TGludXglMkNtYW4taW4tdGhlLW1pZGRsZSUyQ2NoZWNrc3VtJTJDc2hhMjU2JTJDZW5jcnlwdGlvbg==" data-listing-date-sort="1768114800000" data-listing-file-modified-sort="1768207928315" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="696">
+<div class="thumbnail"><a href="./posts/How to use a file checksum/index.html" class="no-external">
+
+<p class="card-img-top"><img src="posts/How to use a file checksum/thumbnail.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/How to use a file checksum/index.html" class="no-external">How to use afile checksum</a>
+</h3>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('TGludXg='); return false;">Linux</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('bWFuLWluLXRoZS1taWRkbGU='); return false;">man-in-the-middle</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('Y2hlY2tzdW0='); return false;">checksum</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('c2hhMjU2'); return false;">sha256</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('ZW5jcnlwdGlvbg=='); return false;">encryption</div>
+
+</div>
+<div class="delink listing-description"><a href="./posts/How to use a file checksum/index.html" class="no-external">
+What is a check sum and why do we need one? The scenario is you are downloading a file containing software from a website you trust, for instance you want to install the…
+</a></div>
+</div>
+<div class="metadata">
+<a href="./posts/How to use a file checksum/index.html" class="no-external">
+<div class="listing-date">
+Jan 11, 2026
+</div>
+<div class="listing-author">
+Pablo Adames
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="UnVzdCUyQ3Byb2dyYW1taW5nJTJDbGVhcm5pbmclMkNjb2Rpbmc=" data-listing-date-sort="1756533600000" data-listing-file-modified-sort="1762894831638" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1119">
 <div class="thumbnail"><a href="./posts/Rustlings/index.html" class="no-external">
 
 <p class="card-img-top"><img src="posts/Rustlings/Exercise_folders.png"  class="thumbnail-image card-img"/></p>
@@ -257,7 +298,7 @@ Pablo Adames
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="UnVzdCUyQ3Byb2dyYW1taW5nJTJDaXRlcmF0aW9uJTJDZ2VuZXJhdG9ycw==" data-listing-date-sort="1755928800000" data-listing-file-modified-sort="1763109579454" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="934">
+<div class="quarto-post image-right" data-index="2" data-categories="UnVzdCUyQ3Byb2dyYW1taW5nJTJDaXRlcmF0aW9uJTJDZ2VuZXJhdG9ycw==" data-listing-date-sort="1755928800000" data-listing-file-modified-sort="1763109579454" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="934">
 <div class="thumbnail"><a href="./posts/Rust will have generators/index.html" class="no-external">
 
 <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
@@ -293,7 +334,7 @@ Pablo Adames
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="dGV4dCUyQ0MlMkIlMkIlMkNVbmljb2RlJTJDUnVzdCUyQ1I=" data-listing-date-sort="1737442800000" data-listing-file-modified-sort="1762894831637" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="30" data-listing-word-count-sort="5954">
+<div class="quarto-post image-right" data-index="3" data-categories="dGV4dCUyQ0MlMkIlMkIlMkNVbmljb2RlJTJDUnVzdCUyQ1I=" data-listing-date-sort="1737442800000" data-listing-file-modified-sort="1762894831637" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="30" data-listing-word-count-sort="5954">
 <div class="thumbnail"><a href="./posts/HowToWriteAnyLanguage/index.html" class="no-external">
 
 <p class="card-img-top"><img src="https://neuroflash.com/wp-content/uploads/2022/09/feature-image-automatic-text-editor-online.jpg"  class="thumbnail-image card-img"/></p>
@@ -331,7 +372,7 @@ Pablo Adames
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="VmlzdWFsaXphdGlvbiUyQ1IlMkNnZ3Bsb3Qy" data-listing-date-sort="1734246000000" data-listing-file-modified-sort="1756625375583" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1676">
+<div class="quarto-post image-right" data-index="4" data-categories="VmlzdWFsaXphdGlvbiUyQ1IlMkNnZ3Bsb3Qy" data-listing-date-sort="1734246000000" data-listing-file-modified-sort="1756625375583" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1676">
 <div class="thumbnail"><a href="./posts/animationRescue/index.html" class="no-external">
 
 <p class="card-img-top"><img src="posts/animationRescue/thumbnail.jpg"  class="thumbnail-image card-img"/></p>
@@ -365,7 +406,7 @@ Pablo Adames
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="VmlzdWFsaXphdGlvbiUyQ1I=" data-listing-date-sort="1630908000000" data-listing-file-modified-sort="1756625375486" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15" data-listing-word-count-sort="2886">
+<div class="quarto-post image-right" data-index="5" data-categories="VmlzdWFsaXphdGlvbiUyQ1I=" data-listing-date-sort="1630908000000" data-listing-file-modified-sort="1756625375486" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15" data-listing-word-count-sort="2886">
 <div class="thumbnail"><a href="./posts/AnimationWorkflow/index.html" class="no-external">
 
 <p class="card-img-top"><img src="posts/AnimationWorkflow/thumbnail.gif"  class="thumbnail-image card-img"/></p>
@@ -397,7 +438,7 @@ Pablo Adames
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="VmlzdWFsaXphdGlvbiUyQ1IlMkNMZWFmbGV0" data-listing-date-sort="1491112800000" data-listing-file-modified-sort="1756625375581" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="793">
+<div class="quarto-post image-right" data-index="6" data-categories="VmlzdWFsaXphdGlvbiUyQ1IlMkNMZWFmbGV0" data-listing-date-sort="1491112800000" data-listing-file-modified-sort="1756625375581" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="793">
 <div class="thumbnail"><a href="./posts/StormData/index.html" class="no-external">
 
 <p class="card-img-top"><img src="posts/StormData/images/pitch0.png"  class="thumbnail-image card-img"/></p>
@@ -485,13 +526,14 @@ Pablo Adames
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
