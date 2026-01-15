@@ -1,5 +1,5 @@
 ---
-title: "How to use a file check sum"
+title: "How to use a file hash"
 author: "Pablo Adames"
 date: "2026-01-11"
 categories: [Linux, man-in-the-middle, checksum, sha256, encryption]
