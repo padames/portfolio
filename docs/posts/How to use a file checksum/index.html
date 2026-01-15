@@ -187,26 +187,27 @@ div.csl-indent {
 
 
 
-<section id="yet-another-tutorial-on-how-to-use-a-file-checksum" class="level2">
-<h2 class="anchored" data-anchor-id="yet-another-tutorial-on-how-to-use-a-file-checksum">Yet another tutorial on how to use a file checksum</h2>
-<p>What is a check sum and why do we need one? Let’s assume you are downloading a file containing software from a website you trust, for instance you want to install the latest RStudio IDE to develop R code in your computer. In this case, the website provides a hash value to verify the authenticity of the file you are about to download.</p>
+<section id="yet-another-tutorial-on-how-to-use-a-file-hash" class="level2">
+<h2 class="anchored" data-anchor-id="yet-another-tutorial-on-how-to-use-a-file-hash">Yet another tutorial on how to use a file hash</h2>
+<p>What is a file hash and why do we need one? Let’s assume you are downloading a file containing software from a website you trust, for instance you want to install the latest RStudio IDE to develop R code in your computer. In this case, the website provides a hash value to verify the authenticity of the file you are about to download.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="thumbnail.png" class="img-fluid figure-img"></p>
 <figcaption>RStudio Download Page showing the SHA 256 hash for the Ubuntu 24 installer file, <span class="citation" data-cites="RStudio-IDE:installer">[<a href="#ref-RStudio-IDE:installer" role="doc-biblioref">1</a>]</span></figcaption>
 </figure>
 </div>
-<p>You want to verify that the file you downloaded arrived unaltered to your computer after going throught he public Internet. The file hash generated with the SHA-256 algorithm provides a means to doing precisely this.</p>
+<p>You want to verify that the file you downloaded arrived unaltered to your computer after going through he public Internet. The file hash generated with the SHA-256 algorithm provides a means to doing precisely this. If a single bit of the installer was changed while on route to your machine the resulting hash will be different.</p>
 </section>
 <section id="what-is-a-file-hash" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-a-file-hash">What is a file hash?</h2>
 <p>This is an alternative to doing a full encryption of the file in order to verify that its contents have not been modified. A hashing algorithm turns the bytes of the file into a unique text string. This conversion is irreversible and this makes it different from file encryption.</p>
-<p>The main application of a file hash is to distribute it along with the file itself. This assumes that the website information is genuine. However if the file is tampered with along the distribution channel, even by a single byte, the user would obtain a different hash value after applying the same hash algorithm on the altered file.</p>
-<p>This help secure a file while it is in transit from a website to a destination client. Other use cases for file hashing are file duplicate detection, file tracking, and in file content change detection as in version control systems.</p>
+<p>The main application of a file hash is for file integrity verification if your distribute it along with the file itself. This assumes that the website information is genuine.</p>
+<p>This helps securing a file while it is in transit from a website to a destination client, but only if the receiver compares the received file hash against the original value. In this regard file hashes are an indirect means of protection from file tampering.</p>
+<p>Other use cases for file hashing are file duplicate detection, file tracking, and in file content change detection as in version control systems.</p>
 </section>
 <section id="how-to-generate-the-sha-256-file-hash-in-ubuntu-24" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-generate-the-sha-256-file-hash-in-ubuntu-24">How to generate the SHA-256 file hash in Ubuntu 24?</h2>
-<p>The SHA-256 algorithm is part of the SHA-2 family, designed by the American National Security Agency (NSA) and published by the <a href="https://en.wikipedia.org/wiki/National_Institute_of_Standards_and_Technology" title="National Institute of Standards and Technology">National Institute of Standards and Technology</a> (NIST) as a <a href="https://en.wikipedia.org/wiki/United_States_of_America" title="United States of America">U.S.</a> <a href="https://en.wikipedia.org/wiki/Federal_Information_Processing_Standard" title="Federal Information Processing Standard">Federal Information Processing Standard</a> (FIPS), <span class="citation" data-cites="sha-2-functions">[<a href="#ref-sha-2-functions" role="doc-biblioref">2</a>]</span>. It maps any input to a 256-bit</p>
+<p>The SHA-256 algorithm is part of the SHA-2 family, designed by the American National Security Agency (NSA) and published by the <a href="https://en.wikipedia.org/wiki/National_Institute_of_Standards_and_Technology" title="National Institute of Standards and Technology">National Institute of Standards and Technology</a> (NIST) as a <a href="https://en.wikipedia.org/wiki/United_States_of_America" title="United States of America">U.S.</a> <a href="https://en.wikipedia.org/wiki/Federal_Information_Processing_Standard" title="Federal Information Processing Standard">Federal Information Processing Standard</a> (FIPS), <span class="citation" data-cites="sha-2-functions">[<a href="#ref-sha-2-functions" role="doc-biblioref">2</a>]</span>. It maps any input to a 65-character text string representing a unique value in hexadecimal. The possibility of two different files producing the same hash are extremely low, as opposed to the SHA-1 family of algorithms, like MD5, which should be discontinued for this reason. When a hashing algorithm produces the same value for different input, it is said to have a collision.</p>
 <p>First of all download the file and the hash value. Then generate a target check file with the published original hash value and the path to the file that was downloaded on your local machine. Finally run the command <code>sha256sum --check</code> on the name of the check file. <code>sha256sum</code> will parse the original hash and will compare it to the one generated from the downloaded file. If they are the same then you will get an <code>OK</code> at the prompt, otherwise there will be a message about potential file corruption.</p>
 <p>In short, here are the commands:</p>
 <ol type="1">
@@ -231,11 +232,11 @@ $ printf '\x00' | dd of=~/Downloads/rstudio-2026.01.0-392-amd64-tampered.deb bs=
 sha256sum: WARNING: 1 computed checksum did NOT match</code></pre>
 <p>Note what happens if a mistake is made copying the original hash into the target check file. In the example below the last digit, 8, was replaced with a 1:</p>
 <pre><code>echo a85734b70843d6157a423829ffbcff9eadc739403ab1c7425c17236f733f95d1 ~/Downloads/rstudio-2026.01.0-392-amd64.deb &gt; /tmp/sha256-target-hash-error-check`</code></pre>
-<p>Then <code>sha256sum</code> would also complain that a hash mismatch happened. This can lead to a false positive by signalling possible file tampering:</p>
+<p>Then <code>sha256sum</code> would also complain that a hash mismatch happened. This can lead to a false positive by signalling possible file tampering when it is really our mistake creating the hash from the received file:</p>
 <pre><code>sha256sum --check /tmp/sha256-target-hash-error-check
 /home/pablo/Downloads/rstudio-2026.01.0-392-amd64.deb: FAILED
 sha256sum: WARNING: 1 computed checksum did NOT match</code></pre>
-<p>If the length of the hash is changed by mistake the error is different:</p>
+<p>If the length of the hash is changed by mistake the error is different. Below we add a one at the end of the 65 character hash:</p>
 <pre><code>echo a85734b70843d6157a423829ffbcff9eadc739403ab1c7425c17236f733f95d81 ~/Downloads/rstudio-2026.01.0-392-amd64.deb &gt; /tmp/sha256-target-hash-too-long-check`</code></pre>
 <p>In this case the error is:</p>
 <pre><code>sha256sum --check /tmp/sha256-target-hash-too-long-check
