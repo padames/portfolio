@@ -76,7 +76,7 @@ Only project contributors really need to go through Github any more.
 One last caveat, if you execute the command `cargo install rustlings` on the top folder of a cloned fork of the Rustlings repo, and then try to initialize the program (only necessary before you run it the first time), you will see an error and won't be able to run it. 
 Have a look at the image below.
 
-[Result of forking the official Rustlings repo on GitHub, cloning it locally and then trying to initialize an installation of the crate.](Attempt_init_over_cloned_fork.png)
+![Result of forking the official Rustlings repo on GitHub, cloning it locally and then trying to initialize an installation of the crate.](Attempt_init_over_cloned_fork.png)
 
 So, what is the role of the official Github repo now that a self-contained crate has replaced it? 
 Read on for my analysis.

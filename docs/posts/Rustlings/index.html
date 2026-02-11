@@ -216,7 +216,12 @@ ul.task-list li input[type="checkbox"] {
 <p>My opinion is that this change removed distractions for learners. Using a crate and solving small focused Rust challenges may be less intimidating and thus more effective. The previous alternative was the same plus dealing with source control toolins and a big chuck of the standard software development cycle on top of it.</p>
 <p>There are two main roles that determine which tool set you use with Rustlings: user and contributor. As of version 6, this project asks that users install Rustling from a crate. Only project contributors really need to go through Github any more.</p>
 <p>One last caveat, if you execute the command <code>cargo install rustlings</code> on the top folder of a cloned fork of the Rustlings repo, and then try to initialize the program (only necessary before you run it the first time), you will see an error and won’t be able to run it. Have a look at the image below.</p>
-<p><a href="Attempt_init_over_cloned_fork.png">Result of forking the official Rustlings repo on GitHub, cloning it locally and then trying to initialize an installation of the crate.</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Attempt_init_over_cloned_fork.png" class="img-fluid figure-img"></p>
+<figcaption>Result of forking the official Rustlings repo on GitHub, cloning it locally and then trying to initialize an installation of the crate.</figcaption>
+</figure>
+</div>
 <p>So, what is the role of the official Github repo now that a self-contained crate has replaced it? Read on for my analysis.</p>
 </section>
 <section id="git-and-github" class="level1">
