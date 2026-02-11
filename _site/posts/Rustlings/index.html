@@ -181,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="what-does-rustlings-do" class="level1">
 <h1>What does Rustlings do?</h1>
 <p>It is an interactive exercise framework. You work through the exercises at your own pace and you can follow them as they appear one after the other in a prescribed order or choose which one to go to next from the list of unresolved challenges. The framework keeps track of the exercises that have been solved successfully so you are always aware of your progress. There are references to the section of the book touched on by code you are working on.</p>
-<p>Rustlings exercises have tests or just the main function plus data structures, and incomplete or missing statements. Once the missing parts are filled in and the tests pass successfully, one can move on to the next or quit the program.</p>
+<p>Rustlings exercises come in several forms. Some have unit tests and a missing implementation. Others may just have a main function plus data structures, and incomplete or missing statements. Once the missing parts are filled in, the compiler terminates without errors and the tests pass successfully, one can choose what to do next. Quitting the program is always an open option in the interactive terminal.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><video src="rustlings.mp4" class="img-fluid" controls=""><a href="rustlings.mp4">Video</a></video></p>
@@ -189,10 +189,15 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="installation" class="level1">
-<h1>Installation</h1>
-<p>This post is about the change that version 6 brought to this project. It used to be necessary to clone the GitHub repository to be able to install the Rustlings executable that started tracking the exercises as you solved them.</p>
-<p>However, now there is no need to go through Github or even git to work on Rustlings. The program became a package on crates.io after version 6. As such you can install it following the traditional recipe <code>cargo install rustlings</code>. After the installation you will have the following three folders in the rustlings directory:</p>
+<section id="getting-and-installing-rustlings" class="level1">
+<h1>Getting and installing Rustlings</h1>
+<p>There are two main roles that determine which toolset you use with Rustlings: user and contributor. As of version 6, this project asks that users install Rustling from a crate from crates.io. Only project contributors really need to go through Github any more.</p>
+<p>This post came to be because I was surprised by an error when I followed the older method of installing Rustlings on the newer version of the code. It used to be necessary to clone the GitHub repository, then build and run the Rustlings executable that tracks your solved exercises.</p>
+<p>I remember thinking at some point, that I had become one of many people with a fork of the project but no real intention of becoming a contributor, I found it hard enough to work through the exercises, let alone creating new ones.</p>
+</section>
+<section id="crates-to-the-rescue" class="level1">
+<h1>Crates to the rescue</h1>
+<p>Now there is no need to go through Github or using git to work on Rustlings at all because the project made a package to be distrinuted on crates.io after version 6. As such you can install it following the traditional recipe <code>cargo install rustlings</code>. After the installation you will have the following three folders in the rustlings directory:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Main_folders_rustlings_6_5_install.png" class="img-fluid figure-img" style="width:30.0%"></p>
