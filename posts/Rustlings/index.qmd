@@ -24,7 +24,9 @@ Rustlings exercises take you on a whirlwind tour through Rust land. It starts wi
 
 # What does Rustlings do?
 
-It is an interactive exercise framework. You work through the exercises one by one in sequential order or in any desired order by selecting the next exercise to work on from the full list. The framework keeps track of the exercises that have been solved successfully so you are aware of your progress. Each exercise has references to the section of the book being applied through the exercise.
+It is an interactive exercise framework. You work through the exercises at your own pace and you can follow them as they appear one after the other in a prescribed order or choose which one to go to next from the list of unresolved challenges. 
+The framework keeps track of the exercises that have been solved successfully so you are always aware of your progress. 
+There are references to the section of the book touched on by code you are working on.
 
 Rustlings exercises have tests or just the main function plus data structures, and incomplete or missing statements. Once the missing parts are filled in and the tests pass successfully, one can move on to the next or quit the program.
 
@@ -46,7 +48,7 @@ Typing `rustlings init` at the shell while on the rustlings folder for the first
 
 One last caveat, if you execute the command `cargo install rustlings` on the top folder of a cloned fork of the Rustlings repo, and then try to initialize the program (only necessary before you run it the first time), you will see an error and won't be able to run the program. Have a look at the image below.
 
-![Result of forking the official Rustlings repo on GitHub, cloning it locally and then trying to initialize an installation of the crate.](Attempt_init_over_cloned_fork.png)
+[Result of forking the official Rustlings repo on GitHub, cloning it locally and then trying to initialize an installation of the crate.](Attempt_init_over_cloned_fork.png)
 
 So, what is the role of the official Github repo now that a self-contained crate has replaced it? Read on for my analysis.
 
